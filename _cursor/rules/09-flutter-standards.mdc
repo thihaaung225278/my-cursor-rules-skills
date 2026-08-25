@@ -1,0 +1,15 @@
+---
+description: Flutter mobile standards — apply when pubspec.yaml + Flutter SDK detected (Deduped split)
+globs:
+  - "**/pubspec.yaml"
+  - "**/*.dart"
+alwaysApply: false
+---
+
+# Flutter (`pubspec.yaml` + Flutter SDK)
+
+- Surface `mobile` (သို့ repo layout အတိုင်း)။ Material/Cupertino/ရှိပြီး theme — စိတ်ကူးယဉ် package မထည့်။
+- State = repo approach (Provider/Riverpod/Bloc/GetX) — မရှိရင် Clarify-first။
+- Const + widget extract၊ `setState` ကျယ်ကျယ် မသုံး။
+- Navigation = ရှိပြီး router/Navigator။
+- A11y = `Semantics`။ web SEO/HTML Skip။ Test = `flutter test`/`dart analyze`။

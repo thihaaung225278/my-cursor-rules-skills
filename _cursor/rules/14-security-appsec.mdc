@@ -1,0 +1,35 @@
+---
+description: Auto AppSec for SharePoint ASPX/JS/SPFx — secrets, XSS, least privilege
+alwaysApply: true
+---
+
+# Security AppSec (Auto)
+
+Defers to `00-core-fsm` Safety on conflict. This file is the SharePoint-concrete digest.
+
+## Secrets
+- Never hardcode credentials, API keys, tokens, tenant IDs, or connection strings
+- Never commit `.env` or tenant secrets
+- Never log passwords, tokens, or session identifiers
+
+## Input / Output
+- Sanitize all input; escape all output (HTML attribute/text/URL contexts)
+- No `eval`, unchecked `innerHTML` / `dangerouslySetInnerHTML` with user data, or shell `exec` on user data
+- Prefer textContent / safe DOM APIs over raw HTML injection
+
+## AuthZ
+- Data R/W = list/item permissions — AuthN success is not enough (IDOR)
+- Prefer host SharePoint auth / existing services over custom in-page auth
+- Least privilege for admin/script surfaces
+
+## Dependencies
+- Do not add packages without user approval (`00` Dependencies)
+- Data SoT this repo = `SPHttpClient`. `@pnp/sp` = ask-first only
+
+## PII
+- Treat user names, emails, scores, and participant identity as sensitive
+- No PII in front-end globals, HTML comments, or chat dumps
+
+## Do not
+- Weaken security “to make it sound less serious”
+- Touch production secrets or expose Local/tenant credentials in replies

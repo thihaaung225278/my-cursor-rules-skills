@@ -1,0 +1,78 @@
+---
+description: Context-window handoff — files win when thin; persist DONE/NEXT to active_context + progress
+alwaysApply: true
+---
+
+# Context handoff (Auto)
+
+Chat memory ≠ SoT. Window thin, mid-step, or a new chat continues work → **files win**. Do not invent NEXT from residual chat.
+
+Does **not** change Mode A/B STEP tokens (`00` / `08`). Halt strings stay exact.
+
+## SoT (read first every continue / Scout)
+
+1. `active_context.md` — Goal · Pins · Current slice · DONE / PARTIAL / NEXT · paste block
+2. `progress.md` — inventory + slice status
+3. User’s latest message (overrides stale file Status only when explicit)
+
+If (1)+(2) contradict the latest user ask → **stop** · report drift · ask which wins. Do not implement.
+
+## When to hard-stop (handoff only — no code)
+
+Trigger any of:
+
+- User: `context thin` · `handoff only` · `no code` · chat အသစ် / continue-from-files
+- Self-check: long thread + large tool dumps + cannot restate DONE/NEXT from **files** without guessing
+- Mid Mode B STEP 1/2/3 and the next action would require facts not in files or this turn’s tool results
+- **`preCompact` hook warn** (`.cursor/hooks/precompact-handoff-warn.py`) — compaction စရင် treat as thin · handoff only (hook cannot block compact)
+
+On hard-stop:
+
+1. Update `active_context.md`: **DONE** · **PARTIAL** (if mid-STEP 3) · **NEXT** · **Out of scope** · paste-ready first message
+2. Update `progress.md` if slice status changed
+3. Reply: short status + paste block only — **no new code** · no STEP jump
+4. End. Do not append “meanwhile I’ll also…”
+
+## Mid-step partial
+
+| State | Write to `active_context` |
+|-------|---------------------------|
+| STEP 1 done | Status = plan ready · NEXT = STEP 2 |
+| STEP 2 done | NEXT = STEP 3 Implement |
+| STEP 3 half-done | **PARTIAL** = files touched + what’s left · list exact paths |
+| QA incomplete | PARTIAL = checks run / not run · NEXT = QA |
+
+Never mark Visual / QA **PASS** without evidence in this turn or `progress.md`.
+
+## Routine memory refresh
+
+Treat file memory upkeep as part of the work, not an optional wrap-up.
+
+- After any substantial scout, plan, implementation, QA result, or scope change, refresh `active_context.md` before ending the turn if DONE / PARTIAL / NEXT changed
+- Update `progress.md` whenever slice status, inventory status, or suggested order meaningfully changes
+- Before starting a new major task in the same chat, re-check whether `active_context.md` still matches reality; if stale, update it first
+- If context usage is getting high or the thread is long, prefer a handoff refresh early instead of waiting for compaction
+- Do not claim “already known” from chat memory alone when the same fact is missing or stale in files
+
+## New chat / continue paste
+
+Keep a fenced paste under `active_context.md` “Context ကုန်လို့ နောက် chat”:
+
+```
+Continue project-saral from active_context.md + progress.md.
+DONE: …
+NEXT: …
+Pins: SPFx 1.20 gulp, React 17, Fluent v8. Reject Heft/v9, classic master, secrets, Codegraph Cursor hooks.
+If context thin: update active_context handoff only — no code.
+Mode B: ..chain → y → y; one STEP per y.
+```
+
+New chat turn 1 = **Scout from files** (or handoff-only if user said so). Do not skip to Implement because “we were about to”.
+
+## Reject
+
+- Continuing from chat recall when `active_context` Status/NEXT is missing or stale
+- Inventing PASS, video URLs, or “probably done”
+- Expanding scope under thin context
+- Replacing this rule with a Skill (session hygiene stays always-on `.mdc`)
+- Writing to `~/.cursor/skills`

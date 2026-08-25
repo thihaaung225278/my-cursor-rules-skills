@@ -1,0 +1,18 @@
+---
+description: Testing Gate — Auto-Recovery ≤2, Manual Check, Security hook, E2E Playwright/Cypress (Deduped split)
+alwaysApply: false
+globs:
+  - "project-saral-SPFX/src/**/*.{ts,tsx}"
+  - "project-saral-SPFX/**/*.{test,spec}.{ts,tsx,js}"
+  - "project-saral-classic/**/*.{js,aspx}"
+---
+
+# Testing Gate (Mode A + Mode B STEP 3)
+
+- package.json / pubspec.yaml / pyproject / Makefile / CI မှ `test`/`lint`/`typecheck`/`build` (သို့ `flutter test`/`dart analyze` / `gulp bundle`·`gulp test` — ဤ repo Heft မသုံး၊ E2E `e2e`/`test:e2e`/`playwright test`/`cypress run` ရှိမှ) ရှာ။
+- ရှိရင် ပြင်ပြီးတိုင်း (သို့ အနီးစပ်ဆုံး) Terminal မောင်း → Pass/Fail အစီရင်ခံ။
+- **Auto-Recovery**: Fail → root cause ရှာ → သက်ဆိုင်ရာသာ ပြင် → ပြန်မောင်း။ Self-correct ≤**၂**။ Identical fail ×2 / env·deps·permission·flaky infra / scope-ပြင်ပ → retry မလုပ်၊ ချက်ချင်း အစီရင်ခံ။ ၂ ခါပြီး (သို့ stop) → Pass/Fail + ကြိုးစားချက် အနှစ်ချုပ်။ Recovery အတွက် မသက်ဆိုင်ဖိုင် မထိ။
+- မရှိရင် Manual Check (path/action/expected)။ SharePoint Classic/ASPX → browser/site page smoke (script load, list R/W, permission)။ **ဤ repo classic → SPFx UI:** visual vs classic ပါ (`classic-visual-parity`) — font-size, font-weight, font color, BG color, spacing, Gap, margin, padding, break line, letter spacing, line height, hover effect, animation effect။ `gulp bundle` / `gulp test` pass ≠ visual done။ WordPress → WP-CLI/PHPUnit (ရှိမှ) သို့ Manual (admin save, front render, nonce/cap fail, block/widget editor load)။
+- Scenario **B**: Regression Recheck အစီရင်ခံ။ Fast-Track typo ကျော်နိုင်။
+- **Security Testing Hook**: Safety ထိ → `00` OWASP / DevSecOps Pre-Check ရလဒ်ကို Testing Results / Self-Review Security တွင် တိုတို။ CI security scan ရှိမှသာ မောင်း — မရှိရင် Manual OWASP note (tool အသစ် မထည့်)။
+- **E2E Gate (Playwright / Cypress)**: Repo တွင် Playwright (`@playwright/test`, `playwright.config.*`) သို့ Cypress (`cypress`, `cypress.config.*`) **ရှိပြီး** critical user flow (login/checkout/registration/nav/form) ထိမှ → E2E ရေး/ပြင် + မောင်းအစီရင်ခံ။ မရှိ → E2E stack အသစ် User ခွင့်မရဘဲ မထည့် — Manual Check (သို့ User က ထည့်ခိုင်းမှ)။ စံနှုန်း: ၃–၅ focused tests၊ `data-testid`/semantic selectors၊ success+error၊ Playwright auto-wait + `page.route`၊ Cypress hard-wait ရှောင် + `cy.intercept`၊ visual style assert မလုပ်၊ TS/JS = repo အတိုင်း။ `mobile`/non-UI → E2E web Skip။ Scenario F2/F3 → Testing Gate Skip သို့ ticket/report Testing Considerations သာ။

@@ -1,0 +1,33 @@
+---
+description: Classic→SPFx host width, SiteAssets/CSP, chrome gates — load skill references
+alwaysApply: false
+globs:
+  - "project-saral-SPFX/**/*.{tsx,ts,scss}"
+  - "project-saral-SPFX/**/*.manifest.json"
+  - "**/*.module.scss"
+  - ".cursor/skills/classic-to-spfx-migration/**"
+---
+
+# Classic host / assets (gated)
+
+When Full Width WP, SPA host, canvas clip, SiteAssets, CSP, chrome On/Off, or bulk baseline wave is in scope:
+
+1. Bulk all pages / wired baseline → `.cursor/skills/bulk-classic-to-spfx-baseline/SKILL.md` + `docs/migration/`
+2. Otherwise read `.cursor/skills/classic-to-spfx-migration/SKILL.md`
+3. Load only the needed reference:
+   - Full-width / SPA / 450px clip → `references/host-modes.md`
+   - Site Pages chrome hide → `references/site-chrome.md`
+   - Images/vendor/CSP/remount → `references/siteassets-gotchas.md`
+   - Segoe inherit / font-weight → `references/visual-typography.md` (after `classic-visual-parity`)
+
+## This repo
+- One web part per classic page (not a single hub `pageKey` router)
+- Classic chrome is **inline per ASPX** — no `ui-loader` / PortalShell AC unless the user asks
+- Data = `SPHttpClient`; `@pnp/sp` ask-first
+- Visual SoT = `classic-visual-parity` + `uikit-to-spfx-visual-parity`
+
+## Reject
+- Yeoman/Heft into classic ASPX root
+- `blob:` classic script boot
+- Hardcoded `/sites/…` URLs
+- Fluent restyle before Visual PASS

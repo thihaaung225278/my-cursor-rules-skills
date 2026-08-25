@@ -1,0 +1,18 @@
+---
+description: Node.js / Express backend standards — apply when express in package.json && !next (Deduped split)
+globs:
+  - "**/routes/**/*.{js,ts,mjs,cjs}"
+  - "**/middleware/**/*.{js,ts,mjs,cjs}"
+  - "**/controllers/**/*.{js,ts,mjs,cjs}"
+  - "**/app.{js,ts,mjs,cjs}"
+  - "**/server.{js,ts,mjs,cjs}"
+alwaysApply: false
+---
+
+# Node.js / Express (detect: `express` in `package.json` && !`next`)
+
+- Surface `backend`။ Router/middleware ဖွဲ့စည်းပုံ လိုက်နာ — စိတ်ကူးယဉ် framework မထည့်ရ။
+- Input = validate (zod/joi/express-validator စသည် ရှိပြီးသား)။ SQL/NoSQL = parameterized/ORM သာ။
+- AuthZ = middleware တွင် Identity+Role။ Cookie session → CSRF/SameSite သင့်သလို။
+- Errors = centralized handler။ Secrets = env — hardcode မလုပ်ရ။
+- Test = `jest`/`vitest`/`mocha` ရှိရင် Testing Gate (`07`) အတိုင်း။ NestJS သီးသန့် ဖွဲ့စည်းပုံ တွေ့ရင် Express rules မသက်ရောက် — Clarify သို့ Nest pattern လိုက်။

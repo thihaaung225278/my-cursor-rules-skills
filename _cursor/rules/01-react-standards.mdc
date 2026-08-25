@@ -1,0 +1,27 @@
+---
+description: React (web) and React Native standards — apply when react/react-native detected (Deduped split)
+globs:
+  - "**/*.{jsx,tsx}"
+alwaysApply: false
+---
+
+# React / React Native (detect-on — မတွေ့ရင် Skip)
+
+Flutter = `09-flutter-standards.mdc`။ SPFx = `04-sharepoint-standards.mdc` (React web Skip)။
+
+## Detect Priority
+- `react-native` → **RN** သာ။ `react` && !`react-native` && !SPFx → **React (web)** သာ။ မရောရ။
+
+## React (web) (`react` + !`react-native`)
+- Surface `frontend`/`fullstack`။ Semantic HTML + repo UI patterns — စိတ်ကူးယဉ် styling lib မထည့်။
+- Components/hooks = repo ဖွဲ့စည်းပုံ၊ business logic UI မရော။
+- Routing/data = ရှိပြီးသား stack (Next/React Router/TanStack Query စသည်) — မရှိရင် Clarify-first။
+- Lists/forms = key, controlled inputs, loading/error/empty။
+- SEO/A11y web အသက်ဝင်၊ `dangerouslySetInnerHTML` မသုံးရ (sanitize မပါဘဲ)။
+
+## React Native (`react-native`)
+- Surface `mobile`။ DOM/web CSS မသုံး — RN primitives (`View`/`Text`/`Pressable`/`FlatList`)။
+- Navigation = repo pattern (React Navigation စသည်) — စိတ်ကူးယဉ် lib မထည့်။
+- Platform/permissions/SecureStore·Keychain = iOS/Android ကွာခြားချက် ထည့်တွက်။
+- Lists = `FlatList`/`SectionList` (ရှည် list တွင် `.map`+`ScrollView` ရှောင်)။
+- A11y = `accessibilityLabel`/`accessibilityRole`/touch target — web `aria-*`/SEO HTML မသုံး။

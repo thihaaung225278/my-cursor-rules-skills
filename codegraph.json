@@ -1,0 +1,24 @@
+{
+  "exclude": [
+    ".cursor/",
+    "main.zip",
+    "project-saral-SPFX/node_modules/",
+    "project-saral-SPFX/lib/",
+    "project-saral-SPFX/dist/",
+    "project-saral-SPFX/temp/",
+    "project-saral-SPFX/release/",
+    "project-saral-SPFX/.npm-cache/",
+    "project-saral-SPFX/**/*.scss.ts",
+    "project-saral-classic/project-saral-backup/",
+    "project-saral-classic/splists/",
+    "project-saral-classic/project-saral/assets/bootstrap-4.4.1/",
+    "project-saral-classic/project-saral/assets/css/",
+    "project-saral-classic/project-saral/assets/js/uikit/",
+    "project-saral-classic/project-saral/assets/js/swiper/",
+    "project-saral-classic/project-saral/assets/js/aos/",
+    "project-saral-classic/project-saral/assets/js/libs/",
+    "project-saral-classic/project-saral/assets/js/script-kcomms-old.js",
+    "**/*.min.js",
+    "**/*.min.css"
+  ]
+}

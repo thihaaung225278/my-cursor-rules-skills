@@ -1,0 +1,34 @@
+---
+description: >-
+  Conditional Codegraph: use when symbol/flow/impact lookup helps; skip when
+  path is known, typo/CSS/docs, or index unavailable.
+alwaysApply: false
+---
+
+# Codegraph (လိုအပ်မှသုံး · မလိုရင် မသုံး)
+
+Product/server = Codegraph (MCP)။ Tool = `codegraph_explore` **သာ**။ **မေးခွန်းတိုင်း မခေါ်ရ**။ Index (`.codegraph/`) သို့ MCP ရမှသာ စဉ်းစား။
+**MCP default ≠ always call** — tool description က “almost any question” လို့ပြောလည်း ဤ Need/Skip က နိုင်သည် (Priority Stack → project rules)။
+
+## သုံးရန် (Need)
+
+- Symbol / “ဘယ်မှာ / ဘယ်သူခေါ် / call path / blast radius / how does X work”
+- ဖိုင်နာမည် မသေချာ၊ impact radius လို (Mode B STEP 1 Scout အပါအဝင်)
+- Edit မတိုင်မီ သက်ဆိုင်ရာ symbol source + dependents တစ်ခါတည်း လို
+
+→ Read/Grep မလုပ်မီ `codegraph_explore` အရင် (တစ်ခေါ် သို့ အနည်းငယ်)။
+
+## မသုံးရန် (Skip)
+
+- Path/ဖိုင် `@` သို့ user က တိကျပေးပြီးသား + အကြောင်းအရာ သိပြီး
+- Typo / CSS တစ်နေရာ / Fast-Track minor tweak
+- Docs / Q&A / config / lockfile / non-indexed assets
+- **ဤ repo:** `.aspx`, `project-saral/assets/css/*`, `*.module.scss` visual clone, vendor `*.min.js` / Bootstrap / UIKit — index မလုပ် (သို့ noise)။ `Read` / `classic-visual-parity`
+- Index မရှိ · MCP fail · “not indexed” → ထပ်မခေါ်၊ Read/Grep/Glob သို့ fallback။ User ကို `codegraph init` mention လို့ရ — ကိုယ်တိုင် မမောင်းရ။
+
+**ဤ repo Need:** `project-saral-classic/project-saral/assets/js/*`, `project-saral-SPFX/src/**/*.{ts,tsx}` — ASPX/CSS မဟုတ်။
+
+## စည်းမျဉ်း
+
+- Codegraph ရလဒ်ကို Grep နဲ့ မလိုအပ်ဘဲ ပြန်မစစ် (AST index)။ Staleness banner ရှိမှ ထိုဖိုင်များကို Read။
+- မရှိမဖြစ်မဟုတ် — အကျိုးရှိမှသာ။ Token/latency အလဟဿ မဖန်တီးရ။

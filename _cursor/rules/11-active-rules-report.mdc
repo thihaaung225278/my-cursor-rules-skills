@@ -1,0 +1,37 @@
+---
+description: >-
+  Mode B chrome only — list which .cursor/rules/*.mdc files are active.
+  Do NOT load for Scenario E (Docs/Q&A/Config), Fast-Track, or ordinary Mode A.
+  Load only when the user runs ..chain or explicitly asks which rules are active.
+alwaysApply: false
+---
+
+# Active Rules Report
+
+**Skip entirely** for Scenario E (Docs/Q&A/Config), Fast-Track, and Mode A. Do not print this chrome on those turns.
+
+Mode B (`..chain`) only: အဖြေအစတွင် (အဓိကအဖြေ မတိုင်မီ) တိုတို ပြပါ။ Halt token မပြောင်းရ။
+
+**အစဉ် (Mode B chrome)**: (1) ဤ Active Rules Report → (2) **Scenario Banner** (`00-core-fsm`) → (3) `CHAIN_STEP` body။
+
+## Format (exact)
+
+```
+Active Rules: <file.mdc> · <file.mdc> …
+Skipped: <file.mdc> (<why>) · …
+```
+
+- `Skipped` မရှိရင် ထိုလိုင်း ချန်။
+- Path prefix မလို — ဖိုင်အမည်သာ (`00-core-fsm.mdc`)။
+- ရှင်းပြစာ အရှည်မရေး — စာရင်းသာ။
+
+## ခွဲခြားနည်း
+
+| အမျိုး | ဖိုင် | Active ဖြစ်ရင် |
+|---|---|---|
+| Always-on | `00-core-fsm` · `13-context-handoff` · `14-security-appsec` | inject/apply ဖြစ်တိုင်း Active |
+| Mode B | `08-chain-steps` · `11-active-rules-report` | `..chain` / chain `y` / WAITING ဆက်မှ — Read/apply ပြီးမှ Active |
+| Globs | `01`–`07` · `09` · `10` · `15-js-code-quality` · `16-landing-page-image-quality` · `17-classic-host-and-assets` | context ဖိုင်/stack ကိုက်မှ Active၊ မဟုတ်ရင် Skipped (`glob` / `no stack`) |
+| On-demand | `12-codegraph` | Need/Skip policy — ဖိုင် apply မှ Active |
+
+`06`/`07` က glob-gated — context ကိုက်မှ Active စာရင်းထည့်။ `12` apply မှသာ Active — “မသုံးခဲ့” ကို Skipped လိုင်းတွင် မရေးရ။

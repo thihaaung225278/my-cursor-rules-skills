@@ -1,0 +1,51 @@
+---
+description: Auto-invoke migration skills from prompt keywords — baseline bulk vs parity slice (project-saral)
+alwaysApply: true
+---
+
+# Migration skill auto-invoke (project-saral)
+
+User က skill/path name မပြောဘဲ prompt intent မှ **Read** လုပ် — implement မတိုင်မီ skip မလုပ်။
+
+## Baseline / bulk (Wave 0–3)
+
+**Triggers (EN/MM):** bulk, baseline, scaffold, wire, wired, တန်းပြောင်း, အားလုံး, all pages, all web parts, 4 web part, re-scaffold, inventory sync, baseline wave
+
+1. Read `.cursor/skills/bulk-classic-to-spfx-baseline/SKILL.md`
+2. Sync `docs/migration/PARITY.md` ↔ repo-root `progress.md`
+3. Scope = **multiple live routes** OK in one wave
+4. Status = **wired / baseline** only — **no parity PASS** claim
+5. Rule `18-bulk-migration-baseline.mdc` constraints apply
+
+## Parity / visual (Wave 4 · one slice)
+
+**Triggers:** parity, visual, pixel, classic match, classic နဲ့, spacing, hover, font, breakpoint, visual QA, parity PASS
+
+1. Read `.cursor/skills/classic-to-spfx-migration/SKILL.md`
+2. Then `classic-visual-parity` → `uikit-to-spfx-visual-parity` (UI tasks)
+3. Scope = **one web part / one classic page** — bulk parity reject
+4. Status = **parity PASS** only after visual checklist
+
+## SPFx scaffold / data (any migration)
+
+**Triggers:** web part, SPFx, gulp, manifest, serve.json, list, PnP, SPHttpClient
+
+→ Read `.cursor/skills/spfx/SKILL.md` (+ `references/` only if needed)
+
+## Ambiguous
+
+**Examples:** "spfx ပြောင်းပေး", "migrate classic", "classic → SPFx" (mode unclear)
+
+→ Clarify-first **one question:** baseline bulk (wire all) vs parity slice (one WP polish)?  
+→ User confirms → load matching skill above. Do not guess parity vs baseline.
+
+## Always (migration)
+
+- `.cursor/rules/17-classic-host-and-assets.mdc` — one WP per classic page; **no hub pageKey router**
+- Pins: SPFx 1.20 · gulp · React 17 · Fluent v8 · no Heft/v9 · deps ask-first
+
+## Reject routing to
+
+- `mk/.cursor/` or skill `classic-spfx-migration` (hub playbook — wrong for this repo)
+- parity PASS during baseline triggers
+- Entire-site parity PASS in one turn

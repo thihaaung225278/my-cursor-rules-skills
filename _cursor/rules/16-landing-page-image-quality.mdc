@@ -1,0 +1,33 @@
+---
+description: Page image quality — no placeholders, alt, CLS (classic + SPFx UI)
+alwaysApply: false
+globs:
+  - "project-saral-classic/**/*.{aspx,html,css}"
+  - "project-saral-classic/project-saral/**/*"
+  - "project-saral-SPFX/src/**/*.{tsx,scss,css}"
+---
+
+# Landing / Page Image Quality
+
+When editing user-facing pages or SCSS that include images:
+
+## Sources
+- No `placehold.co`, `via.placeholder.com`, `dummyimage.com`, `picsum.photos`, or broken hotlinks
+- Prefer committed assets under classic `project-saral/assets/` or SPFx `src/webparts/**/assets/` / user-approved URLs
+- Confirm license before third-party images
+- Do not bundle large files under `assets/videos` unless the slice requires it
+
+## Quality & CLS
+- Real product imagery — not vague stock filler
+- Explicit `width`/`height` or CSS `aspect-ratio` to prevent layout shift
+- Prefer optimized sizes; lazy-load below-fold (`loading="lazy"`)
+
+## Accessibility
+- Informative images: specific `alt`
+- Decorative: empty `alt`
+- Do not put essential copy only inside an image
+
+## Checks
+- Paths resolve in this repo (classic `project-saral/assets/`, SPFx bundled assets, or property-pane URL)
+- Mobile + desktop crop still readable
+- Error/empty states must not show broken-image icons
