@@ -1,62 +1,62 @@
 ---
-description: Context-window handoff — files win when thin; persist DONE/NEXT to active_context + progress
+description: Context-window handoff — ပါးသွားရင် ဖိုင်က ဦးစားပေး၊ DONE/NEXT ကို active_context + progress ထဲ သိမ်း
 alwaysApply: true
 ---
 
 # Context handoff (Auto)
 
-Chat memory ≠ SoT. Window thin, mid-step, or a new chat continues work → **files win**. Do not invent NEXT from residual chat.
+Chat memory ≠ SoT။ Window ပါး၊ အဆင့်လယ်၊ သို့မဟုတ် chat အသစ်က ဆက်လုပ်မည် → **ဖိုင်က အနိုင်**။ Chat အကြွင်းမှ NEXT မဖန်တီးရ။
 
-Does **not** change Mode A/B STEP tokens (`00` / `08`). Halt strings stay exact.
+Mode A/B STEP tokens (`00` / `08`) **မပြောင်း**။ Halt string များ exact ထား။
 
-## SoT (read first every continue / Scout)
+## SoT (ဆက်လုပ် / Scout တိုင်း အရင်ဖတ်)
 
 1. `active_context.md` — Goal · Pins · Current slice · DONE / PARTIAL / NEXT · paste block
 2. `progress.md` — inventory + slice status
-3. User’s latest message (overrides stale file Status only when explicit)
+3. User ၏ နောက်ဆုံး message (Status ဟောင်းကို အတိအလင်း ပြောမှသာ ကျော်)
 
-If (1)+(2) contradict the latest user ask → **stop** · report drift · ask which wins. Do not implement.
+(1)+(2) က နောက်ဆုံး user မေးခွန်းနှင့် ကွဲလျှင် → **ရပ်** · drift အစီရင်ခံ · ဘယ်ဟာ အနိုင်မေး။ ကုဒ်မရေး။
 
-## When to hard-stop (handoff only — no code)
+## Hard-stop လုပ်ရမည့်အခါ (handoff သာ — ကုဒ်မရေး)
 
-Trigger any of:
+အောက်ပါ တစ်ခုခု ဖြစ်ရင်:
 
 - User: `context thin` · `handoff only` · `no code` · chat အသစ် / continue-from-files
-- Self-check: long thread + large tool dumps + cannot restate DONE/NEXT from **files** without guessing
-- Mid Mode B STEP 1/2/3 and the next action would require facts not in files or this turn’s tool results
-- **`preCompact` hook warn** (`.cursor/hooks/precompact-handoff-warn.py`) — compaction စရင် treat as thin · handoff only (hook cannot block compact)
+- Self-check: thread ရှည် + tool dump ကြီး + **ဖိုင်**မှ DONE/NEXT ကို မှန်းမဆ ပြန်မပြောနိုင်
+- Mode B STEP 1/2/3 လယ်တွင် နောက်လုပ်ရမည့်အရာက ဖိုင် သို့ ဤ turn tool ရလဒ်တွင် မရှိ
+- **`preCompact` hook warn** (`.cursor/hooks/precompact-handoff-warn.py`) — compact စရင် thin လို သတ်မှတ် · handoff သာ (hook က compact မတားနိုင်)
 
-On hard-stop:
+Hard-stop တွင်:
 
-1. Update `active_context.md`: **DONE** · **PARTIAL** (if mid-STEP 3) · **NEXT** · **Out of scope** · paste-ready first message
-2. Update `progress.md` if slice status changed
-3. Reply: short status + paste block only — **no new code** · no STEP jump
-4. End. Do not append “meanwhile I’ll also…”
+1. `active_context.md` ပြင် — **DONE** · **PARTIAL** (STEP 3 လယ်ဆို) · **NEXT** · **Out of scope** · paste-ready ပထမ message
+2. slice status ပြောင်းရင် `progress.md` ပြင်
+3. ပြန်စာ — status တို + paste block သာ — **ကုဒ်အသစ်မရေး** · STEP မခုန်
+4. ရပ်။ “တဆက်တည်း ဒီလဲ လုပ်မယ်…” မထည့်
 
-## Mid-step partial
+## အဆင့်လယ် partial
 
-| State | Write to `active_context` |
+| အခြေအနေ | `active_context` ထဲရေးရမည် |
 |-------|---------------------------|
-| STEP 1 done | Status = plan ready · NEXT = STEP 2 |
-| STEP 2 done | NEXT = STEP 3 Implement |
-| STEP 3 half-done | **PARTIAL** = files touched + what’s left · list exact paths |
-| QA incomplete | PARTIAL = checks run / not run · NEXT = QA |
+| STEP 1 ပြီး | Status = plan ready · NEXT = STEP 2 |
+| STEP 2 ပြီး | NEXT = STEP 3 Implement |
+| STEP 3 တဝက် | **PARTIAL** = ထိထားသော ဖိုင် + ကျန်အလုပ် · path အတိအကျ စာရင်း |
+| QA မပြီး | PARTIAL = စစ်ပြီး / မစစ်သေး · NEXT = QA |
 
-Never mark Visual / QA **PASS** without evidence in this turn or `progress.md`.
+ဤ turn သို့ `progress.md` တွင် သက်သေမရှိဘဲ Visual / QA **PASS** မရေးရ။
 
-## Routine memory refresh
+## ပုံမှန် memory refresh
 
-Treat file memory upkeep as part of the work, not an optional wrap-up.
+ဖိုင် memory ပြုပြင်ထိန်းသိမ်းမှုကို အလုပ်၏ အစိတ်အပိုင်းအဖြစ် သတ်မှတ် — wrap-up ရွေးချယ်ခွင့် မဟုတ်။
 
-- After any substantial scout, plan, implementation, QA result, or scope change, refresh `active_context.md` before ending the turn if DONE / PARTIAL / NEXT changed
-- Update `progress.md` whenever slice status, inventory status, or suggested order meaningfully changes
-- Before starting a new major task in the same chat, re-check whether `active_context.md` still matches reality; if stale, update it first
-- If context usage is getting high or the thread is long, prefer a handoff refresh early instead of waiting for compaction
-- Do not claim “already known” from chat memory alone when the same fact is missing or stale in files
+- Scout / plan / implement / QA / scope ပြောင်းပြီး DONE / PARTIAL / NEXT ပြောင်းရင် turn မဆုံးမီ `active_context.md` ပြန်မွမ်းမံ
+- slice / inventory status / suggested order အဓိပ္ပာယ်ရှိစွာ ပြောင်းရင် `progress.md` ပြင်
+- chat တူတွင် အလုပ်ကြီးအသစ် မစမီ `active_context.md` လက်ရှိနှင့် ကိုက်မကိုက် ပြန်စစ် — ဟောင်းရင် အရင်ပြင်
+- context သုံးစွဲမှု မြင့် / thread ရှည် → compact မစောင့်ဘဲ handoff refresh စောလုပ်
+- ဖိုင်တွင် မရှိ / ဟောင်းနေသော အချက်ကို chat memory တစ်ခုတည်းဖြင့် “သိပြီး” မပြောရ
 
-## New chat / continue paste
+## Chat အသစ် / ဆက်လုပ် paste
 
-Keep a fenced paste under `active_context.md` “Context ကုန်လို့ နောက် chat”:
+`active_context.md` “Context ကုန်လို့ နောက် chat” အောက်တွင် fenced paste ထား:
 
 ```
 Continue project-saral from active_context.md + progress.md.
@@ -67,12 +67,12 @@ If context thin: update active_context handoff only — no code.
 Mode B: ..chain → y → y; one STEP per y.
 ```
 
-New chat turn 1 = **Scout from files** (or handoff-only if user said so). Do not skip to Implement because “we were about to”.
+Chat အသစ် turn 1 = **ဖိုင်မှ Scout** (သို့ user က handoff-only ပြောရင် handoff သာ)။ “လုပ်တော့မယ်” ဆိုပြီး Implement သို့ မခုန်ရ။
 
-## Reject
+## ငြင်းရမည်
 
-- Continuing from chat recall when `active_context` Status/NEXT is missing or stale
-- Inventing PASS, video URLs, or “probably done”
-- Expanding scope under thin context
-- Replacing this rule with a Skill (session hygiene stays always-on `.mdc`)
-- Writing to `~/.cursor/skills`
+- `active_context` Status/NEXT မရှိ / ဟောင်းနေတုန်း chat recall ဖြင့် ဆက်လုပ်ခြင်း
+- PASS၊ video URL၊ သို့ “probably done” ကို မှန်းဆဖန်တီးခြင်း
+- context ပါးနေတုန်း scope ချဲ့ခြင်း
+- ဤ rule ကို Skill ဖြင့် အစားထိုးခြင်း (session hygiene = always-on `.mdc`)
+- `~/.cursor/skills` သို့ ရေးခြင်း

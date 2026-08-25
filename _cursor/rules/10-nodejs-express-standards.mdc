@@ -1,5 +1,5 @@
 ---
-description: Node.js / Express backend standards — apply when express in package.json && !next (Deduped split)
+description: Node.js / Express backend စံနှုန်းများ — package.json တွင် express && !next တွေ့မှသာ (Deduped split)
 globs:
   - "**/routes/**/*.{js,ts,mjs,cjs}"
   - "**/middleware/**/*.{js,ts,mjs,cjs}"
@@ -9,7 +9,7 @@ globs:
 alwaysApply: false
 ---
 
-# Node.js / Express (detect: `express` in `package.json` && !`next`)
+# Node.js / Express (detect: `package.json` တွင် `express` && !`next`)
 
 - Surface `backend`။ Router/middleware ဖွဲ့စည်းပုံ လိုက်နာ — စိတ်ကူးယဉ် framework မထည့်ရ။
 - Input = validate (zod/joi/express-validator စသည် ရှိပြီးသား)။ SQL/NoSQL = parameterized/ORM သာ။

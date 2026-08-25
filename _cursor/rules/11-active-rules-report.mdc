@@ -1,20 +1,20 @@
 ---
 description: >-
-  Mode B chrome only — list which .cursor/rules/*.mdc files are active.
-  Do NOT load for Scenario E (Docs/Q&A/Config), Fast-Track, or ordinary Mode A.
-  Load only when the user runs ..chain or explicitly asks which rules are active.
+  Mode B chrome သာ — ဘယ် .cursor/rules/*.mdc များ Active ဖြစ်သည် စာရင်းပြ။
+  Scenario E (Docs/Q&A/Config)၊ Fast-Track၊ ပုံမှန် Mode A တွင် မ load ရ။
+  User က ..chain သုံးမှ သို့ Active rules မေးမှသာ load။
 alwaysApply: false
 ---
 
 # Active Rules Report
 
-**Skip entirely** for Scenario E (Docs/Q&A/Config), Fast-Track, and Mode A. Do not print this chrome on those turns.
+Scenario E (Docs/Q&A/Config)၊ Fast-Track၊ Mode A တွင် **လုံးဝ Skip**။ ထို turn များတွင် ဤ chrome မထုတ်ရ။
 
-Mode B (`..chain`) only: အဖြေအစတွင် (အဓိကအဖြေ မတိုင်မီ) တိုတို ပြပါ။ Halt token မပြောင်းရ။
+Mode B (`..chain`) သာ — အဖြေအစတွင် (အဓိကအဖြေ မတိုင်မီ) တိုတို ပြပါ။ Halt token မပြောင်းရ။
 
 **အစဉ် (Mode B chrome)**: (1) ဤ Active Rules Report → (2) **Scenario Banner** (`00-core-fsm`) → (3) `CHAIN_STEP` body။
 
-## Format (exact)
+## Format (exact — မပြောင်းရ)
 
 ```
 Active Rules: <file.mdc> · <file.mdc> …

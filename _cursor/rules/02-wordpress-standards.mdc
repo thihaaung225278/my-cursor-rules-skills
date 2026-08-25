@@ -1,5 +1,5 @@
 ---
-description: WordPress Classic, Gutenberg/FSE, Elementor, Plugin standards — apply when WP signals detected (Deduped split)
+description: WordPress Classic, Gutenberg/FSE, Elementor, Plugin စံနှုန်းများ — WP signals တွေ့မှသာ (Deduped split)
 globs:
   - "**/wp-config.php"
   - "**/wp-content/**"
@@ -9,12 +9,12 @@ globs:
 alwaysApply: false
 ---
 
-# WordPress (detect-on — Classic Theme / Gutenberg·FSE / Elementor / Plugin)
+# WordPress (တွေ့မှသာ — Classic Theme / Gutenberg·FSE / Elementor / Plugin)
 
 **Detect**: Base = `wp-config.php`/`wp-content/`။ Plugin = `plugins/`+`Plugin Name:`။ Classic Theme = `style.css` header + PHP templates (`header.php`/`single.php`/…)၊ FSE မသုံး။ Gutenberg/FSE = `block.json`/`theme.json`/`templates|parts/`/`@wordpress/scripts`/`registerBlockType`။ Elementor = `elementor`/`Widget_Base`/`Controls_Manager`/`elementor/widgets/register`။ signal <2 သို့ ရော → Clarify-first။ Elementor+Gutenberg နှစ်ခုထိ → ဘယ် surface မေး။ SEO = public theme/content သာ၊ `wp-admin` Skip။
-**Common**: core မပြင် — `wp-content` theme/plugin သာ။ DB = `$wpdb->prepare`/WP APIs။ Escape = `esc_html`/`esc_attr`/`esc_url`/`wp_kses(_post)`။ AuthZ = `current_user_can`+nonce။ Assets = `wp_enqueue_*`။ REST/AJAX = permission_callback/nonce+cap။ Secrets hardcode မလုပ်။ unique prefix။ Test = phpunit/WP-CLI သို့ Manual (admin save, front, deny path)။
+**Common (အများသုံး)**: core မပြင် — `wp-content` theme/plugin သာ။ DB = `$wpdb->prepare`/WP APIs။ Escape = `esc_html`/`esc_attr`/`esc_url`/`wp_kses(_post)`။ AuthZ = `current_user_can`+nonce။ Assets = `wp_enqueue_*`။ REST/AJAX = permission_callback/nonce+cap။ Secrets hardcode မလုပ်။ unique prefix။ Test = phpunit/WP-CLI သို့ Manual (admin save, front, deny path)။
 
-### Plugin development
+### Plugin development (Plugin ဖန်တီးခြင်း)
 - `ABSPATH` guard၊ header/bootstrap/includes = repo pattern။ activation/deactivation/uninstall မဖျက်။ Settings API/admin menus + capability။ CPT/tax/shortcode/cron = prefix+`init`။ upload = whitelist+`wp_handle_upload`။ Direct file access/`eval`/မလိုအပ်သော `all` capability ရှောင်။ စိတ်ကူးယဉ် plugin မထည့်။
 
 ### Classic Theme

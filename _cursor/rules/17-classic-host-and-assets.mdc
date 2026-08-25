@@ -1,5 +1,5 @@
 ---
-description: Classic→SPFx host width, SiteAssets/CSP, chrome gates — load skill references
+description: Classic→SPFx host width, SiteAssets/CSP, chrome gates — skill references ဖတ်ရမည်
 alwaysApply: false
 globs:
   - "project-saral-SPFX/**/*.{tsx,ts,scss}"
@@ -10,24 +10,24 @@ globs:
 
 # Classic host / assets (gated)
 
-When Full Width WP, SPA host, canvas clip, SiteAssets, CSP, chrome On/Off, or bulk baseline wave is in scope:
+Full Width WP, SPA host, canvas clip, SiteAssets, CSP, chrome On/Off, သို့ bulk baseline wave ပါသောအခါ:
 
-1. Bulk all pages / wired baseline → `.cursor/skills/bulk-classic-to-spfx-baseline/SKILL.md` + `docs/migration/`
-2. Otherwise read `.cursor/skills/classic-to-spfx-migration/SKILL.md`
-3. Load only the needed reference:
+1. စာမျက်နှာအားလုံး / wired baseline → `.cursor/skills/bulk-classic-to-spfx-baseline/SKILL.md` + `docs/migration/`
+2. မဟုတ်ရင် `.cursor/skills/classic-to-spfx-migration/SKILL.md` ဖတ်
+3. လိုအပ်သော reference သာ load:
    - Full-width / SPA / 450px clip → `references/host-modes.md`
    - Site Pages chrome hide → `references/site-chrome.md`
    - Images/vendor/CSP/remount → `references/siteassets-gotchas.md`
-   - Segoe inherit / font-weight → `references/visual-typography.md` (after `classic-visual-parity`)
+   - Segoe inherit / font-weight → `references/visual-typography.md` (`classic-visual-parity` နောက်)
 
-## This repo
-- One web part per classic page (not a single hub `pageKey` router)
-- Classic chrome is **inline per ASPX** — no `ui-loader` / PortalShell AC unless the user asks
-- Data = `SPHttpClient`; `@pnp/sp` ask-first
+## ဤ repo
+- classic page တစ်ခုလျှင် web part တစ်ခု (hub `pageKey` router တစ်ခုတည်း မဟုတ်)
+- Classic chrome = **ASPX တစ်ခုချင်း inline** — user မတောင်းရင် `ui-loader` / PortalShell AC မလုပ်
+- Data = `SPHttpClient`၊ `@pnp/sp` = အရင်မေး
 - Visual SoT = `classic-visual-parity` + `uikit-to-spfx-visual-parity`
 
-## Reject
-- Yeoman/Heft into classic ASPX root
+## ငြင်းရမည်
+- classic ASPX root ထဲ Yeoman/Heft
 - `blob:` classic script boot
 - Hardcoded `/sites/…` URLs
-- Fluent restyle before Visual PASS
+- Visual PASS မတိုင်မီ Fluent restyle

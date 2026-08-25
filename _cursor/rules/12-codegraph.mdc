@@ -1,7 +1,7 @@
 ---
 description: >-
-  Conditional Codegraph: use when symbol/flow/impact lookup helps; skip when
-  path is known, typo/CSS/docs, or index unavailable.
+  Conditional Codegraph — symbol/flow/impact ရှာရန် အကျိုးရှိမှသုံး၊
+  path သိပြီးသား၊ typo/CSS/docs၊ သို့ index မရရင် Skip။
 alwaysApply: false
 ---
 

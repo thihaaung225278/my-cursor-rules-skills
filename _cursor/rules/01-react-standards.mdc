@@ -1,15 +1,15 @@
 ---
-description: React (web) and React Native standards — apply when react/react-native detected (Deduped split)
+description: React (web) နှင့် React Native စံနှုန်းများ — react/react-native တွေ့မှသာ (Deduped split)
 globs:
   - "**/*.{jsx,tsx}"
 alwaysApply: false
 ---
 
-# React / React Native (detect-on — မတွေ့ရင် Skip)
+# React / React Native (တွေ့မှသာ — မတွေ့ရင် Skip)
 
 Flutter = `09-flutter-standards.mdc`။ SPFx = `04-sharepoint-standards.mdc` (React web Skip)။
 
-## Detect Priority
+## Detect Priority (တွေ့ရှိမှု ဦးစားပေး)
 - `react-native` → **RN** သာ။ `react` && !`react-native` && !SPFx → **React (web)** သာ။ မရောရ။
 
 ## React (web) (`react` + !`react-native`)

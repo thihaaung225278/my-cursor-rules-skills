@@ -1,5 +1,5 @@
 ---
-description: Page image quality — no placeholders, alt, CLS (classic + SPFx UI)
+description: စာမျက်နှာ ပုံအရည်အသွေး — placeholder မသုံး၊ alt, CLS (classic + SPFx UI)
 alwaysApply: false
 globs:
   - "project-saral-classic/**/*.{aspx,html,css}"
@@ -9,25 +9,25 @@ globs:
 
 # Landing / Page Image Quality
 
-When editing user-facing pages or SCSS that include images:
+User-facing pages သို့ ပုံပါသော SCSS ပြင်သည့်အခါ:
 
 ## Sources
-- No `placehold.co`, `via.placeholder.com`, `dummyimage.com`, `picsum.photos`, or broken hotlinks
-- Prefer committed assets under classic `project-saral/assets/` or SPFx `src/webparts/**/assets/` / user-approved URLs
-- Confirm license before third-party images
-- Do not bundle large files under `assets/videos` unless the slice requires it
+- `placehold.co`, `via.placeholder.com`, `dummyimage.com`, `picsum.photos`, သို့ broken hotlink မသုံးရ
+- classic `project-saral/assets/` သို့ SPFx `src/webparts/**/assets/` အောက် committed assets၊ သို့ user အတည်ပြု URL ဦးစားပေး
+- third-party ပုံ မသုံးမီ license အတည်ပြု
+- slice မလိုရင် `assets/videos` အောက် ဖိုင်ကြီး မထည့်ရ
 
 ## Quality & CLS
-- Real product imagery — not vague stock filler
-- Explicit `width`/`height` or CSS `aspect-ratio` to prevent layout shift
-- Prefer optimized sizes; lazy-load below-fold (`loading="lazy"`)
+- မရေရာ stock filler မဟုတ် — product ပုံ အစစ်
+- layout shift တားရန် `width`/`height` သို့ CSS `aspect-ratio` အတိအကျ
+- size optimize ဦးစားပေး၊ below-fold lazy-load (`loading="lazy"`)
 
 ## Accessibility
-- Informative images: specific `alt`
-- Decorative: empty `alt`
-- Do not put essential copy only inside an image
+- အဓိပ္ပာယ်ရှိပုံ — `alt` တိကျ
+- အလှဆင်ပုံ — `alt` ဗလာ
+- မရှိမဖြစ် စာသားကို ပုံထဲသာ မထည့်ရ
 
 ## Checks
-- Paths resolve in this repo (classic `project-saral/assets/`, SPFx bundled assets, or property-pane URL)
-- Mobile + desktop crop still readable
-- Error/empty states must not show broken-image icons
+- ဤ repo တွင် path ရှိရမည် (classic `project-saral/assets/`၊ SPFx bundled assets၊ သို့ property-pane URL)
+- mobile + desktop crop ဖတ်လို့ရရမည်
+- error/empty state တွင် broken-image icon မပြရ

@@ -1,5 +1,5 @@
 ---
-description: Laravel backend standards — apply when artisan + laravel/framework detected (Deduped split)
+description: Laravel backend စံနှုန်းများ — artisan + laravel/framework တွေ့မှသာ (Deduped split)
 globs:
   - "artisan"
   - "composer.json"
