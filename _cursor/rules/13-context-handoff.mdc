@@ -17,6 +17,20 @@ Mode A/B STEP tokens (`00` / `08`) **မပြောင်း**။ Halt string �
 
 (1)+(2) က နောက်ဆုံး user မေးခွန်းနှင့် ကွဲလျှင် → **ရပ်** · drift အစီရင်ခံ · ဘယ်ဟာ အနိုင်မေး။ ကုဒ်မရေး။
 
+## Automation (hooks — % meter မဟုတ်)
+
+Cursor တွင် **70% (သို့ အခြား %) hook မရှိ**။ ဤ project hooks က အစား fire:
+
+| Event | Script | Does |
+|-------|--------|------|
+| `sessionStart` | `.cursor/hooks/session-start-sot.py` | Chat အသစ်တွင် “read `active_context.md` + `progress.md`” inject |
+| `preCompact` | `.cursor/hooks/precompact-handoff-warn.py` | Compaction **စနေပြီ** — user warn + `active_context` stamp + `.cursor/compaction-pending.json`။ Compact **မပိတ်နိုင်** |
+| `stop` | `.cursor/hooks/stop-handoff-nudge.py` | Pending signal ရှိရင် `handoff only` follow-up **တစ်ကြိမ်** (`loop_limit: 1`) |
+
+Handoff refresh အောင်ပြီးရင်: `active_context.md` ထဲ `<!-- compaction-signal -->` block ဖျက် + `.cursor/compaction-pending.json` ဖျက်။
+
+Compact မစခင် handoff refresh ဦးစားပေး (thread ရှည် / tool ကြီး)။ Hook မစောင့်ရ။
+
 ## Hard-stop လုပ်ရမည့်အခါ (handoff သာ — ကုဒ်မရေး)
 
 အောက်ပါ တစ်ခုခု ဖြစ်ရင်:
@@ -24,7 +38,7 @@ Mode A/B STEP tokens (`00` / `08`) **မပြောင်း**။ Halt string �
 - User: `context thin` · `handoff only` · `no code` · chat အသစ် / continue-from-files
 - Self-check: thread ရှည် + tool dump ကြီး + **ဖိုင်**မှ DONE/NEXT ကို မှန်းမဆ ပြန်မပြောနိုင်
 - Mode B STEP 1/2/3 လယ်တွင် နောက်လုပ်ရမည့်အရာက ဖိုင် သို့ ဤ turn tool ရလဒ်တွင် မရှိ
-- **`preCompact` hook warn** (`.cursor/hooks/precompact-handoff-warn.py`) — compact စရင် thin လို သတ်မှတ် · handoff သာ (hook က compact မတားနိုင်)
+- **`preCompact` signal** (warn, `active_context` Compaction signal block, သို့ `.cursor/compaction-pending.json`) — thin လို သတ်မှတ် · handoff သာ (hook က compact မတားနိုင်)
 
 Hard-stop တွင်:
 

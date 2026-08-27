@@ -11,6 +11,8 @@ User က skill/path name မပြောဘဲ prompt intent မှ **Read** လ
 
 **Triggers (EN/MM):** bulk, baseline, scaffold, wire, wired, တန်းပြောင်း, အားလုံး, all pages, all web parts, 4 web part, re-scaffold, inventory sync, baseline wave
 
+စာမျက်နှာ/WP တစ်ခုပဲ နာမည်တပ်ခြင်း (`KnowledgeHub`, `knowledge-hub.aspx`, `ClearingHouse`, …) သည် **bulk မဟုတ်** — အောက်က parity / one-slice သုံး (mode မရှင်းရင် Ambiguous)။
+
 1. `.cursor/skills/bulk-classic-to-spfx-baseline/SKILL.md` ဖတ်
 2. `docs/migration/PARITY.md` ↔ repo-root `progress.md` sync
 3. Scope = **live routes များစွာ** တစ် wave ထဲ OK
@@ -34,7 +36,7 @@ User က skill/path name မပြောဘဲ prompt intent မှ **Read** လ
 
 ## ဝေဝါးသောအခါ
 
-**ဥပမာ:** "spfx ပြောင်းပေး", "migrate classic", "classic → SPFx" (mode မရှင်း)
+**ဥပမာ:** "spfx ပြောင်းပေး", "migrate classic", "classic → SPFx" (mode မရှင်း)။ bulk စကားလုံး မပါဘဲ နာမည်တစ်ခုတည်း (`KnowledgeHub`) → one-slice, bulk မဟုတ်။
 
 → Clarify-first **မေးခွန်းတစ်ခု:** baseline bulk (အားလုံး wire) vs parity slice (WP တစ်ခု polish)?  
 → User အတည်ပြုမှ အထက် skill ကိုက်ရာ load။ parity vs baseline မမှန်းဆရ။

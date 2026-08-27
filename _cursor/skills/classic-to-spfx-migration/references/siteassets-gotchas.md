@@ -7,7 +7,7 @@ Classic assets live under `project-saral-classic/resources/` (not `public/`). SP
 | Where | What |
 |-------|------|
 | sppkg / WP `assets/` | Page SCSS, React, small thumbs already bundled (e.g. Step1 `step1-second-video.jpg`) |
-| Property pane URLs | Step1 videos (`video1Url`–`video3Url`) — **not** bundled |
+| Property pane URLs | Large media / downloads (e.g. Step1 videos `video1Url`–`video3Url`) — **not** bundled unless the slice requires it |
 | SiteAssets (optional) | Shared images, UIKit/fonts if not bundled; `{web.serverRelativeUrl}/SiteAssets/...` from `pageContext` only |
 
 ## Resolvers

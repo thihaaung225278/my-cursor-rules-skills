@@ -1,9 +1,20 @@
 {
   "version": 1,
   "hooks": {
+    "sessionStart": [
+      {
+        "command": ".cursor/hooks/session-start-sot.py"
+      }
+    ],
     "preCompact": [
       {
         "command": ".cursor/hooks/precompact-handoff-warn.py"
+      }
+    ],
+    "stop": [
+      {
+        "command": ".cursor/hooks/stop-handoff-nudge.py",
+        "loop_limit": 1
       }
     ]
   }

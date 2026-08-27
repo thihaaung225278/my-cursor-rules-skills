@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""preCompact observational warn — cannot block compaction (Cursor docs)."""
+"""preCompact: warn + persist signal. Cannot block compaction (Cursor docs)."""
 from __future__ import annotations
 
 import json
 import sys
+
+from _handoff_signal import ROOT, meta_line, stamp_active_context, write_pending
 
 
 def main() -> int:
@@ -12,27 +14,21 @@ def main() -> int:
         data = json.loads(raw) if raw.strip() else {}
     except json.JSONDecodeError:
         data = {}
+    if not isinstance(data, dict):
+        data = {}
 
-    pct = data.get("context_usage_percent")
-    tokens = data.get("context_tokens")
-    window = data.get("context_window_size")
-    trigger = data.get("trigger") or "unknown"
-    first = data.get("is_first_compaction")
-
-    bits = [f"trigger={trigger}"]
-    if pct is not None:
-        bits.append(f"~{pct}%")
-    if tokens is not None and window is not None:
-        bits.append(f"{tokens}/{window} tok")
-    if first is True:
-        bits.append("first compact")
-    meta = " · ".join(bits)
+    try:
+        write_pending(data)
+        stamp_active_context(data)
+    except OSError:
+        pass
 
     msg = (
-        f"[project-saral] Compaction စနေပြီ ({meta}) — summary lossy ဖြစ်နိုင်။ "
+        f"[{ROOT.name}] Compaction စနေပြီ ({meta_line(data)}) — summary lossy ဖြစ်နိုင်။ "
         "Agent: code/STEP 3 ရပ် · active_context.md မှာ DONE/PARTIAL/NEXT + paste ရေး · "
+        "Compaction signal block + .cursor/compaction-pending.json ရှင်း။ "
         "reply = handoff သာ။ User: chat အသစ်ဖွင့် · active_context paste (သို့ `handoff only` ပြော)။ "
-        "ဒီ hook က warn သာ — compaction မပိတ်နိုင်။"
+        "ဒီ hook က compact မပိတ်နိုင် — signal + warn သာ။"
     )
     json.dump({"user_message": msg}, sys.stdout, ensure_ascii=False)
     sys.stdout.write("\n")
