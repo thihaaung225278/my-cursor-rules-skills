@@ -1,33 +1,33 @@
 ---
-description: Classic→SPFx host width, SiteAssets/CSP, chrome gates — skill references ဖတ်ရမည်
+description: Classic→SPFx host width, SiteAssets/CSP, chrome gates — load skill references
 alwaysApply: false
 globs:
-  - "project-saral-SPFX/**/*.{tsx,ts,scss}"
-  - "project-saral-SPFX/**/*.manifest.json"
+  - "DBS-FFW-SPFX/**/*.{tsx,ts,scss}"
+  - "DBS-FFW-SPFX/**/*.manifest.json"
   - "**/*.module.scss"
   - ".cursor/skills/classic-to-spfx-migration/**"
 ---
 
 # Classic host / assets (gated)
 
-Full Width WP, SPA host, canvas clip, SiteAssets, CSP, chrome On/Off, သို့ bulk baseline wave ပါသောအခါ:
+When Full Width WP, SPA host, canvas clip, SiteAssets, CSP, chrome On/Off, or bulk baseline wave is in scope:
 
-1. စာမျက်နှာအားလုံး / wired baseline → `.cursor/skills/bulk-classic-to-spfx-baseline/SKILL.md` + `docs/migration/`
-2. မဟုတ်ရင် `.cursor/skills/classic-to-spfx-migration/SKILL.md` ဖတ်
-3. လိုအပ်သော reference သာ load:
+1. Bulk all pages / wired baseline → `.cursor/skills/bulk-classic-to-spfx-baseline/SKILL.md` + `docs/migration/`
+2. Otherwise read `.cursor/skills/classic-to-spfx-migration/SKILL.md`
+3. Load references (UI migrate — typography is **required**, not optional):
+   - Segoe inherit / font-weight / menu link underline self-check → `references/visual-typography.md` **(with `classic-visual-parity`)**
    - Full-width / SPA / 450px clip → `references/host-modes.md`
    - Site Pages chrome hide → `references/site-chrome.md`
    - Images/vendor/CSP/remount → `references/siteassets-gotchas.md`
-   - Segoe inherit / font-weight → `references/visual-typography.md` (`classic-visual-parity` နောက်)
 
-## ဤ repo
-- classic page တစ်ခုလျှင် web part တစ်ခု (hub `pageKey` router တစ်ခုတည်း မဟုတ်)
-- Classic chrome = **ASPX တစ်ခုချင်း inline** — user မတောင်းရင် `ui-loader` / PortalShell AC မလုပ်
-- Data = `SPHttpClient`၊ `@pnp/sp` = အရင်မေး
+## This repo
+- One web part per classic page (not a single hub `pageKey` router)
+- Classic chrome is **inline per ASPX** — no `ui-loader` / PortalShell AC unless the user asks
+- Data = `SPHttpClient`; `@pnp/sp` ask-first
 - Visual SoT = `classic-visual-parity` + `uikit-to-spfx-visual-parity`
 
-## ငြင်းရမည်
-- classic ASPX root ထဲ Yeoman/Heft
+## Reject
+- Yeoman/Heft into classic ASPX root
 - `blob:` classic script boot
 - Hardcoded `/sites/…` URLs
-- Visual PASS မတိုင်မီ Fluent restyle
+- Fluent restyle before Visual PASS

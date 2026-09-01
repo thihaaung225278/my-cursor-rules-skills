@@ -2,13 +2,13 @@
 name: spfx-enterprise-ux-hub
 description: >-
   Index of generic (non-clone) SPFx UX skills. Do not use as the first skill for
-  project-saral-classic classic → SPFx page clones — use classic-to-spfx-migration,
+  DBS-FFW-classicsite classic → SPFx page clones — use classic-to-spfx-migration,
   classic-visual-parity, and uikit-to-spfx-visual-parity instead.
 ---
 
 # SPFx Enterprise UX Hub
 
-**This repo (project-saral-classic):** do **not** start here for classic → SPFx. Start with `classic-to-spfx-migration` + `classic-visual-parity` + `uikit-to-spfx-visual-parity`. Gulp 1.20 only. No glassmorphism. No Heft.
+**This repo (DBS-FFW-classicsite):** do **not** start here for classic → SPFx. Start with `classic-to-spfx-migration` + `classic-visual-parity` + `uikit-to-spfx-visual-parity`. Gulp 1.20 only. No glassmorphism. No Heft.
 
 This skill is a **global index** for generic (non-clone) SPFx UX. For those tasks:
 
@@ -38,7 +38,7 @@ Use this hub for SharePoint Framework UX that is **not** a classic `style.css` c
   Use for: SCSS module structure, selector scoping, naming conventions, preventing style leakage across web parts.
 
 - **`classic-visual-parity`**  
-  Use for: **this repo** classic → SPFx page clone (font-size, color, spacing, hover, animation, `@media` / responsive). Visual SoT = `project-saral-classic/project-saral/assets/css/shared.css`. Load this instead of theme-slot / glassmorphism / Fluent 480 defaults.
+  Use for: **this repo** classic → SPFx page clone (font-size, color, spacing, hover, animation, `@media` / responsive). Visual SoT = `DBS-FFW-classicsite/2025/style.css`. Load this instead of theme-slot / glassmorphism / Fluent 480 defaults.
 
 - **`uikit-to-spfx-visual-parity`**  
   Use for: UIKit leftover layer (`uk-grid` gutter, `uk-margin`, modal/offcanvas padding, rem font-size, `@keyframes`). Load with `classic-visual-parity` on every classic UI migrate.
@@ -74,7 +74,7 @@ Use this hub for SharePoint Framework UX that is **not** a classic `style.css` c
 When handling an SPFx task:
 
 1. **Identify the task type**
-   - Classic site visual clone (project-saral-classic pages)? → stop; use `classic-to-spfx-migration` + `classic-visual-parity` + `uikit-to-spfx-visual-parity` (not this hub, not glassmorphism, not Fluent density, not Heft).
+   - Classic site visual clone (DBS-FFW-classicsite pages)? → stop; use `classic-to-spfx-migration` + `classic-visual-parity` + `uikit-to-spfx-visual-parity` (not this hub, not glassmorphism, not Fluent density, not Heft).
    - Pure UX/design (non-clone)? → `spfx-enterprise-design-core`, `spfx-accessibility-and-content-quality`.
    - Theming/visual alignment (non-clone)? → `spfx-theme-and-brand-integration`, `spfx-css-and-styling-governance`. Not glassmorphism in this repo.
    - Configuration/behavior? → `spfx-property-pane-reactivity`, `spfx-extensions-enterprise-patterns`.
@@ -91,7 +91,7 @@ When handling an SPFx task:
    Every SPFx change should be:
    - Accessible (keyboard, screen reader, color contrast)
    - Performance-aware (no heavy blocking operations in UI or property pane)
-   - Theme- and tenant-safe (semantic slots, no hard-coded brand colors) — **except** this repo classic clone: hard-code classic CSS from `project-saral-classic/project-saral/assets/css/shared.css`
+   - Theme- and tenant-safe (semantic slots, no hard-coded brand colors) — **except** this repo classic clone: hard-code classic CSS from `DBS-FFW-classicsite/2025/style.css`
    - Classic visual clone: pixel match `style.css` before calling the page done
    - Maintainable (clear module boundaries, typed APIs, minimal toolchain hacks)
 

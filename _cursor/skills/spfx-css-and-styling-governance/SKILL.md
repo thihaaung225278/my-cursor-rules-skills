@@ -24,7 +24,7 @@ description: CSS architecture and styling governance for SPFx components.
 ## Enterprise guardrails
 
 1. Keep styling local and explicit.
-2. Maintain Fluent-aligned visual language — **except** this repo classic → SPFx: match `project-saral-classic/project-saral/assets/css/shared.css` (`classic-visual-parity`). Isolation still required.
+2. Maintain Fluent-aligned visual language — **except** this repo classic → SPFx: match `DBS-FFW-classicsite/2025/style.css` (`classic-visual-parity`). Isolation still required.
 3. No Tailwind in `spfx-solution` unless explicitly approved.
 
 ## Output expectations

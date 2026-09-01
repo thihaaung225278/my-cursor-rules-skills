@@ -1,7 +1,7 @@
 ---
 description: >-
-  Conditional Codegraph — symbol/flow/impact ရှာရန် အကျိုးရှိမှသုံး၊
-  path သိပြီးသား၊ typo/CSS/docs၊ သို့ index မရရင် Skip။
+  Conditional Codegraph: use when symbol/flow/impact lookup helps; skip when
+  path is known, typo/CSS/docs, or index unavailable.
 alwaysApply: false
 ---
 
@@ -23,10 +23,10 @@ Product/server = Codegraph (MCP)။ Tool = `codegraph_explore` **သာ**။ **�
 - Path/ဖိုင် `@` သို့ user က တိကျပေးပြီးသား + အကြောင်းအရာ သိပြီး
 - Typo / CSS တစ်နေရာ / Fast-Track minor tweak
 - Docs / Q&A / config / lockfile / non-indexed assets
-- **ဤ repo:** `.aspx`, `project-saral/assets/css/*`, `*.module.scss` visual clone, vendor `*.min.js` / Bootstrap / UIKit — index မလုပ် (သို့ noise)။ `Read` / `classic-visual-parity`
+- **ဤ repo:** `.aspx`, `DBS-FFW-classicsite/2025/style.css`, `*.module.scss` visual clone, vendor `*.min.js` / UIKit / Swiper — index မလုပ် (သို့ noise)။ `Read` / `classic-visual-parity`
 - Index မရှိ · MCP fail · “not indexed” → ထပ်မခေါ်၊ Read/Grep/Glob သို့ fallback။ User ကို `codegraph init` mention လို့ရ — ကိုယ်တိုင် မမောင်းရ။
 
-**ဤ repo Need:** `project-saral-classic/project-saral/assets/js/*`, `project-saral-SPFX/src/**/*.{ts,tsx}` — ASPX/CSS မဟုတ်။
+**ဤ repo Need:** `DBS-FFW-classicsite/**/public/js/controller/*`, `DBS-FFW-classicsite/**/public/js/lib/*`, `DBS-FFW-SPFX/src/**/*.{ts,tsx}` — ASPX/CSS မဟုတ်။
 
 ## စည်းမျဉ်း
 

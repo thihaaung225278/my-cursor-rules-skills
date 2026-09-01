@@ -1,64 +1,67 @@
-# Site assets + host modes (project-saral)
+# Site assets (DBS-FFW)
 
-No hardcoded site path. Classic vs SPFx asset strategy differs — bulk baseline wires structure first; asset parity is Wave 4.
+No hardcoded site path. Classic vs SPFx trees differ. Visual SoT year = **2025**.
 
-## Classic tree
+## Classic
 
 ```
-project-saral-classic/
-  *.aspx
-  project-saral/
-    assets/css/     shared, components, knowledge-hub, k-comms, kiasu, individual, uikit
-    assets/js/      page scripts, apiclass, spbase, uikit
-    assets/fonts/   OpenSans
-    assets/img/
-    components/     navigation.html, footer.html, hamburger-menu.html
+DBS-FFW-classicsite/
+  2025/                  current live year (SoT)
+    index.aspx
+    past-events.aspx
+    back-door.aspx
+    style.css
+    events.json / events-current.json / post-event.json
+    participants.json / winnerlists.json
+    sass/                style.sass, _home, _fonts
+    public/
+      css/vendor/        uikit.min.css, swiper*.css
+      css/               hamburgers.min.css
+      js/controller/     indexController.js, indexControllerPastEvent.js, winnerController.js
+      js/lib/            common-lib.js, lib.js
+      js/spbase/         sprestlib-php.js, config.js, jquery.SPServices.min.js
+      js/vendor/         uikit, swiper, jquery, fullcalendar, lottie, anime, ical, papaparse, moment
+      Fonts/opensans-condensed/
+      images/
+  2024/ · 2023/          prior-year copies — do not migrate unless user names them
 ```
 
-Relative paths under `project-saral/` are classic SoT.
+## SPFx
 
-## SPFx policy (this repo)
+- Page UI → `*.module.scss` (clone classic values; do not embed full `uikit.min.css` or Swiper CSS)
+- Small thumbs → WP `assets/` when already bundled
+- Optional SiteAssets: `{web.serverRelativeUrl}/SiteAssets/...` via `pageContext` + `assetsBaseUrl`
 
-| Asset type | Location |
-|------------|----------|
-| Page UI tokens | `*.module.scss` + `src/shared/styles/classicGlobal.scss` — clone values, do not embed full vendor CSS |
-| Small bundled images | `src/webparts/<Wp>/assets/` |
-| Large / shared images | `{web.serverRelativeUrl}/SiteAssets/...` via `pageContext` |
-| Vendor libs | Prefer Fluent v8 / built-ins — **ask** before copying jQuery/UIKit min bundles |
+### Ffw2023 (`2023/index.aspx`) — bundled images + SiteAssets iCal
 
-**In sppkg:** React components, module SCSS, small assets.  
-**Not in sppkg by default:** full `uikit.css`, Bootstrap, jQuery min.
+Images, fonts, JSON, and Lottie ship inside the **Ffw2023** sppkg. Schedule **.ics** downloads are served from **Site Assets** (not bundled — keeps sppkg small).
 
-## Host modes (per web part)
+```
+src/webparts/ffw2023/assets/
+  img/**/*.webp          ← resized WebP (q78; gallery/gameshow max 1600px)
+  fonts/opensans/*.woff2
+  data/*.json
+  lottie/**
+  ffw2023AssetMap.ts     ← images + lottie only
+src/webparts/ffw2023/utils/ffw2023SiteAssetUrls.ts
+```
 
-This repo = **one WP per classic page**, not one hub router.
+One-time iCal upload (after `npm run prepare:ffw2023-assets`):
 
-### A — Single Web Part (Site Page)
+```
+sharepoint/siteassets-staging/FFW2023/iCal-invites/**  →  Site Assets library /FFW2023/iCal-invites/
+```
 
-1. Place WP in **full-width** section on modern page.
-2. Manifest: `"supportedHosts": ["SharePointWebPart", "SharePointFullPage"]`, `"supportsFullBleed": true`.
-3. Runtime: unlock canvas ancestors (width + height/overflow) if `.ms-SPLegacyFabricBlock` clips (~450px).
-4. `ResizeObserver` → sync host `minHeight`; clear on dispose.
+Default download URL: `{web}/SiteAssets/FFW2023/iCal-invites/...` (override in web part property pane).
 
-### B — Single-page app (Full Page)
+Regenerate after classic asset changes:
 
-1. Site page → Single-page app → one WP per route (separate WPs, not one router).
-2. `SharePointFullPage` host — unlock optional fallback if canvas still clips.
+```bash
+cd DBS-FFW-SPFX
+npm run prepare:ffw2023-assets
+gulp bundle
+```
 
-Detail: `.cursor/skills/classic-to-spfx-migration/references/host-modes.md`
+Property pane: `galleryDownloadUrl` only (external SharePoint folder for Download All).
 
-## Resolvers
-
-- Web-relative URLs from `this.context.pageContext.web.serverRelativeUrl`
-- No hardcoded `/sites/.../project-saral`
-- Image rewrite helpers must use pageContext, not classic `config.baseSpUrl`
-
-## Bulk baseline smoke
-
-- [ ] Each WP in PARITY table has manifest + bundle entry + serve config
-- [ ] `gulp bundle` pass
-- [ ] Served page loads without console errors
-- [ ] Full-width section tested on at least one route
-- Visual parity **not** required for baseline sign-off
-
-Classic `.aspx` stays production until PARITY Status = **parity PASS** for that route.
+Detail: `.cursor/skills/classic-to-spfx-migration/references/host-modes.md` · `siteassets-gotchas.md`.

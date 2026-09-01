@@ -1,55 +1,74 @@
-# Classic ↔ SPFx parity inventory (project-saral)
+# Classic ↔ SPFx parity inventory (DBS-FFW)
 
-> Live SoT for route Status. Sync with repo-root `progress.md` after each wave.  
-> Bulk baseline: `.cursor/skills/bulk-classic-to-spfx-baseline/SKILL.md`
+> Sync with repo-root `progress.md` — update both when slice status changes.
 
-Site URL: confirm at deploy — **no hardcoded tenant/site path**. Visual SoT = classic `.aspx` + `project-saral/assets/css/*`.
+Site URL: confirm at deploy (no hardcoded tenant/site path). **Visual SoT per slice** = that year's `.aspx` + `{year}/style.css` + `{year}/sass/`. Cutover only when Status = **parity PASS**.
+
+**Updated:** 2026-08-31 (Ffw2025 STEP 1 Scout — `2025/index.aspx`)
+
+## Scope
+
+Migrate **2023 · 2024 · 2025** — all year folders under `DBS-FFW-classicsite/`. One SPFx web part per classic page (rule 17). Backup/test routes = **cut**.
 
 ## Canonical
 
 | Host | Notes |
 |------|--------|
-| Classic `project-saral-classic/` | Live `.aspx` + `project-saral/assets/` |
-| SPFx `project-saral-SPFX/` | **One web part per live page** (no hub router) |
+| Classic `DBS-FFW-classicsite/` | year folders `2023/` `2024/` `2025/` — **all in scope** |
+| SPFx `DBS-FFW-SPFX/` | one WP per classic page; **Ffw2025** wired for `2025/index.aspx` |
 
-Each full-bleed WP: `supportsFullBleed: true` + full-width section — see `SITEASSETS.md` / skill `host-modes.md`.
+## Pages — 2025
 
-## Pages
+| Classic | Scripts / notes | SPFx target | Status |
+|---------|-----------------|-------------|--------|
+| `2025/index.aspx` | live boot = `indexController-current.js` + `events-current.json`; live = About + 3-col Highlights + GIF gallery + Schedule; `.post-event-sec` CSS hidden | **Ffw2025** | wired / baseline — shipped **v1.0.0.9**; **parity PASS မဟုတ်** |
+| `2025/past-events.aspx` | `indexControllerPastEvent.js` | **PastEvents** | todo |
+| `2025/back-door.aspx` | inline admin date override | **BackDoor** | defer |
 
-| Classic | Scripts / CSS | SPFx target | Status |
-|---------|---------------|-------------|--------|
-| `knowledge-hub.aspx` | `knowledge-hub.js`, `knowledge-hub.css` | **KnowledgeHub** | wired / baseline — visual QA pending |
-| `the-clearing-house.aspx` | `script-kcomms*.js`, `k-comms.css`, `kiasu.css`, `individual.css` | **ClearingHouse** | wired / baseline — overview table hover + Submitted Ideas list; quote-bubble type (17/20px, Bold+700) cloned from ASPX/`k-comms.css`; live visual QA pending |
-| `the-clearing-house-repository.aspx` | `script-clearing-house-respository.js` | **ClearingHouseRepository** | wired / baseline — listing + `?itemId=` detail (same WP; Site Pages reserved `?id=` avoided); votes list 404 no longer blocks detail (classic parity); **Submit Feedback** opens shared Direct2RC modal in-place (CH modal extracted; `gulp test` PASS); card lines + paginationBox sprite ported; listing hover overlay covers `.spacer` (`z-index: 2`); **detail Verdict/Details:** OpenSans-Bold + host `h3` border reset + classic `50vw` splitter + `col-md-10` wrap (`gulp test` PASS); live visual QA pending (not PASS); **detail Back/Title/Like + white-box:** STEP 3 heart sprite + `#4e74ff` values (`gulp test` PASS); live visual QA pending (not PASS); **detail title size:** UIKit h1 35.7px / 42px @960 + host `h1` reset (`gulp test` PASS); **detail title width:** Bootstrap `col-md-10` wrap (`gulp test` PASS); live visual QA pending (not PASS); **filter pills + lookup Titles:** STEP 3 `pill-x.webp` close icon + `ClusterId`/`ProductId`/`DepartmentId`/`OwnerId` Title join on cards/detail (`gulp test` PASS); live QA pending (not PASS) |
-| `export-import.aspx` | Export JSON / Import stub | **ExportImport** | cut — re-scaffold in bulk Wave 1 |
-| `splists/sp-import.aspx` | splists JS | **SpImport** | defer |
-| `splists/sp-export.aspx` | splists JS | **SpExport** | defer |
-| `*-backup.aspx` / `project-saral-backup/` | — | — | cut |
+## Pages — 2024
 
-## Chrome
+| Classic | Scripts / notes | SPFx target | Status |
+|---------|-----------------|-------------|--------|
+| `2024/index.aspx` | live thank-you / video-playbacks (`indexController.js`, `common.js`); `.post-event-sec` hidden | **Ffw2024** | wired / baseline — shipped **v1.0.0.8**; **parity PASS မဟုတ်** |
+| `2024/past-events.aspx` | `indexControllerPastEvent.js` | WP TBD | todo |
+| `2024/back-door.aspx` | inline admin | WP TBD | defer |
+| `2024/index-old.aspx` / `index-current.aspx` | backups | — | cut |
 
-Classic chrome = inline per ASPX (`project-saral/components/navigation.html`, `footer.html`, `hamburger-menu.html`).  
-Site Pages `ShowHeader` / `ShowFooter` gate **custom** SaralChrome AC — see `SITE_CHROME.md`.  
-Shared SPFx chrome: **Application Customizer** `SaralChromeApplicationCustomizer` (primary when site CustomAction active) + **in-WP `PageChrome` fallback** on KnowledgeHub / ClearingHouse / ClearingHouseRepository (defers when AC active). See `SITE_CHROME.md`.
+## Pages — 2023
 
-## Immutable contracts
+| Classic | Scripts / notes | SPFx target | Status |
+|---------|-----------------|-------------|--------|
+| `2023/index.aspx` | `indexController.js`, `common.js`, `spbase/config.js` | **Ffw2023** | wired / baseline — bundled assets in sppkg; visual parity pending |
+| `2023/post-event.aspx` | `indexController.js`, `common.js` (2023-only route) | **PostEvent2023** | wired / baseline — Highlights `#highlight` uk-grid row-gap + named-face CSS; **parity PASS မဟုတ်** |
+| `2023/back-door.aspx` | inline admin | WP TBD | defer |
+| `2023/clickr-test.aspx` | test | — | cut |
 
-- Classic class semantics + visual token rows (`classic-visual-parity`, `uikit-to-spfx-visual-parity`)
-- No hardcoded site path — use `pageContext`
-- OpenSans weights from classic CSS must load on SPFx
-- Data = `SPHttpClient`; `@pnp/sp` ask-first
-- Lists: Clearing House Repository, SComms Votes, Users, Clusters, Categories, Themes, Products, Departments, Owners — do not invent beyond script proof
+## Shared
 
-## Visual PASS checklist (Wave 4 only)
+| Item | Notes | Status |
+|------|-------|--------|
+| Inline `header.page-banner` | chrome per ASPX | defer AC |
 
-font-size · **font-weight** · font color · BG · spacing · gap · margin · padding · break-line · letter-spacing · line-height · hover · animation · `@media` (classic px)
+## Visual & assets (per year)
 
-| Status | Meaning |
-|--------|---------|
-| inventory only | Docs only; no WP |
-| wired / baseline | Loads; func stub OK; **visual may FAIL** |
-| parity PASS | Func + Visual checklist PASS |
+Each slice ports **that year's** CSS — do not assume 2025 tokens for 2023/2024 pages.
 
-## Cutover
+| Year | Classic | SPFx |
+|------|---------|------|
+| 2025 | `style.css` + `sass/`, `uikit.min.css` | `*.module.scss` + uikit parity |
+| 2024 | same pattern under `2024/` | per WP |
+| 2023 | same pattern under `2023/` | per WP |
 
-Classic stays live until SPFx route exists **and** Status = **parity PASS** for that route.
+## Data (per year folder)
+
+| Source | Classic access | SPFx target | Status |
+|--------|----------------|-------------|--------|
+| `events.json`, `participants.json`, `post-event.json` (2023) | `commonLib.loadJson` | bundled in **Ffw2023** `assets/data/` — also consumed by **PostEvent2023** | done (2023 index + post-event) |
+| `events.json`, `participants.json`, `winnerlists.json` (2024/2025) | per year folder | **Ffw2024** `events.json`; **Ffw2025** `events-current.json` bundled | Ffw2025 events-current done; 2024/2025 participants/winners TBD |
+
+## Suggested order
+
+1. **Ffw2025** scaffold + wired vs `2025/index.aspx` (live pre-during only)
+2. **PastEvents** ↔ `2025/past-events.aspx`
+3. Wave 4 remainder **Ffw2024** / **PostEvent2023** / **Ffw2023**
+4. `2024/past-events.aspx` then back-door pages (defer)

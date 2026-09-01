@@ -1,5 +1,5 @@
 ---
-description: SharePoint Classic, Modern ASPX, SPFx စံနှုန်းများ — SP signals တွေ့မှသာ (Deduped split)
+description: SharePoint Classic, Modern ASPX, SPFx standards — apply when SP signals detected (Deduped split)
 globs:
   - "**/*.{aspx,master}"
   - "**/src/webparts/**"
@@ -11,7 +11,7 @@ globs:
 alwaysApply: false
 ---
 
-# SharePoint (တွေ့မှသာ — Classic / Modern ASPX / SPFx)
+# SharePoint (detect-on — Classic / Modern ASPX / SPFx)
 
 **Detect**: SPFx = `@microsoft/sp-*` သို့ `src/webparts/`/`src/extensions/`/`*.sppkg`။ Classic = `*.master` / `_layouts` / `Style Library` / JSOM·`SP.js` / CEWP·SEWP + `.aspx`။ Modern ASPX = site/application `.aspx` without SPFx package (သို့ user အတည်)။ signal <2 သို့ ရော → Clarify-first။
 **SEO**: intranet/admin → Skip။ public-facing မှသာ SEO စံ။
@@ -23,7 +23,7 @@ alwaysApply: false
 - AuthZ = site/list permissions + item-level; AuthN အောင်ရုံ မလုံလောက် (IDOR တား)။
 - XSS = CEWP/SEWP/raw HTML escape·sanitize။ Inline script အသစ် မထည့်မီ repo pattern လိုက်။ UI = existing CSS; Tailwind/SPA router စိတ်ကူးယဉ် မထည့်။
 
-### Modern ASPX (SPFx မဟုတ်သော pages)
+### Modern ASPX (non-SPFx pages)
 - Surface `frontend`/`fullstack`။ Classic master-page assumptions မသုံး — Modern chrome/page lifecycle လိုက်။
 - Custom = Site Assets/CDN approved script·CSS; Script Editor / arbitrary inject ရှောင် (tenant policy)။
 - Data = REST `/_api` + digest; Graph သုံးရင် repo auth pattern။ Secrets/tenant IDs hardcode မလုပ်။
@@ -32,7 +32,7 @@ alwaysApply: false
 
 ### SPFx (`@microsoft/sp-*`)
 - Surface `frontend`/`fullstack`။ React(web) generic rules Skip — SPFx host lifecycle + repo UI။ **ဤ repo page UI** = classic clone (`classic-visual-parity`)၊ Fluent density/theme ကို visual target မထားရ။ version/React ကွာခြားချက် repo `package.json` လိုက်။
-- Paths = `src/webparts/`၊ `src/extensions/`၊ `sharepoint/assets/` (`elements.xml`, `ClientSideInstance.xml`)။ Property Pane + packaging `.sppkg` pattern မဖျက်။
+- Paths = `src/webparts/`, `src/extensions/`, `sharepoint/assets/` (`elements.xml`, `ClientSideInstance.xml`)။ Property Pane + packaging `.sppkg` pattern မဖျက်။
 - Data = SPHttpClient / PnPjs (ရှိပြီးသား) — raw concat မဆောက်။ permissions/AuthZ list·item စစ်။
-- Styling = `*.module.scss`။ **ဤ repo page UI** = classic `project-saral/assets/css/shared.css` exact values (`classic-visual-parity`) — Fluent/theme tokens နဲ့ အစားမထိုးရ။ `@media` = classic breakpoint px (Fluent 480 မသုံး)။ global CSS chrome မထိ (host-gap body paint သာ documented exception)။ `gulp bundle`/`gulp serve`။
+- Styling = `*.module.scss`။ **ဤ repo page UI** = classic `DBS-FFW-classicsite/2025/style.css` exact values (`classic-visual-parity`) — Fluent/theme tokens နဲ့ အစားမထိုးရ။ `@media` = classic breakpoint px (Fluent-only 480 မသုံး)။ global CSS chrome မထိ (host-gap body paint သာ documented exception)။ `gulp bundle`/`gulp serve`။
 - Test = Testing Gate (`gulp test` / Manual workbench) + **visual vs classic** (`classic-visual-parity`)။ Application Customizer ≠ Web Part — သက်ဆိုင် skill/path သာ။

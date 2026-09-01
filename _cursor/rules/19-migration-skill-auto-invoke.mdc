@@ -1,53 +1,62 @@
 ---
-description: Prompt keywords မှ migration skills Auto-invoke — baseline bulk vs parity slice (project-saral)
+description: Auto-invoke migration skills from prompt keywords — baseline bulk vs parity slice (DBS-FFW)
 alwaysApply: true
 ---
 
-# Migration skill auto-invoke (project-saral)
+# Migration skill auto-invoke (DBS-FFW)
 
 User က skill/path name မပြောဘဲ prompt intent မှ **Read** လုပ် — implement မတိုင်မီ skip မလုပ်။
 
 ## Baseline / bulk (Wave 0–3)
 
-**Triggers (EN/MM):** bulk, baseline, scaffold, wire, wired, တန်းပြောင်း, အားလုံး, all pages, all web parts, 4 web part, re-scaffold, inventory sync, baseline wave
+**Triggers (EN/MM):** bulk, baseline, scaffold, wire, wired, တန်းပြောင်း, အားလုံး, all pages, all web parts, re-scaffold, inventory sync, baseline wave
 
-စာမျက်နှာ/WP တစ်ခုပဲ နာမည်တပ်ခြင်း (`KnowledgeHub`, `knowledge-hub.aspx`, `ClearingHouse`, …) သည် **bulk မဟုတ်** — အောက်က parity / one-slice သုံး (mode မရှင်းရင် Ambiguous)။
+Naming one page or WP (`Ffw`, `index.aspx`, `PastEvents`, …) is **not** bulk — use parity / one-slice below (or Ambiguous if mode unclear).
 
-1. `.cursor/skills/bulk-classic-to-spfx-baseline/SKILL.md` ဖတ်
-2. `docs/migration/PARITY.md` ↔ repo-root `progress.md` sync
-3. Scope = **live routes များစွာ** တစ် wave ထဲ OK
-4. Status = **wired / baseline** သာ — **parity PASS** မပြောရ
-5. Rule `18-bulk-migration-baseline.mdc` constraints သက်ရောက်
+1. Read `.cursor/skills/bulk-classic-to-spfx-baseline/SKILL.md`
+2. Sync `docs/migration/PARITY.md` ↔ repo-root `progress.md`
+3. Scope = **multiple live routes** OK in one wave
+4. Status = **wired / baseline** only — **no parity PASS** claim
+5. Rule `18-bulk-migration-baseline.mdc` constraints apply
 
-## Parity / visual (Wave 4 · slice တစ်ခု)
+## Parity / visual (Wave 4 · one slice)
 
-**Triggers:** parity, visual, pixel, classic match, classic နဲ့, spacing, hover, font, breakpoint, visual QA, parity PASS
+**Triggers:** parity, visual, pixel, classic match, classic နဲ့, spacing, hover, font, **font-weight**, **font weight**, **ထူ**, **ပါး**, **bold**, **underline**, OpenSans, breakpoint, visual QA, parity PASS
 
-1. `.cursor/skills/classic-to-spfx-migration/SKILL.md` ဖတ်
-2. ပြီးမှ `classic-visual-parity` → `uikit-to-spfx-visual-parity` (UI tasks)
-3. Scope = **web part တစ်ခု / classic page တစ်ခု** — bulk parity ငြင်း
-4. Status = visual checklist ပြီးမှသာ **parity PASS**
+1. Read `.cursor/skills/classic-to-spfx-migration/SKILL.md`
+2. Then `classic-visual-parity` → **[visual-typography.md](../skills/classic-to-spfx-migration/references/visual-typography.md) (typography self-check — required)** → `uikit-to-spfx-visual-parity` (UI tasks)
+3. Scope = **one web part / one classic page** — bulk parity reject
+4. Status = **parity PASS** only after visual checklist
 
-## SPFx scaffold / data (migration မည်သည့်အမျိုး)
+## Swiper / carousel (functional + visual)
+
+**Triggers:** swiper, carousel, slider, gallery slider, winner-slider, swiper-button, slidesPerView, gallery swipe, winner slide
+
+1. Read `.cursor/skills/swiper-to-spfx-carousel/SKILL.md` (+ `references/classic-configs.md` if wiring init)
+2. Load `classic-visual-parity` for nav button / slide CSS (not vendor bundle CSS)
+3. `npm i swiper` = user approval first
+4. Scope = one slice or one slider section — not site-wide dep without ask
+
+## SPFx scaffold / data (any migration)
 
 **Triggers:** web part, SPFx, gulp, manifest, serve.json, list, PnP, SPHttpClient
 
-→ `.cursor/skills/spfx/SKILL.md` ဖတ် (+ `references/` လိုမှသာ)
+→ Read `.cursor/skills/spfx/SKILL.md` (+ `references/` only if needed)
 
-## ဝေဝါးသောအခါ
+## Ambiguous
 
-**ဥပမာ:** "spfx ပြောင်းပေး", "migrate classic", "classic → SPFx" (mode မရှင်း)။ bulk စကားလုံး မပါဘဲ နာမည်တစ်ခုတည်း (`KnowledgeHub`) → one-slice, bulk မဟုတ်။
+**Examples:** "spfx ပြောင်းပေး", "migrate classic", "classic → SPFx" (mode unclear). A single name like "Ffw" without bulk words → one-slice, not bulk.
 
-→ Clarify-first **မေးခွန်းတစ်ခု:** baseline bulk (အားလုံး wire) vs parity slice (WP တစ်ခု polish)?  
-→ User အတည်ပြုမှ အထက် skill ကိုက်ရာ load။ parity vs baseline မမှန်းဆရ။
+→ Clarify-first **one question:** baseline bulk (wire all) vs parity slice (one WP polish)?  
+→ User confirms → load matching skill above. Do not guess parity vs baseline.
 
-## Migration တိုင်း အမြဲ
+## Always (migration)
 
-- `.cursor/rules/17-classic-host-and-assets.mdc` — classic page တစ်ခုလျှင် WP တစ်ခု၊ **hub pageKey router မသုံး**
-- Pins: SPFx 1.20 · gulp · React 17 · Fluent v8 · Heft/v9 မသုံး · deps အရင်မေး
+- `.cursor/rules/17-classic-host-and-assets.mdc` — one WP per classic page; **no hub pageKey router**
+- Pins: SPFx 1.20 · gulp · React 17 · Fluent v8 · no Heft/v9 · deps ask-first
 
-## ဤလမ်းကြောင်းများသို့ မပို့ရ
+## Reject routing to
 
-- `mk/.cursor/` သို့ skill `classic-spfx-migration` (hub playbook — ဤ repo အတွက် မှား)
-- baseline triggers အတွင်း parity PASS
-- စာမျက်နှာအားလုံး parity PASS ကို turn တစ်ခုတည်းတွင်
+- `mk/.cursor/` or skill `classic-spfx-migration` (hub playbook — wrong for this repo)
+- parity PASS during baseline triggers
+- Entire-site parity PASS in one turn

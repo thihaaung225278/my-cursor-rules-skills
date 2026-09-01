@@ -1,42 +1,42 @@
 ---
-description: Classic ASPX controllers အတွက် Vanilla JS အရည်အသွေး — React/SPFx TS မဟုတ်
+description: Vanilla JS quality for classic ASPX controllers — not React/SPFx TS
 alwaysApply: false
 globs:
-  - "project-saral-classic/**/*.{js,aspx}"
-  - "project-saral-classic/project-saral/assets/js/**/*.js"
+  - "DBS-FFW-classicsite/**/*.{js,aspx}"
+  - "DBS-FFW-classicsite/**/public/js/**/*.js"
 ---
 
 # JS Code Quality (classic ASPX)
 
-`00-core-fsm` (anti-overengineering / anti-sycophancy) နှင့် `14-security-appsec` ကို လိုက်နာ။
-ဤ tree တွင် `01-react-standards` သို့ React/Next MUST rules **မသက်ရောက်**။
+Defers to `00-core-fsm` (anti-overengineering / anti-sycophancy) and `14-security-appsec`.
+Do **not** apply `01-react-standards` or React/Next MUST rules to this tree.
 
 ## Mindsets
-- premature micro-opt ထက် simplicity · readability · maintainability
-- ကုဒ်နည်း = debt နည်း
-- **Minimal diffs** — တာဝန်သာ ထိ၊ drive-by cleanup မလုပ်
+- Simplicity · readability · maintainability over premature micro-opts
+- Less code = less debt
+- **Minimal diffs** — touch only the task; no drive-by cleanup
 
 ## Naming
-- functions/vars = `camelCase`၊ module constants = `SCREAMING_SNAKE_CASE`
-- ယအမည်တွင် unit ထည့် (`timeoutMs`)၊ collections = plural၊ booleans = မေးခွန်းပုံ
-- Event handlers = `handle*`
-- domain နာမည် သိပြီးသားအခါ `d`, `tmp`, `obj`, `x`, သို့ မရေရာ `data` မကျန်စေရ
+- `camelCase` functions/vars; `SCREAMING_SNAKE_CASE` module constants
+- Units in names (`timeoutMs`); collections plural; booleans as questions
+- Event handlers `handle*`
+- No leftover `d`, `tmp`, `obj`, `x`, or vague `data` when the domain name is known
 
 ## Guidelines
-- nested နက်ခြင်းထက် early returns
-- sprawling function ထက် small pure helpers
-- duplication တကယ်ရှိပြီး တည်ငြိမ်မှသာ DRY
-- rejected promises ကိုင် (`await` / `.catch` / ရည်ရွယ် `void` + အကြောင်း)
-- `fetch` တွင် `res.ok` စစ်
+- Early returns over deep nesting
+- Small pure helpers over sprawling functions
+- DRY only when duplication is real and stable
+- Handle rejected promises (`await` / `.catch` / intentional `void` + why)
+- Check `res.ok` on `fetch`
 
 ## Globals (ASPX-safe)
-- ad-hoc `window.*` ထက် IIFE / namespaced object တစ်ခု ဦးစားပေး
-- `window` ပေါ် secrets **ဘယ်တော့မှ** မထားရ၊ SharePoint host globals ကို တာဝန်မလိုရင် မထိ
+- Prefer IIFE / one namespaced object over ad-hoc `window.*`
+- **NEVER** stash secrets on `window`; leave SharePoint host globals unless the task requires them
 
 ## Comments
-- WHY သာ။ Workarounds: အကြောင်း + ရက်စွဲ
+- WHY only. Workarounds: reason + date
 
-## ငြင်းရမည်
-- ခွင့်မရဘဲ library အသစ်
-- classic tree ထဲ classic controller JS ကို React/SPFx သို့ ပြောင်းခြင်း
-- user data နှင့် `eval` / unsafe `innerHTML` (`14-security-appsec`)
+## Reject
+- New libraries without approval
+- Converting classic controller JS into React/SPFx in the classic tree
+- `eval` / unsafe `innerHTML` with user data (`14-security-appsec`)

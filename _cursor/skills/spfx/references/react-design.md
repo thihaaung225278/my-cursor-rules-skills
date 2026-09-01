@@ -2,7 +2,7 @@
 
 (Fluent UI v9 + SharePoint + Host Awareness)
 
-**This repo exception (wins over every MUST below):** project-saral-classic → SPFx page UI is a **visual clone**. Load `classic-visual-parity`. Do **not** apply Fluent v9, host-theme colors, or “MUST NOT hardcode colors” to those pages. Project pin = Fluent **v8** + classic `shared.css` / page CSS values. Custom HTML/CSS matching classic is required. This file’s Fluent-default rules apply only to generic SPFx UI that is **not** a classic clone.
+**This repo exception (wins over every MUST below):** DBS-FFW-classicsite → SPFx page UI is a **visual clone**. Load `classic-visual-parity`. Do **not** apply Fluent v9, host-theme colors, or “MUST NOT hardcode colors” to those pages. Project pin = Fluent **v8** + classic `style.css` / `sass/` values. Custom HTML/CSS matching classic is required. This file’s Fluent-default rules apply only to generic SPFx UI that is **not** a classic clone.
 
 Normative guidance for generating UI consistent with Fluent UI v9, aligned to SharePoint experiences, and adaptable across host environments.
 
@@ -19,7 +19,7 @@ Agents MUST NOT assume all requests are full-page experiences.
 
 ### Classic clone (this repo) — skip Fluent visual rules
 
-If the task is a project-saral-classic classic page / chrome UI:
+If the task is a DBS-FFW-classicsite classic page / chrome UI:
 
 - **Do not apply** sections 2–6, 8, 12 (Fluent v9, host theme, no hardcoded colors, Fluent defaults).
 - **Do apply** section 10 a11y (keyboard, focus, names) without changing classic type, color, spacing, hover, or animation.

@@ -1,35 +1,35 @@
 ---
-description: SharePoint ASPX/JS/SPFx အတွက် Auto AppSec — secrets, XSS, least privilege
+description: Auto AppSec for SharePoint ASPX/JS/SPFx — secrets, XSS, least privilege
 alwaysApply: true
 ---
 
 # Security AppSec (Auto)
 
-ပဋိပက္ခဖြစ်ရင် `00-core-fsm` Safety က နိုင်သည်။ ဤဖိုင် = SharePoint အတွက် အကျဉ်းချုပ် digest။
+Defers to `00-core-fsm` Safety on conflict. This file is the SharePoint-concrete digest.
 
 ## Secrets
-- credentials, API keys, tokens, tenant IDs, connection strings hardcode မလုပ်ရ
-- `.env` သို့ tenant secrets commit မလုပ်ရ
-- passwords, tokens, session identifiers log မထုတ်ရ
+- Never hardcode credentials, API keys, tokens, tenant IDs, or connection strings
+- Never commit `.env` or tenant secrets
+- Never log passwords, tokens, or session identifiers
 
 ## Input / Output
-- input အားလုံး sanitize၊ output အားလုံး escape (HTML attribute/text/URL contexts)
-- `eval`၊ user data ပါ unchecked `innerHTML` / `dangerouslySetInnerHTML`၊ user data ပေါ် shell `exec` မသုံးရ
-- raw HTML inject ထက် textContent / safe DOM APIs ဦးစားပေး
+- Sanitize all input; escape all output (HTML attribute/text/URL contexts)
+- No `eval`, unchecked `innerHTML` / `dangerouslySetInnerHTML` with user data, or shell `exec` on user data
+- Prefer textContent / safe DOM APIs over raw HTML injection
 
 ## AuthZ
-- Data R/W = list/item permissions — AuthN အောင်ရုံ မလုံလောက် (IDOR တား)
-- စာမျက်နှာထဲ custom auth ထက် host SharePoint auth / ရှိပြီးသား services ဦးစားပေး
-- admin/script surfaces အတွက် least privilege
+- Data R/W = list/item permissions — AuthN success is not enough (IDOR)
+- Prefer host SharePoint auth / existing services over custom in-page auth
+- Least privilege for admin/script surfaces
 
 ## Dependencies
-- User ခွင့်မရဘဲ package မထည့်ရ (`00` Dependencies)
-- ဤ repo Data SoT = `SPHttpClient`။ `@pnp/sp` = အရင်မေးမှသာ
+- Do not add packages without user approval (`00` Dependencies)
+- Data SoT this repo = `SPHttpClient`. `@pnp/sp` = ask-first only
 
 ## PII
-- user names, emails, scores, participant identity = sensitive
-- front-end globals, HTML comments, chat dumps ထဲ PII မထည့်ရ
+- Treat user names, emails, scores, and participant identity as sensitive
+- No PII in front-end globals, HTML comments, or chat dumps
 
-## မလုပ်ရ
-- “ပြင်းထန်မဖြစ်အောင်” security အားလျှော့ခြင်း
-- production secrets ထိခြင်း သို့ Local/tenant credentials ကို ပြန်စာတွင် ဖော်ခြင်း
+## Do not
+- Weaken security “to make it sound less serious”
+- Touch production secrets or expose Local/tenant credentials in replies

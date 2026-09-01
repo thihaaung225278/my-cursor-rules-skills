@@ -1,33 +1,33 @@
 ---
-description: စာမျက်နှာ ပုံအရည်အသွေး — placeholder မသုံး၊ alt, CLS (classic + SPFx UI)
+description: Page image quality — no placeholders, alt, CLS (classic + SPFx UI)
 alwaysApply: false
 globs:
-  - "project-saral-classic/**/*.{aspx,html,css}"
-  - "project-saral-classic/project-saral/**/*"
-  - "project-saral-SPFX/src/**/*.{tsx,scss,css}"
+  - "DBS-FFW-classicsite/**/*.{aspx,html,css}"
+  - "DBS-FFW-classicsite/**/*"
+  - "DBS-FFW-SPFX/src/**/*.{tsx,scss,css}"
 ---
 
 # Landing / Page Image Quality
 
-User-facing pages သို့ ပုံပါသော SCSS ပြင်သည့်အခါ:
+When editing user-facing pages or SCSS that include images:
 
 ## Sources
-- `placehold.co`, `via.placeholder.com`, `dummyimage.com`, `picsum.photos`, သို့ broken hotlink မသုံးရ
-- classic `project-saral/assets/` သို့ SPFx `src/webparts/**/assets/` အောက် committed assets၊ သို့ user အတည်ပြု URL ဦးစားပေး
-- third-party ပုံ မသုံးမီ license အတည်ပြု
-- slice မလိုရင် `assets/videos` အောက် ဖိုင်ကြီး မထည့်ရ
+- No `placehold.co`, `via.placeholder.com`, `dummyimage.com`, `picsum.photos`, or broken hotlinks
+- Prefer committed assets under classic `DBS-FFW-classicsite/**/public/images/` or SPFx `src/webparts/**/assets/` / user-approved URLs
+- Confirm license before third-party images
+- Do not bundle large files under `assets/videos` unless the slice requires it
 
 ## Quality & CLS
-- မရေရာ stock filler မဟုတ် — product ပုံ အစစ်
-- layout shift တားရန် `width`/`height` သို့ CSS `aspect-ratio` အတိအကျ
-- size optimize ဦးစားပေး၊ below-fold lazy-load (`loading="lazy"`)
+- Real product imagery — not vague stock filler
+- Explicit `width`/`height` or CSS `aspect-ratio` to prevent layout shift
+- Prefer optimized sizes; lazy-load below-fold (`loading="lazy"`)
 
 ## Accessibility
-- အဓိပ္ပာယ်ရှိပုံ — `alt` တိကျ
-- အလှဆင်ပုံ — `alt` ဗလာ
-- မရှိမဖြစ် စာသားကို ပုံထဲသာ မထည့်ရ
+- Informative images: specific `alt`
+- Decorative: empty `alt`
+- Do not put essential copy only inside an image
 
 ## Checks
-- ဤ repo တွင် path ရှိရမည် (classic `project-saral/assets/`၊ SPFx bundled assets၊ သို့ property-pane URL)
-- mobile + desktop crop ဖတ်လို့ရရမည်
-- error/empty state တွင် broken-image icon မပြရ
+- Paths resolve in this repo (classic `DBS-FFW-classicsite/**/public/images/`, SPFx bundled assets, or property-pane URL)
+- Mobile + desktop crop still readable
+- Error/empty states must not show broken-image icons

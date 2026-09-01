@@ -1,8 +1,9 @@
 ---
 description: >-
-  Mode B သီးသန့် လိုအပ် — user message တွင် ..chain၊ သို့ chain confirm y / y+မှတ်ချက်၊
-  သို့ WAITING_FOR_USER_CONFIRMATION / CHAIN_STEP နောက်ဆက်ရှိမှ load။
-  ပုံမှန် Mode A chat တွင် မ load ရ။ STEP 1/2/3 prompts၊ output formats၊ halt tokens ပါ။
+  REQUIRED for Mode B only: load when user message contains ..chain, or chain
+  confirm y / y+note, or reply continues after WAITING_FOR_USER_CONFIRMATION /
+  CHAIN_STEP. Do NOT load for ordinary Mode A chats. Contains STEP 1/2/3
+  prompts, output formats, and halt tokens.
 alwaysApply: false
 ---
 

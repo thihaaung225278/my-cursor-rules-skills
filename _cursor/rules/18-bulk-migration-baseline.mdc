@@ -1,44 +1,44 @@
 ---
-description: Bulk baseline wave — classic pages များစွာကို SPFx WPs wired/baseline သို့ scaffold၊ parity နောက်မှ၊ hub router မသုံး
+description: Bulk baseline wave — scaffold multiple classic pages to SPFx WPs wired/baseline; parity later; no hub router
 alwaysApply: false
-globs: "docs/migration/**,project-saral-SPFX/**/*.{tsx,ts,scss,json},.cursor/skills/bulk-classic-to-spfx-baseline/**"
+globs: "docs/migration/**,DBS-FFW-SPFX/**/*.{tsx,ts,scss,json},.cursor/skills/bulk-classic-to-spfx-baseline/**"
 ---
 
-# Bulk migration baseline (gated · project-saral)
+# Bulk migration baseline (gated · DBS-FFW)
 
-## ဘယ်အခါ
+## When
 
-- User တောင်း — စာမျက်နှာအားလုံး တစ်ခါတည်း၊ bulk scaffold၊ baseline wave၊ web part ၄ ခု wire
-- multi-route Status အတွက် `docs/migration/PARITY.md` ပြင်
-- scaffold pass တစ်ခုတွင် `src/webparts/*` များစွာ ထည့်
+- User asks: all pages at once, bulk scaffold, baseline wave, wire live 2025 web parts together
+- Editing `docs/migration/PARITY.md` for multi-route Status
+- Adding multiple `src/webparts/*` in one scaffold pass
 
-## လုပ်ရမည်
+## Do
 
-0. Rule `19-migration-skill-auto-invoke.mdc` — user prompt က ဤ rule ကို နှိုး၊ prompt ထဲ skill နာမည် မလို
-1. `.cursor/skills/bulk-classic-to-spfx-baseline/SKILL.md` ဖတ်
-2. Inventory sync — `docs/migration/PARITY.md` ↔ repo-root `progress.md`
-3. **classic page တစ်ခုလျှင် web part တစ်ခု** — hub `pageKey` router မသုံး (rule 17 နိုင်)
-4. Wave 1–3 = PR တစ်ခု ဖြစ်နိုင်၊ Status = **wired / baseline** သာ
-5. baseline ပြီးဟု မမှတ်မီ `gulp bundle` မောင်း
-6. Wave 4 parity → slice တိုင်း `classic-to-spfx-migration` + `classic-visual-parity` သို့ ပြောင်း
+0. Rule `19-migration-skill-auto-invoke.mdc` — user prompt triggers this rule; skill name in prompt not required
+1. Read `.cursor/skills/bulk-classic-to-spfx-baseline/SKILL.md`
+2. Sync inventory: `docs/migration/PARITY.md` ↔ repo-root `progress.md`
+3. **One web part per classic page** — no hub `pageKey` router (rule 17 wins)
+4. Wave 1–3 may be one PR; Status = **wired / baseline** only
+5. Run `gulp bundle` before marking baseline done
+6. Wave 4 parity → switch to `classic-to-spfx-migration` + `classic-visual-parity` per slice
 
-## ငြင်းရမည်
+## Reject
 
-- bulk baseline wave အတွင်း parity PASS သို့ Visual PASS ပြောခြင်း
-- Hub router / လမ်းကြောင်းအားလုံးအတွက် WP တစ်ခုတည်း
-- Heft / Fluent v9၊ user ခွင့်မရ deps အသစ်
-- `dbs-mtj` paths၊ Burmese-only chat rules၊ သို့ `reply #1 no code` workflow ဖန်တီးခြင်း
-- backup/dead ASPX port လုပ်ခြင်း
+- parity PASS or Visual PASS claims during bulk baseline wave
+- Hub router / single WP for all routes
+- Heft / Fluent v9; new deps without user approval
+- mk `dbs-mtj` paths, Burmese-only chat rules, or `reply #1 no code` workflow
+- Porting backup/dead ASPX
 
-## Status အဓိပ္ပာယ်
+## Status meanings
 
-| Status | အဓိပ္ပာယ် |
+| Status | Meaning |
 |--------|---------|
-| inventory only | Docs သာ၊ WP မရှိ |
-| wired / baseline | Load ရ၊ func stub OK၊ visual FAIL ဖြစ်နိုင် |
-| parity PASS | Func + visual checklist PASS (Wave 4 သာ) |
+| inventory only | Docs; no WP |
+| wired / baseline | Loads; func stub OK; visual may FAIL |
+| parity PASS | Func + visual checklist PASS (Wave 4 only) |
 
-## ဆက်စပ်
+## Related
 
 - `.cursor/rules/17-classic-host-and-assets.mdc`
 - `.cursor/skills/classic-to-spfx-migration/SKILL.md`

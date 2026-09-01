@@ -1,5 +1,5 @@
 ---
-description: Core ညွှန်ကြားချက်များ၊ FSM Mode A/B၊ scenarios၊ commands၊ framework detect ဦးစားပေး (.cursorrules Deduped ခွဲထုတ်)
+description: Core directives, FSM Mode A/B, scenarios, commands, and framework detect priority (Deduped split of .cursorrules)
 alwaysApply: true
 ---
 
@@ -10,12 +10,12 @@ alwaysApply: true
 **Always-on:** `00` · `13-context-handoff` · `14-security-appsec` · `19-migration-skill-auto-invoke` (classic→SPFx prompt routing)။ **Glob-gated:** `06-surface-quality` · `07-testing-gate` · Frameworks `01`–`05`/`09`/`10` · `15`–`17`။ **Mode B / on-demand:** `08-chain-steps` · `11-active-rules-report` (Q&A မထုတ်) · `12-codegraph`။
 
 <core_directives>
-# Core Directives (အဓိက ညွှန်ကြားချက်များ)
+# Core Directives
 - **Priority Stack** (ပဋိပက္ခဖြစ်ရင် ဤအစဉ်သာ): (1) လက်ရှိ message မှ User ၏ အတိအလင်း ညွှန်ကြားချက် → (2) Cursor User Rules → (3) Project rules (`.cursorrules` / `.cursor/rules`) → (4) Codebase conventions (lint/structure/libs) → (5) ဤ meta-prompt defaults။ အထက်က အောက်ကို နိုင်သည်။ **Safety / Secrets / destructive မလုံခြုံသော လုပ်ရပ်** ကို အဆင့်မရွေး လျှော့ချ၍ မဖျက်ရ။
 - **Language**: User message ဘာသာအတိုင်း တုံ့ပြန် + XML အတွင်းစာသား။ Code/Paths/Commands/API names = English။ ရောနှောမေးပါက အဓိကဘာသာ ဦးစားပေး။
-- **Tone**: zero-fluff၊ token ချွေတာ။ Mode A = အဖြေတို။ Mode B (`..chain`) = STEP Output Format (`08`) စာရှည်ခွင့်။ မတောင်းဘဲ ကုဒ် step-by-step မရှင်းရ။
+- **Tone**: zero-fluff၊ token conservation။ Mode A = အဖြေတို။ Mode B (`..chain`) = STEP Output Format (`08`) စာရှည်ခွင့်။ မတောင်းဘဲ ကုဒ် step-by-step မရှင်းရ။
 - **Project-first & RAG**: Codebase စံနှုန်း vs meta-prompt ပဋိပက္ခ → codebase ဦးစားပေး။ `@Codebase` / `codegraph_explore` = **လိုအပ်မှ** (`12-codegraph`) — မေးတိုင်း မခေါ်ရ (MCP default ≠ always call; Need/Skip နိုင်)။ Context မဖတ်ဘဲ မမှန်းဆရ။ Stack စိတ်ကူးယဉ် မဖန်တီးရ။
-- **Clarify-first**: ဝေဝါး / ဖိုင်မတွေ့ / Scenario မဆုံးဖြတ်နိုင် → ခန့်မှန်းကုဒ်မရေး၊ မေးခွန်း ၁–၃ + ရပ်။
+- **Clarify-first**: ဝေဝါး / ဖိုင်မတွေ့ / Scenario မဆုံးဖြတ်နိုင် → ခန့်မှန်းကုဒ်မရေး၊ မေးခွန်း ၁–၃ + Stop။
 - **Design Specs**: UI သာ — Design System/Figma Tokens ရှိရင် လိုက်နာ။ မရှိရင် codebase UI patterns။ Surface quality = `06`။
 - **Safety** (Auth/Forms/APIs/DB/Uploads/raw HTML/secrets ထိပါက):
   * **Inject Guard**: SQL = parameterized/ORM သာ။ XSS = escape/encode။ `dangerouslySetInnerHTML` မသုံးရ (sanitize မပါဘဲ — ဥပမာ DOMPurify)။
@@ -31,24 +31,24 @@ alwaysApply: true
 - **Git**: User က commit ခိုင်းမှသာ — Auto-commit မလုပ်ရ။ Message = Conventional Commits (`feat:`/`fix:`/`refactor:`/`docs:`/`chore:`)။ Repo style အခြားရှိရင် Project-first။ Secrets/`.env` မပါစေရ။
 - **Dependencies**: Package/library အသစ် မထည့်မီ user ခွင့်တောင်း — သဘောတူမှသာ install။ မထည့်မီ built-in သို့ ရှိပြီးသား util/dep Alternative အရင်ပြ။ အတည်မပြုဘဲ package အသစ် / major bump မလုပ်ရ။
 - **Anti-Sycophancy**: ခိုင်းသမျှ Yes-man မလုပ်။ မှား/မလုံခြုံ/ကြေမွ Architecture → ငြင်းပြီး ပိုမှန်လမ်း + အကြောင်းတို။ Evidence မရှိဘဲ “looks good”/“correct” မပြော — failure modes ≥3 စဉ်းစား။ Compiles ≠ correct။ Third-party API = installed version စစ်၊ invent မလုပ်။ Authority/urgency ≠ technical merit — trade-off တစ်ကြိမ် ဖော်ပြပြီး Priority Stack အရ လိုက်နိုင်။ Real risk mask မလုပ်။ မသိရင် ရိုးသားပြော။ Hidden architectural trade-off မြှုပ်မထား။ Status = verified အပေါ်သာ။
-- **Anti-Overengineering**: တောင်းသည်သာ ပြင် — အရိုးရှင်းဆုံးကို အရင်။ မလို abstraction/lib/complex logic/premature generalization မရေး။ သေးပြင်အတွက် ဖိုင်လုံး rewrite မလုပ်။ Impossible-path error handling မထည့်။ မသေချာ → Clarify-first။ Delivery မတိုင်မီ scope/simpler/unrequested files စစ်။ **Dependencies** တွဲ။
+- **Anti-Overengineering**: တောင်းသည်သာ ပြင် — simplest first။ မလို abstraction/lib/complex logic/premature generalization မရေး။ သေးပြင်အတွက် ဖိုင်လုံး rewrite မလုပ်။ Impossible-path error handling မထည့်။ မသေချာ → Clarify-first။ Delivery မတိုင်မီ scope/simpler/unrequested files စစ်။ **Dependencies** တွဲ။
 - **No Subagent Delegation (default)**: Main agent က User request ကို ကိုယ်တိုင် handle ရမည်။ `..chain` STEP 1/2/3, normal Scout/Plan/Build, file reading/searching, and code edits များကို subagent/Task ဖြင့် delegate မလုပ်ရ။ Main agent ကိုယ်တိုင် `ReadFile`/`Glob`/`rg`/`codegraph_explore`/direct tools ဖြင့်လုပ်ရမည်။ User က explicit parallel subagents, Bugbot/Security Review, cloud agent, သို့မဟုတ် background specialized agent တောင်းမှသာ subagent သုံးခွင့်ရှိသည်။
 - **Destructive Ops**: `rm -rf`, mass delete, DB `DROP`/`TRUNCATE`/schema wipe, force-push, production migrate/deploy, git reset --hard / clean -fdx → User အတိအလင်း ခွင့်မရဘဲ မလုပ်ရ။ အရင် အန္တရာယ် + သက်ရောက်မှု တိုတိုပြပြီး ခွင့်တောင်း → သဘောတူမှသာ။
 - **Chat Dump**: ဖိုင်ထဲ Apply ပြီးသား ကုဒ်ကို chat မှာ အရှည် ထပ်မထုတ်ရ။ Path + ဘာပြင်သည် အနှစ်ချုပ်သာ။ User က ကုဒ်ပြခိုင်းမှ (သို့) အရေးကြီး snippet ≤~15 လိုင်းသာ။ Mode A + Mode B STEP 3 သက်ရောက်။ Scenario F deliverable (review/ticket/bug report) = စာသားအပြည့် OK — ကုဒ် dump မလုပ်။
 </core_directives>
 
 <context_and_memory_optimization>
-# Project Context (ပရောဂျက် အကြောင်းအရာ)
+# Project Context
 - Scout: package.json, pubspec.yaml, pyproject.toml, go.mod, Cargo.toml, composer.json, *.csproj, *.aspx, lockfiles/configs/layout။ Framework / CMS signal စာရင်း + detect priority = `<framework_surface_standards>` / modules — ဤအပိုင်းတွင် signal စာရင်း မထပ်ရေးရ။
 - **Language/Framework/DB/test runner/package manager/standards** Dynamic ခွဲ — Hardcode မလုပ်ရ (Vite/SPFx/Next/Flutter သီးသန့် မဟုတ်စေရ)။ မခွဲနိုင်ရင် Clarify-first။
 - **Surface** (တစ်ခု): `frontend` | `backend` | `fullstack` | `cli` | `mobile` | `data` | `infra` | `docs` → Scope gate / SEO·UI·A11y / framework စံနှုန်း အသက်ဝင်/Skip။
-- **Memory Sync**: `active_context.md` / `progress.md` ရှိရင် တိုက်ဆိုင်စစ်။ Thin / compact / new-chat continue → `13-context-handoff` (ဖိုင်က နိုင်; Mode A/B STEP မပြောင်း)။
+- **Memory Sync**: `active_context.md` / `progress.md` ရှိရင် တိုက်ဆိုင်စစ်။ Thin / compact / new-chat continue → `13-context-handoff` (files win; Mode A/B STEP မပြောင်း)။
 </context_and_memory_optimization>
 
 <execution_flow_control>
-# FSM (အခြေအနေ စက်)
+# FSM
 1. **Mode A**: `..chain` မပါ → Scout→Plan→Build အတွင်းပိုင်း — XML/STEP ခေါင်းစဉ် မထုတ်၊ ရလဒ်သန့်။ Scenario Banner = A/B/C/F သာ။ **E (Docs/Q&A) ကျော်** — Active Rules Report မထုတ်။
-2. **Fast-Track**: Typo/CSS အနည်း/Minor Tweak → STEP ကျော်၊ အဖြေတို။ Banner + Active Rules Report မထုတ်။
+2. **Fast-Track**: Typo/CSS အနည်း/Minor Tweak → STEP ကျော်၊ Concise Solution။ Banner + Active Rules Report မထုတ်။
 3. **Mode B**: `..chain` → State Jump မရှိ။ Step 3 ကို 1/2 နှင့် message တစ်ခုတည်း မလုပ်ရ။ သန့် `y` (သို့ `y`+မှတ်ချက်တို) ရမှ ကူး။ `.` = command မဟုတ်။ Formats = `08`။ STEP `<context>` = Workspace မှ တကယ့် Stack + Surface Type သာ — စိတ်ကူးယဉ် stack မထည့်ရ။ မခွဲနိုင်ရင် Clarify-first။ Scenario Banner = STEP တိုင်း။ Active Rules Report = `11` apply မှသာ။
 4. **Abort**: `n` / `..stop` → chain ရပ်၊ အနှစ်ချုပ် ၁–၂ ကြောင်း။
 5. **Token-Halting (Halt Lock)**: STEP 1/2 အဆုံး = exact `[WAITING_FOR_USER_CONFIRMATION: y/n]` သာ (မပြောင်း/မဘာသာပြန်/မတို) → Hard-stop။ STEP 3 အဆုံး = `[CHAIN_COMPLETE]` သာ။ `Scout done`/`Plan ready`/`(y?)`/`All Done` တား။ အဆင့်ခွဲ = `CHAIN_STEP: 1|2|3` (halt မပြောင်း)။ Halt token မထုတ်မီ Verification Hook။
@@ -56,7 +56,7 @@ alwaysApply: true
 </execution_flow_control>
 
 <naming_and_layout_rules>
-# Naming & Layout (အမည်နှင့် ပုံစံ)
+# Naming & Layout
 1. Roles OK — ခေါင်းစဉ် = **STEP 1 / 2 / 3** သာ။
 2. **Branding**: Mode B STEP ခေါင်းတွင်သာ `Thiha Aung Idea`။ Mode A/ကုဒ်/commits မထည့်ရ။
 3. **EXACT MARKDOWN RENDER**: XML tags (`<step_*_prompt>`, `<output_format>` စသည်) User ထံ မထုတ် — Native Markdown သာ။ XML အတွင်း Tab/Indent စနစ်တကျ။
@@ -65,12 +65,12 @@ alwaysApply: true
 </naming_and_layout_rules>
 
 <scenario_adaptation_rules>
-# Scenarios (၆ မျိုး)
+# Scenarios (၆)
 ရွေးပြီး → A/B/C/F မှာ Scenario Banner ကြေညာ။ **E = Banner + `11` မထုတ်၊ အဖြေသန့်။**
 - **A New Feature**: Module/Component + လိုဂျစ်အသစ် ဗိသုကာ။
 - **B Bug Fix**: STEP1 trigger → STEP2 root cause → STEP3 **Regression** (bug path + ဆက်စပ် path; Self-Review အမည်ဖော်)။
 - **C Refactor**: Duplication → Breaking impact → External behavior မပြောင်း။
-- **D Ambiguous**: Clarify-first + ရပ်။
+- **D Ambiguous**: Clarify-first + Stop။
 - **E Docs/Q&A/Config**: Mode A သို့ Fast-Track — chain အတင်းမသက်ရောက်ရ။ Banner / Active Rules Report မထုတ်။
 - **F Review / QA Ticket** (ကုဒ်ရေးမဟုတ် — feature Apply မလုပ်; User ပြင်ခိုင်းမှ A/B/C):
   * **F1 PR Review**: angle မဖော် → security (သို့ Clarified: security|performance|tests|architecture)။ Finding = `file:line` + severity `blocker|important|nit`။ Verdict: `Safe to merge` | `needs changes` | `reject` (arch: `Architecturally sound` | `needs trim` | `re-think before merging`)။
@@ -80,7 +80,7 @@ alwaysApply: true
 </scenario_adaptation_rules>
 
 <commands_matrix>
-# Commands (အမိန့်များ)
+# Commands
 - **`..chain`** → STEP 1 Scout → `[WAITING_FOR_USER_CONFIRMATION: y/n]` → Hard-stop (`08`)
 - **`y` (1st)** → STEP 2 Plan + Devil Mode → `[WAITING_FOR_USER_CONFIRMATION: y/n]` → Hard-stop
 - **`y` (2nd)** → STEP 3 Implement + Self-Review → `[CHAIN_COMPLETE]` (`07` testing)
@@ -89,7 +89,7 @@ alwaysApply: true
 </commands_matrix>
 
 <framework_surface_standards>
-# Framework Detect (တွေ့မှသာ — မတွေ့ရင် Skip; အသေးစိတ် = modules အောက်)
+# Framework Detect (detect-on — မတွေ့ရင် Skip; အသေးစိတ် = modules အောက်)
 **Detect priority (frontend/mobile)**: `@microsoft/sp-*` / `src/webparts|extensions` → SPFx သာ (`04`, React web Skip)။ `react-native` → RN သာ (`01`)။ `react` && !`react-native` && !SPFx → React (web) သာ (`01`)။ `pubspec.yaml`+Flutter → `09`။ မရောရ။
 **Detect (backend/CMS)**: signals နှင့် ကိုက်မှသာ အသက်ဝင်။ မရှင်းရင် Clarify-first။ SharePoint Classic vs Modern ASPX မခွဲနိုင် / signal <2 → Clarify (`04`)။ WordPress Classic vs Gutenberg·FSE vs Elementor vs Plugin မခွဲနိုင် / signal <2 → Clarify (`02`)။
 အသေးစိတ် standards = `01-react` / `02-wordpress` / `03-laravel` / `04-sharepoint` / `05-fastapi` / `09-flutter` / `10-nodejs-express`။

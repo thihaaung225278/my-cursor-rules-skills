@@ -1,21 +1,60 @@
-# progress — project-saral
+# progress — DBS-FFW
 
-## Inventory / slices
+> Slice ပြီးတိုင်း status ပြင်။ `active_context.md` Current slice နဲ့ sync ထား။ `docs/migration/PARITY.md` နဲ့ တိုက်ဆိုင်ထား။
 
-| Slice | Status | Notes |
-|-------|--------|-------|
-| SaralChrome live ShowHeader/ShowFooter | code sure-fix · deploy pending | v`1.0.0.5`: in-WP `PageChrome` on KH/CH/Repo + site feature CustomAction (`skipFeatureDeployment: false`). Bundle ship PASS. |
-| Clearing House / KH / Repository WPs | see docs/migration/PARITY.md | CH quote-bubble type cloned; live visual QA pending. Repo listing + `?itemId=` detail on same WP. **Repo filter pills + lookup Titles:** STEP 3 — `pill-x.webp` close on `.pillButton`; Cluster/Product/Department/Owner via `*Id` + list Title join (`gulp test` PASS); live filter/card/detail QA pending. **CH Submitted Ideas → Repo detail:** writers emit `itemId` (strip reserved `id`); **`env=WebView` on detail href:** STEP 3 — `withPageUrlQuery` copies `env` + CH cards force `env=WebView` (`gulp test` PASS); live click QA pending (old `?id=` bookmarks still host-404). **Repo card hover white line:** STEP 3 — `.cardOverlay` `z-index: 2` above `.spacer` (`gulp test` PASS); live hover QA pending. **Repo Submit Feedback button:** classic `.btn-red` tokens (200×47, pad 13×25, 14px/600) + header gap · gulp test PASS; live visual QA pending. **Repo Submit Feedback Direct2RC modal:** STEP 3 — shared `Direct2RcModal` (reuse CH submit); in-place on repository (`gulp test` PASS); live overlay QA pending. **Repo detail vs `SComms Votes` 404:** STEP 3 — 404 degrades to default likes; item still renders. **Submissions detail loading overlay:** STEP 3 + 0.5 backdrop / min 500ms hold · gulp test PASS. **Repo detail Verdict / Details on areas of concern:** OpenSans-Bold headings, host `h3` underline reset, classic `50vw`/`2.5px #858f97` splitter, Bootstrap `col-md-10` wrap (`gulp test` PASS); live visual QA pending. **Repo detail Back / Title / Like + Owner–Status white-box:** STEP 3 — `heart-spr.webp` on `.btnHeart` (`#ff0023` 160×47 sprite), white-box `#4e74ff` OpenSans-Bold values + host border reset, Back 16px OpenSans-Bold; no invented title icon (`gulp test` PASS); live visual QA pending. **Repo detail title size:** UIKit h1 35.7px / 42px `@media (min-width: 960px)` + host `h1.detailTitle` reset (`gulp test` PASS); **title width:** classic `col-md-10` wrap (`gulp test` PASS); live visual QA pending. Card lines + paginationBox sprite = code (live visual QA pending). KH visual QA pending |
-| Raster → WebP (same px) | ship sppkg ~1.5 MB | Path: `project-saral-SPFX/sharepoint/solution/project-saral-spfx.sppkg` v`1.0.0.7` rebuilt 25 Aug 12:04 (`gulp clean` + `--ship`; includes Repo `pill-x` + lookup Titles + CH `env=WebView`/`itemId`) |
-| CSV List Importer — list columns preview | STEP 3 implemented · gulp test PASS | Step 2 schema until CSV; Title + InternalName + Type + Required |
-| CSV List Importer — Repo import 400 / Title | STEP 3 implemented · gulp test PASS | GUID `{}` strip + getbyid 400 retry; Title from compact title/documenttitle. Live re-import pending |
-| CSV List Importer — Area of concern → Details_on_area_of_concern | retargeted · gulp test PASS | Target is ProjectSaral Clearing House Repository, not Details list / not classic |
-| Page-load overlay (all WPs) | STEP 3 · gulp test PASS · live visual QA pending | Shared `PageLoading` (classic `#fff` + bounce, no logo). KH / CH / Repo listing+detail / CSV `loadingLists`. Detail 500ms hold kept. |
+**Updated:** 2026-08-31 (ship v1.0.0.10 — classic favicon)
+
+## Legend
+
+`todo` · `doing` · `done` · `defer` · `cut`
+
+Status meanings (migration): **inventory only** · **wired / baseline** · **parity PASS**
+
+## Scope (user-confirmed)
+
+Migrate **all year folders**: `2023/` · `2024/` · `2025/`. Visual SoT **per slice** = that year's `style.css` + `sass/` (not 2025-only). Backup/test artifacts remain **cut**.
+
+## Tooling (meta)
+
+| Item | Status |
+|------|--------|
+| `.cursor/rules` + project skills | done |
+| Context handoff (`13` + hooks) | done |
+| `.cursorignore` / `codegraph.json` | done — all years indexed; backup `*-bk.js`, `index-old.aspx`, test files excluded |
+| Unused framework rules archived | done — `.cursor/rules/archive/` |
+| `active_context.md` / `progress.md` | done |
+| `docs/migration/PARITY.md` sync | done — full-year inventory |
+| SPFx scaffold `DBS-FFW-SPFX` | done — **Ffw2023** + **PostEvent2023** + **Ffw2024** + **Ffw2025** |
+| `config/serve.json` real site URL | done — `ffw2023` → index.aspx · `postEvent2023` → post-event.aspx · `ffw2024` → index2024.aspx · `ffw2025` → index2025.aspx |
+| **Ffw2023 + PostEvent2023 + Ffw2024 + Ffw2025 ship package** | done — v1.0.0.10 · `npm run ship` · ~7.7 MB (classic favicon included) |
+| Codegraph index | done — 37 files · 471 nodes · 2023+2024+2025 (backups/tests excluded) |
+| Codegraph auto-sync | done — MCP `serve --mcp` watcher |
+| Classic favicon (all live WPs) | done (code + shipped **v1.0.0.10**) — `src/shared/host/favicon.ico` + `classicHostUnlock`; **live tab smoke after App Catalog**; **parity PASS မဟုတ်** |
+
+## Inventory → target
+
+| Classic surface | Scripts / notes | SPFx target | Status |
+|-----------------|-----------------|-------------|--------|
+| `2025/index.aspx` | live boot = `indexController-current.js` + `events-current.json`; live = About + Highlights + GIF gallery + Schedule; `.post-event-sec` CSS hidden | **Ffw2025** | wired / baseline — shipped **v1.0.0.9**; schedule `.contents` opacity 1 (classic cascade; over-specific `.check-past` 0.4 ဖြုတ်); **parity PASS မဟုတ်** |
+| `2025/past-events.aspx` | `indexControllerPastEvent.js` | **PastEvents** | todo |
+| `2025/back-door.aspx` | inline admin date override | **BackDoor** | defer |
+| `2024/index.aspx` | `indexController.js` + `common.js` — live = thank-you / video-playbacks (`.post-event-sec` hidden) | **Ffw2024** | wired / baseline — shipped **v1.0.0.8**; Video Playbacks flatten + `.desc` a/img; `.desc a` host underline ဖြုတ်; **parity PASS မဟုတ်** |
+| `2024/past-events.aspx` | `indexControllerPastEvent.js` | WP TBD | todo |
+| `2024/back-door.aspx` | inline admin | WP TBD | defer |
+| `2023/index.aspx` | `indexController.js`, `common.js`, `spbase/config.js` | **Ffw2023** | wired / baseline — menu hash/anchor classic 1000ms scroll + `pushState`; remainder visual/func parity pending |
+| `2023/post-event.aspx` | `indexController.js`, `common.js` | **PostEvent2023** | wired / baseline — `#schedule` `renderEventList`; `#game_show_winners` no photo slider (dropdown-above-card); shipped **v1.0.0.7**; **parity PASS မဟုတ်** |
+| `2023/back-door.aspx` | inline admin | WP TBD | defer |
+| Inline `header.page-banner` | chrome in each ASPX | stay in-page | defer AC |
+| `2024/index-old.aspx` / `2024/index-current.aspx` / `2023/clickr-test.aspx` | backups / test | — | cut |
+| Per-year `style.css` + `sass/` | visual SoT per slice | `*.module.scss` via `classic-visual-parity` | todo |
+| Per-year `public/css/vendor/uikit.min.css` | `uk-*` | `uikit-to-spfx-visual-parity` | todo |
+| Year JSON (`events.json`, `participants.json`, `post-event.json`) | per year folder | bundled in **Ffw2023** `assets/data/` — **PostEvent2023** consumes same | done (2023 index + post-event) |
 
 ## Suggested order
-1. App catalog upload `1.0.0.7` + Enable (`sharepoint/solution/project-saral-spfx.sppkg`; ignore Teams add error)
-2. **Project Saral → Site contents → Add/update app** (required for AC; WP fallback still needs new assets)
-3. Live WebView smoke (no debug) on knowledge-hub + clearing-house + repository (include CH idea → detail)
-4. Optional local: `gulp serve --config the-clearing-house-repository` — card hover overlay (no white spacer line) + card lines + paginationBox sprite
-5. Optional: csv-list-importer → target Clearing House Repository → Import (once) → AllItems.aspx
-6. Resume parity slices per PARITY.md
+
+1. **Ffw2025** live smoke vs classic — schedule cards opaque white + full-contrast type (`npm run serve:ffw2025` on `index2025.aspx`)
+2. `2025/past-events.aspx` → **PastEvents**
+3. Ffw2024 remainder visual — parked
+4. Wave 4 remainder **PostEvent2023** / **Ffw2023** vs 2023 live
+5. `2024/past-events.aspx` then `2024/back-door.aspx` (defer)
+6. `2023/back-door.aspx` (defer)

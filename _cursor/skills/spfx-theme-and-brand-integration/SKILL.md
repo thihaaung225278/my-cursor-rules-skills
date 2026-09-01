@@ -13,8 +13,8 @@ description: Theme token, semantic slot, and brand font guidance for SPFx enterp
 
 ## Do not use for
 
-1. Hard-coded theme color overrides — **except** this repo's classic visual clone (`classic-visual-parity`): classic hex/px from `project-saral-classic/project-saral/assets/css/shared.css` are required.
-2. Ad-hoc font imports that bypass tenant strategy — OpenSans faces already in classic/SPFx assets are in-scope for the clone.
+1. Hard-coded theme color overrides — **except** this repo's classic visual clone (`classic-visual-parity`): classic hex/px from `DBS-FFW-classicsite/2025/style.css` are required.
+2. Ad-hoc font imports that bypass tenant strategy — OpenSans-Condensed faces already in classic/SPFx assets are in-scope for the clone.
 
 ## Trigger conditions
 

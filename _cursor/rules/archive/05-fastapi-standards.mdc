@@ -1,5 +1,5 @@
 ---
-description: FastAPI backend စံနှုန်းများ — pyproject/requirements တွင် fastapi တွေ့မှသာ (Deduped split)
+description: FastAPI backend standards — apply when fastapi in pyproject/requirements detected (Deduped split)
 globs:
   - "**/main.py"
   - "**/api/**/*.py"
@@ -10,7 +10,7 @@ globs:
 alwaysApply: false
 ---
 
-# FastAPI (detect: `pyproject.toml` / `requirements*.txt` တွင် `fastapi`)
+# FastAPI (detect: `fastapi` in `pyproject.toml` / `requirements*.txt`)
 
 - Surface `backend`။ `APIRouter` + Pydantic models/schemas — business logic route ထဲ မရောအောင် ခွဲ။
 - DB = SQLAlchemy/ORM သို့ parameterized — string concat SQL မဆောက်ရ။

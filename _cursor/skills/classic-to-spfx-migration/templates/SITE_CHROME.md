@@ -1,4 +1,4 @@
-# Site Pages chrome toggles (project-saral)
+# Site Pages chrome toggles (DBS-FFW)
 
 Classic pages keep **inline** chrome. Use Site Pages Yes/No columns **only** when a modern host page must hide SharePoint chrome around a full-bleed / SPA web part. Not an Application Customizer. Not required for Visual PASS of the cloned body UI.
 

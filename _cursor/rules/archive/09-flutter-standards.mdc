@@ -1,5 +1,5 @@
 ---
-description: Flutter mobile စံနှုန်းများ — pubspec.yaml + Flutter SDK တွေ့မှသာ (Deduped split)
+description: Flutter mobile standards — apply when pubspec.yaml + Flutter SDK detected (Deduped split)
 globs:
   - "**/pubspec.yaml"
   - "**/*.dart"

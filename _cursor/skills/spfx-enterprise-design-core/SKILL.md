@@ -90,11 +90,11 @@ Core rules:
    - **Small (< 480px)**: single-column, stacked content; hide non-essential chrome.
    - **Medium (480–1024px)**: two-column cards, condensed table, fewer visible commands.
    - **Large (> 1024px)**: full grid/table, full command bar.
-   - **Exception (this repo classic clone):** copy `@media` widths from `project-saral-classic/project-saral/assets/css/shared.css` (commonly 320 / 500 / 639 / 768 / 959 / 990 / 991 / 1200 / 1300 / 1600). Do **not** replace with 480/1024 heuristics.
+   - **Exception (this repo classic clone):** copy `@media` widths from `DBS-FFW-classicsite/2025/style.css` (commonly 1200 / 1024 / 959 / 768 / 640 / 480). Do **not** replace with Fluent-only 480/1024 heuristics.
 
 3. **Do not rely on pixel-perfect design** (generic SPFx)
    - Design for **content resilience**: longer labels, translated text, variable data.
-   - **Exception:** classic → SPFx in this repo **does** require pixel match vs `project-saral-classic/project-saral/assets/css/shared.css`.
+   - **Exception:** classic → SPFx in this repo **does** require pixel match vs `DBS-FFW-classicsite/2025/style.css`.
 
 CSS snippet:
 ```scss
