@@ -36,3 +36,4 @@ alwaysApply: false
 - Data = SPHttpClient / PnPjs (ရှိပြီးသား) — raw concat မဆောက်။ permissions/AuthZ list·item စစ်။
 - Styling = `*.module.scss`။ **ဤ repo page UI** = classic `DBS-FFW-classicsite/2025/style.css` exact values (`classic-visual-parity`) — Fluent/theme tokens နဲ့ အစားမထိုးရ။ `@media` = classic breakpoint px (Fluent-only 480 မသုံး)။ global CSS chrome မထိ (host-gap body paint သာ documented exception)။ `gulp bundle`/`gulp serve`။
 - Test = Testing Gate (`gulp test` / Manual workbench) + **visual vs classic** (`classic-visual-parity`)။ Application Customizer ≠ Web Part — သက်ဆိုင် skill/path သာ။
+- Comments = English only (`00`); rewrite non-English on edit

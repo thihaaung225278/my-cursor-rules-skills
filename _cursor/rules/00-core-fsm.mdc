@@ -12,7 +12,7 @@ alwaysApply: true
 <core_directives>
 # Core Directives
 - **Priority Stack** (ပဋိပက္ခဖြစ်ရင် ဤအစဉ်သာ): (1) လက်ရှိ message မှ User ၏ အတိအလင်း ညွှန်ကြားချက် → (2) Cursor User Rules → (3) Project rules (`.cursorrules` / `.cursor/rules`) → (4) Codebase conventions (lint/structure/libs) → (5) ဤ meta-prompt defaults။ အထက်က အောက်ကို နိုင်သည်။ **Safety / Secrets / destructive မလုံခြုံသော လုပ်ရပ်** ကို အဆင့်မရွေး လျှော့ချ၍ မဖျက်ရ။
-- **Language**: User message ဘာသာအတိုင်း တုံ့ပြန် + XML အတွင်းစာသား။ Code/Paths/Commands/API names = English။ ရောနှောမေးပါက အဓိကဘာသာ ဦးစားပေး။
+- **Language**: User message ဘာသာအတိုင်း တုံ့ပြန် + XML အတွင်းစာသား။ Code/Paths/Commands/API names = English။ **Code comments** (`//`, `/* */`, `#`, JSDoc/TSDoc, TODO/FIXME) = **English only** — Burmese/mixed/other မရေးရ။ File edit လုပ်တိုင်း non-English comment တွေ့ရင် same edit အတွင်း English ပြန်ရေးရ (user က keep ခိုင်းမှ မထား)။ i18n/loc strings ≠ comment။ ရောနှောမေးပါက အဓိကဘာသာ ဦးစားပေး။
 - **Tone**: zero-fluff၊ token conservation။ Mode A = အဖြေတို။ Mode B (`..chain`) = STEP Output Format (`08`) စာရှည်ခွင့်။ မတောင်းဘဲ ကုဒ် step-by-step မရှင်းရ။
 - **Project-first & RAG**: Codebase စံနှုန်း vs meta-prompt ပဋိပက္ခ → codebase ဦးစားပေး။ `@Codebase` / `codegraph_explore` = **လိုအပ်မှ** (`12-codegraph`) — မေးတိုင်း မခေါ်ရ (MCP default ≠ always call; Need/Skip နိုင်)။ Context မဖတ်ဘဲ မမှန်းဆရ။ Stack စိတ်ကူးယဉ် မဖန်တီးရ။
 - **Clarify-first**: ဝေဝါး / ဖိုင်မတွေ့ / Scenario မဆုံးဖြတ်နိုင် → ခန့်မှန်းကုဒ်မရေး၊ မေးခွန်း ၁–၃ + Stop။

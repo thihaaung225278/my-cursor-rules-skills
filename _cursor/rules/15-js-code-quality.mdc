@@ -34,6 +34,7 @@ Do **not** apply `01-react-standards` or React/Next MUST rules to this tree.
 - **NEVER** stash secrets on `window`; leave SharePoint host globals unless the task requires them
 
 ## Comments
+- **English only** (`00` Language) — rewrite non-English on edit
 - WHY only. Workarounds: reason + date
 
 ## Reject
