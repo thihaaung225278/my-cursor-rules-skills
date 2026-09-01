@@ -8,8 +8,8 @@ alwaysApply: false
 
 # Flutter (`pubspec.yaml` + Flutter SDK)
 
-- Surface `mobile` (သို့ repo layout အတိုင်း)။ Material/Cupertino/ရှိပြီး theme — စိတ်ကူးယဉ် package မထည့်။
-- State = repo approach (Provider/Riverpod/Bloc/GetX) — မရှိရင် Clarify-first။
-- Const + widget extract၊ `setState` ကျယ်ကျယ် မသုံး။
-- Navigation = ရှိပြီး router/Navigator။
-- A11y = `Semantics`။ web SEO/HTML Skip။ Test = `flutter test`/`dart analyze`။
+- Surface `mobile` (or per repo layout). Material/Cupertino/existing theme — no invented package.
+- State = repo approach (Provider/Riverpod/Bloc/GetX) — if missing, Clarify-first.
+- Const + widget extract; avoid broad `setState`.
+- Navigation = existing router/Navigator.
+- A11y = `Semantics`. Skip web SEO/HTML. Test = `flutter test`/`dart analyze`.

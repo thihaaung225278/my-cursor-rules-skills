@@ -35,7 +35,7 @@ Prefer refreshing handoff **before** compact (long thread / heavy tools). Do not
 
 Trigger any of:
 
-- User: `context thin` · `handoff only` · `no code` · chat အသစ် / continue-from-files
+- User: `context thin` · `handoff only` · `no code` · new chat / continue-from-files
 - Self-check: long thread + large tool dumps + cannot restate DONE/NEXT from **files** without guessing
 - Mid Mode B STEP 1/2/3 and the next action would require facts not in files or this turn’s tool results
 - **`preCompact` signal** (warn, `active_context` Compaction signal block, or `.cursor/compaction-pending.json`) — treat as thin · handoff only (hook cannot block compact)
@@ -70,7 +70,7 @@ Treat file memory upkeep as part of the work, not an optional wrap-up.
 
 ## New chat / continue paste
 
-Keep a fenced paste under `active_context.md` “Context ကုန်လို့ နောက် chat”:
+Keep a fenced paste under `active_context.md` "Next chat after context exhausted":
 
 ```
 Continue DBS-FFW from active_context.md + progress.md.

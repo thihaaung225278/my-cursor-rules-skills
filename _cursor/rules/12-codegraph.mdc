@@ -5,30 +5,30 @@ description: >-
 alwaysApply: false
 ---
 
-# Codegraph (လိုအပ်မှသုံး · မလိုရင် မသုံး)
+# Codegraph (use when needed · skip when not)
 
-Product/server = Codegraph (MCP)။ Tool = `codegraph_explore` **သာ**။ **မေးခွန်းတိုင်း မခေါ်ရ**။ Index (`.codegraph/`) သို့ MCP ရမှသာ စဉ်းစား။
-**MCP default ≠ always call** — tool description က “almost any question” လို့ပြောလည်း ဤ Need/Skip က နိုင်သည် (Priority Stack → project rules)။
+Product/server = Codegraph (MCP). Tool = `codegraph_explore` **only**. **Do not call on every question.** Consider only if Index (`.codegraph/`) or MCP available.
+**MCP default ≠ always call** — even if tool description says "almost any question", this Need/Skip policy applies (Priority Stack → project rules).
 
-## သုံးရန် (Need)
+## Use (Need)
 
-- Symbol / “ဘယ်မှာ / ဘယ်သူခေါ် / call path / blast radius / how does X work”
-- ဖိုင်နာမည် မသေချာ၊ impact radius လို (Mode B STEP 1 Scout အပါအဝင်)
-- Edit မတိုင်မီ သက်ဆိုင်ရာ symbol source + dependents တစ်ခါတည်း လို
+- Symbol / "where / who calls / call path / blast radius / how does X work"
+- File name uncertain, or impact radius needed (including Mode B STEP 1 Scout)
+- Before edit, need relevant symbol source + dependents at once
 
-→ Read/Grep မလုပ်မီ `codegraph_explore` အရင် (တစ်ခေါ် သို့ အနည်းငယ်)။
+→ Try `codegraph_explore` before Read/Grep (once or few calls).
 
-## မသုံးရန် (Skip)
+## Skip
 
-- Path/ဖိုင် `@` သို့ user က တိကျပေးပြီးသား + အကြောင်းအရာ သိပြီး
-- Typo / CSS တစ်နေရာ / Fast-Track minor tweak
+- Path/file `@` or user gave exact path + context known
+- Typo / single CSS fix / Fast-Track minor tweak
 - Docs / Q&A / config / lockfile / non-indexed assets
-- **ဤ repo:** `.aspx`, `DBS-FFW-classicsite/2025/style.css`, `*.module.scss` visual clone, vendor `*.min.js` / UIKit / Swiper — index မလုပ် (သို့ noise)။ `Read` / `classic-visual-parity`
-- Index မရှိ · MCP fail · “not indexed” → ထပ်မခေါ်၊ Read/Grep/Glob သို့ fallback။ User ကို `codegraph init` mention လို့ရ — ကိုယ်တိုင် မမောင်းရ။
+- **This repo:** `.aspx`, `DBS-FFW-classicsite/2025/style.css`, `*.module.scss` visual clone, vendor `*.min.js` / UIKit / Swiper — do not index (or noise). Use `Read` / `classic-visual-parity`
+- No index · MCP fail · "not indexed" → do not retry; fallback Read/Grep/Glob. May mention `codegraph init` to User — do not run yourself.
 
-**ဤ repo Need:** `DBS-FFW-classicsite/**/public/js/controller/*`, `DBS-FFW-classicsite/**/public/js/lib/*`, `DBS-FFW-SPFX/src/**/*.{ts,tsx}` — ASPX/CSS မဟုတ်။
+**This repo Need:** `DBS-FFW-classicsite/**/public/js/controller/*`, `DBS-FFW-classicsite/**/public/js/lib/*`, `DBS-FFW-SPFX/src/**/*.{ts,tsx}` — not ASPX/CSS.
 
-## စည်းမျဉ်း
+## Rules
 
-- Codegraph ရလဒ်ကို Grep နဲ့ မလိုအပ်ဘဲ ပြန်မစစ် (AST index)။ Staleness banner ရှိမှ ထိုဖိုင်များကို Read။
-- မရှိမဖြစ်မဟုတ် — အကျိုးရှိမှသာ။ Token/latency အလဟဿ မဖန်တီးရ။
+- Do not re-verify Codegraph results with Grep unnecessarily (AST index). Read files with staleness banner only.
+- Not mandatory — only when beneficial. Do not waste token/latency.

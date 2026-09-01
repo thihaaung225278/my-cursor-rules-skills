@@ -11,12 +11,12 @@ globs:
 alwaysApply: false
 ---
 
-# Laravel (detect: `artisan` + `composer.json` တွင် `laravel/framework`)
+# Laravel (detect: `artisan` + `laravel/framework` in `composer.json`)
 
-FastAPI = `05` · Node/Express = `10`။
+FastAPI = `05` · Node/Express = `10`.
 
-- Surface `backend`/`fullstack`။ Routes/Controllers/Migrations/Eloquent = Laravel conventions။
-- DB = Eloquent/Query Builder parameterized — raw concat SQL မဆောက်ရ။
-- AuthZ = policies/gates/middleware။ Form/state-changing → CSRF (`@csrf`/VerifyCsrfToken)။
-- Validation = Form Request / validator။ Secrets = `.env` + `config()` — hardcode မလုပ်ရ။
-- Test = `phpunit` / `pest` ရှိရင် Testing Gate (`07`) အတိုင်း။
+- Surface `backend`/`fullstack`. Routes/Controllers/Migrations/Eloquent = Laravel conventions.
+- DB = Eloquent/Query Builder parameterized — no raw concat SQL.
+- AuthZ = policies/gates/middleware. Form/state-changing → CSRF (`@csrf`/VerifyCsrfToken).
+- Validation = Form Request / validator. Secrets = `.env` + `config()` — no hardcode.
+- Test = `phpunit` / `pest` if present per Testing Gate (`07`).

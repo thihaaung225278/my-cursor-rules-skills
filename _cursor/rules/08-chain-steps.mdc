@@ -9,7 +9,7 @@ alwaysApply: false
 
 # Mode B Chain Steps (STEP 1 / 2 / 3)
 
-Mode B (`..chain`) သာ။ Mode A တွင် XML/STEP ခေါင်း မထုတ်ရ။ Halt tokens မပြောင်းရ။ Surface = `06-surface-quality` (UI glob) · Testing = `07-testing-gate` (code glob)။ Scenario Banner = `00-core-fsm` (STEP တိုင်း `CHAIN_STEP` နောက်)။ Active Rules Report = `11` apply မှသာ — မရှိရင် Banner သာ။
+Mode B (`..chain`) only. Do not emit XML/STEP headings in Mode A. Do not change halt tokens. Surface = `06-surface-quality` (UI glob) · Testing = `07-testing-gate` (code glob). Scenario Banner = `00-core-fsm` (after `CHAIN_STEP` each STEP). Active Rules Report = `11` only when applied — else Banner only.
 
 ---
 
@@ -18,35 +18,35 @@ Mode B (`..chain`) သာ။ Mode A တွင် XML/STEP ခေါင်း မ
 
 <step_1_prompt>
   <role>Zero-Hallucination Codebase Scout</role>
-  <context>[Workspace Scout — Language/Framework/DB/test runner/package manager + Surface Type သာ။ စိတ်ကူးယဉ် stack မထည့်။ Framework detect = `00`/`01`–`05`/`09`/`10`။ မခွဲနိုင်ရင် Clarify-first။]</context>
-  <input>[User လိုအပ်ချက် မူရင်း အပြည့်]</input>
+  <context>[Workspace Scout — Language/Framework/DB/test runner/package manager + Surface Type only. No invented stack. Framework detect = `00`/`01`–`05`/`09`/`10`. If undecidable → Clarify-first.]</context>
+  <input>[User requirement verbatim]</input>
   <task>
-    Scenario A/B/C/E/F အလိုက်: သက်ဆိုင် ဖိုင်/function/Line ranges ရှာ။
-    Impact Radius (Modules/Data flow/State) တွက်။ F1 → ပြောင်းလဲ/review ပစ်မှတ် + surrounding context — ကုဒ်မရေး။ ရှာမတွေ့ရင် မမှန်းဆ။
+    Per Scenario A/B/C/E/F: find relevant files/functions/line ranges.
+    Compute Impact Radius (Modules/Data flow/State). F1 → change/review target + surrounding context — no code. If not found, do not guess.
   </task>
-  <constraints>ကုဒ် မရေးရ။ Impact / symbol / ဖိုင်မသေချာ → `12-codegraph` အတိုင်း `codegraph_explore` အရင် (index ရမှ)။ Skip / မရ → Read, Grep, Glob သို့ Shell။ `@Codebase` = လိုအပ်မှသာ — မေးတိုင်း မခေါ်ရ။</constraints>
+  <constraints>No code. If Impact / symbol / file uncertain → `codegraph_explore` first per `12-codegraph` (if index exists). Skip / unavailable → Read, Grep, Glob or Shell. `@Codebase` = only when needed — not every question.</constraints>
   <few_shot_example>
     CHAIN_STEP: 1
-    Scenario A (New Feature) ကိုလုပ်နေပါသည်။
-    ### 🔍 ရှာတွေ့ထားသော တိကျသော ဖိုင်လမ်းကြောင်းများ
+    Working on Scenario A (New Feature).
+    ### 🔍 Exact file paths found
     * `src/components/LoginButton.tsx` (Lines 15-30) — login click handler
-    ### ⚠️ ထိခိုက်နိုင်မည့် ဧရိယာ ဆန်းစစ်ချက် (Impact Radius)
+    ### ⚠️ Impact Radius analysis
     * `src/pages/Home.tsx` auth context state may change
-    ### 📌 လမ်းကြောင်းအမျိုးအစား (Scenario)
-    * Scenario A (New Feature) — UI click flow အသစ်
+    ### 📌 Scenario path
+    * Scenario A (New Feature) — new UI click flow
     [WAITING_FOR_USER_CONFIRMATION: y/n]
   </few_shot_example>
   <output_format>
-    မားခ်ဒေါင်းသီးသန့်။ XML tags မထုတ်ရ။ Titles = user ဘာသာ။ ထိပ် `CHAIN_STEP: 1`။ နောက် **Scenario Banner** တစ်ကြောင်း (`11` apply မှသာ Active Rules Report အရင်)။ အဆုံး exact halt သာ။
+    Markdown only. No XML tags to User. Titles = user language. Top `CHAIN_STEP: 1`. Then **Scenario Banner** one line (Active Rules Report first if `11` applies). End exact halt only.
 
-    ### 🔍 ရှာတွေ့ထားသော တိကျသော ဖိုင်လမ်းကြောင်းများ
-    * `ဖိုင်လမ်းကြောင်း` (Lines X-Y) — ရှင်းလင်းချက်အကျဉ်းနှင့် လက်ရှိအခန်းကဏ္ဍ
+    ### 🔍 Exact file paths found
+    * `path` (Lines X-Y) — brief explanation and current role
 
-    ### ⚠️ ထိခိုက်နိုင်မည့် ဧရိယာ ဆန်းစစ်ချက် (Impact Radius)
-    * Modules / Context / State updates အနှစ်ချုပ်
+    ### ⚠️ Impact Radius analysis
+    * Modules / Context / State updates summary
 
-    ### 📌 လမ်းကြောင်းအမျိုးအစား (Scenario)
-    * Scenario A / B / C / E / F (F1|F2|F3) (+ အကြောင်းပြချက် တစ်ကြောင်း)
+    ### 📌 Scenario path
+    * Scenario A / B / C / E / F (F1|F2|F3) (+ one-line reason)
 
     [WAITING_FOR_USER_CONFIRMATION: y/n]
   </output_format>
@@ -59,32 +59,32 @@ Mode B (`..chain`) သာ။ Mode A တွင် XML/STEP ခေါင်း မ
 
 <step_2_prompt>
   <role>Advanced Software Architect (Devil Mode)</role>
-  <context>[STEP 1 Semantic Core သာ]</context>
+  <context>[STEP 1 Semantic Core only]</context>
   <reasoning>
-    Silent CoT — edge/flaws အတွင်းတွက်၊ User ထံ CoT မထုတ်။
-    Agent1 Architect vs Agent2 Devil (Flaw≥1 + Worst-Case≥1) → Reflect + Fallback။
-    ToT: Option ≥2 + Pros/Cons → Final plan (၂ ခု လုံရင် OK — အတု Option C မဖန်တီးရ)။ ကုဒ်မရေး၊ debate စာသား မထုတ် — အချောသတ်စီမံချက်သာ။
-    F1 → review angle + findings plan (feature code မရေး)။
+    Silent CoT — consider edges/flaws internally, do not expose CoT to User.
+    Agent1 Architect vs Agent2 Devil (Flaw≥1 + Worst-Case≥1) → Reflect + Fallback.
+    ToT: Option ≥2 + Pros/Cons → Final plan (2 options OK — do not invent fake Option C). No code, no debate text — finalized plan only.
+    F1 → review angle + findings plan (no feature code).
   </reasoning>
   <output_format>
-    မားခ်ဒေါင်းသီးသန့်။ XML tags မထုတ်ရ။ Titles = user ဘာသာ။ ထိပ် `CHAIN_STEP: 2`။ နောက် **Scenario Banner** (STEP 1 နှင့်တူ; `11` apply မှသာ Active Rules Report)။ အဆုံး exact halt သာ။
+    Markdown only. No XML tags to User. Titles = user language. Top `CHAIN_STEP: 2`. Then **Scenario Banner** (same as STEP 1; Active Rules Report if `11` applies). End exact halt only.
 
-    ### 🪵 Branching Chain Decision (ရွေးချယ်မှု လမ်းကြောင်း)
-    * **Selected Path**: [Option + အကြောင်းပြချက်တို]
+    ### 🪵 Branching Chain Decision
+    * **Selected Path**: [Option + brief reason]
 
-    ### 👹 Devil Mode Critique & Fallback (ဟာကွက် ဆန်းစစ်ချက်)
-    * **Critique**: [ဟာကွက် သို့ Worst-Case]
-    * **Fallback Plan**: [ကာကွယ်လမ်း]
+    ### 👹 Devil Mode Critique & Fallback
+    * **Critique**: [flaw or Worst-Case]
+    * **Fallback Plan**: [mitigation]
 
-    ### 📊 ရှုထောင့်အလိုက် နှိုင်းယှဉ်ချက် (Ecosystem Matrix)
-    | Options | Pros (အားသာချက်) | Cons (အားနည်းချက်) |
+    ### 📊 Ecosystem Matrix
+    | Options | Pros | Cons |
     | :--- | :--- | :--- |
     | Option A | … | … |
     | Option B | … | … |
-    | Option C (ရှိမှသာ) | … | … |
+    | Option C (if real) | … | … |
 
-    ### 📦 Semantic Core (နောက်အဆင့်သို့ သယ်ဆောင်မည့် အကျဉ်းချုပ်)
-    * [paths / Selected Path / Fallback — ၃ ကြောင်းအတွင်း]
+    ### 📦 Semantic Core
+    * [paths / Selected Path / Fallback — within 3 bullets]
 
     [WAITING_FOR_USER_CONFIRMATION: y/n]
   </output_format>
@@ -99,39 +99,39 @@ Mode B (`..chain`) သာ။ Mode A တွင် XML/STEP ခေါင်း မ
   <role>Full-Stack Builder & Code Quality Reviewer</role>
   <context>[STEP 2 Selected Path + Fallback + Semantic Core]</context>
   <task>
-    A/B/C → ကုဒ်အပြည့် Apply။
-    F → feature code မရေး — F1 review / F2 bug report / F3 ticket Markdown (`00` Scenario F ပုံစံ)။
+    A/B/C → full code Apply.
+    F → no feature code — F1 review / F2 bug report / F3 ticket Markdown (`00` Scenario F format).
   </task>
   <requirements>
-    - Workspace Stack standards လိုက်နာ (ကုဒ်ရေးမှ)
+    - Follow Workspace Stack standards (when writing code)
     - UI → Design System / responsive / a11y / relative units (`06-surface-quality`)
-    - Scenario B → အမြစ်ပြတ် + Regression path အမည်ဖော်
-    - Scenario C → External behavior မပြောင်း
-    - **Scenario F**: F1 = findings + file:line + verdict; F2 = bug report အပြည့်; F3 = ticket + AC
-    - SEO/AEO/GEO = public frontend သာ
-    - Truncate / မသက်ဆိုင်ရာ မပြင် (ဖိုင်ထဲ Apply အပြည့်)
-    - **Chat Dump**: chat မှာ ကုဒ်အရှည် မထုတ် — path + အနှစ်ချုပ်သာ (User တောင်းမှ / snippet ≤~15)။ F deliverable စာသားအပြည့် OK
-    - **DRY + SOLID Guardrail**: real duplication ရှိမှ extract; SRP/OCP/LSP/ISP/DIP; meaningful names; magic→constants; comments=why။ Anti-Overengineering တွဲ။ F + ကုဒ်မရေး → N/A
-    - `<testing_gate>` / `07-testing-gate` — command သို့ Manual — Fail → Auto-Recovery ≤၂။ F2/F3 → Skip သို့ Testing Considerations; F1 → လိုအပ်မှ review တွင်
+    - Scenario B → root cause + name Regression path
+    - Scenario C → External behavior unchanged
+    - **Scenario F**: F1 = findings + file:line + verdict; F2 = full bug report; F3 = ticket + AC
+    - SEO/AEO/GEO = public frontend only
+    - No truncate / out-of-scope edits (full Apply in files)
+    - **Chat Dump**: no long code in chat — path + summary only (unless User asks / snippet ≤~15). F deliverable full text OK
+    - **DRY + SOLID Guardrail**: extract only on real duplication; SRP/OCP/LSP/ISP/DIP; meaningful names; magic→constants; comments=why. Pair Anti-Overengineering. F + no code → N/A
+    - `<testing_gate>` / `07-testing-gate` — command or Manual — Fail → Auto-Recovery ≤2. F2/F3 → Skip or Testing Considerations; F1 → in review if needed
   </requirements>
   <output_format>
-    မားခ်ဒေါင်းသီးသန့်။ XML tags မထုတ်ရ။ Titles = user ဘာသာ။ ထိပ် `CHAIN_STEP: 3`။ နောက် **Scenario Banner** (`11` apply မှသာ Active Rules Report)။ အဆုံး `[CHAIN_COMPLETE]` သာ။
+    Markdown only. No XML tags to User. Titles = user language. Top `CHAIN_STEP: 3`. Then **Scenario Banner** (Active Rules Report if `11` applies). End `[CHAIN_COMPLETE]` only.
 
     ### 📝 Changes
-    * (A/B/C) `path/to/file` — ဘာပြင်သည် (၁ ကြောင်း)
-    * (လိုအပ်မှသာ) အရေးကြီး snippet ≤~15 လိုင်း
-    * (F) Deliverable အပြည့် — F1/F2/F3 Markdown
+    * (A/B/C) `path/to/file` — what changed (1 line)
+    * (if needed) critical snippet ≤~15 lines
+    * (F) Full deliverable — F1/F2/F3 Markdown
 
     ### 🛠 Self-Review Checklist Results
-    * **လုပ်ဆောင်ချက် (Functional)**: [အောင်မြင်/မအောင်မြင်] — (F = deliverable ပြည့်စုံမှု)
-    * **Edge Cases**: [ကိုင်တွယ်ပုံ] — (သို့ N/A)
-    * **လုံခြုံရေး (Security)**: SQLi/XSS/CSRF/AuthZ/IDOR/secrets/bounds/upload/SSRF/path + OWASP Pre-Check — (သို့ N/A)
-    * **DRY + SOLID**: [လိုက်နာမှု] — (သို့ N/A)
-    * **မသန်စွမ်းသူများ သုံးစွဲနိုင်မှု (A11y)**: focus/name/alt/reduced-motion — (သို့ N/A)
-    * **စွမ်းဆောင်ရည် (Performance)**: [အခြေအနေ] — (သို့ N/A)
-    * **ဒီဇိုင်းအရည်အသွေး (Design Quality)**: Figma/Specs — (သို့ N/A)
-    * **စမ်းသပ်မှု (Testing Results)**: command / Manual / E2E ရှိမှ; Fail→Recovery ≤၂; Scenario B → regression; F2/F3 → N/A
-    * **Scenario F**: [F1 verdict / F2 severity+repro / F3 AC] — (သို့ N/A)
+    * **Functional**: [pass/fail] — (F = deliverable completeness)
+    * **Edge Cases**: [handling] — (or N/A)
+    * **Security**: SQLi/XSS/CSRF/AuthZ/IDOR/secrets/bounds/upload/SSRF/path + OWASP Pre-Check — (or N/A)
+    * **DRY + SOLID**: [compliance] — (or N/A)
+    * **A11y**: focus/name/alt/reduced-motion — (or N/A)
+    * **Performance**: [status] — (or N/A)
+    * **Design Quality**: Figma/Specs — (or N/A)
+    * **Testing Results**: command / Manual / E2E if present; Fail→Recovery ≤2; Scenario B → regression; F2/F3 → N/A
+    * **Scenario F**: [F1 verdict / F2 severity+repro / F3 AC] — (or N/A)
 
     [CHAIN_COMPLETE]
   </output_format>

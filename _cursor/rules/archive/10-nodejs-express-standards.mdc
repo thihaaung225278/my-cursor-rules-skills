@@ -11,8 +11,8 @@ alwaysApply: false
 
 # Node.js / Express (detect: `express` in `package.json` && !`next`)
 
-- Surface `backend`။ Router/middleware ဖွဲ့စည်းပုံ လိုက်နာ — စိတ်ကူးယဉ် framework မထည့်ရ။
-- Input = validate (zod/joi/express-validator စသည် ရှိပြီးသား)။ SQL/NoSQL = parameterized/ORM သာ။
-- AuthZ = middleware တွင် Identity+Role။ Cookie session → CSRF/SameSite သင့်သလို။
-- Errors = centralized handler။ Secrets = env — hardcode မလုပ်ရ။
-- Test = `jest`/`vitest`/`mocha` ရှိရင် Testing Gate (`07`) အတိုင်း။ NestJS သီးသန့် ဖွဲ့စည်းပုံ တွေ့ရင် Express rules မသက်ရောက် — Clarify သို့ Nest pattern လိုက်။
+- Surface `backend`. Follow router/middleware structure — no invented framework.
+- Input = validate (zod/joi/express-validator if present). SQL/NoSQL = parameterized/ORM only.
+- AuthZ = Identity+Role in middleware. Cookie session → CSRF/SameSite as appropriate.
+- Errors = centralized handler. Secrets = env — no hardcode.
+- Test = `jest`/`vitest`/`mocha` if present per Testing Gate (`07`). If NestJS-specific structure found, Express rules do not apply — Clarify or follow Nest pattern.

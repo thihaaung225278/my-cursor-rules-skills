@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Migration skill auto-invoke (DBS-FFW)
 
-User က skill/path name မပြောဘဲ prompt intent မှ **Read** လုပ် — implement မတိုင်မီ skip မလုပ်။
+**Read** from prompt intent even if user does not name skill/path — do not skip before implement.
 
 ## Baseline / bulk (Wave 0–3)
 

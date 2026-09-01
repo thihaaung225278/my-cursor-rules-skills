@@ -12,8 +12,8 @@ alwaysApply: false
 
 # FastAPI (detect: `fastapi` in `pyproject.toml` / `requirements*.txt`)
 
-- Surface `backend`။ `APIRouter` + Pydantic models/schemas — business logic route ထဲ မရောအောင် ခွဲ။
-- DB = SQLAlchemy/ORM သို့ parameterized — string concat SQL မဆောက်ရ။
-- Auth = deps (`Depends`) + role/scope စစ် (IDOR တား)။ Secrets = env/settings — hardcode မလုပ်ရ။
-- Validation = Pydantic bounds။ Docs = OpenAPI မပျက်အောင် schema ထိန်း။
-- Test = `pytest` ရှိရင် Testing Gate (`07`) အတိုင်း။
+- Surface `backend`. `APIRouter` + Pydantic models/schemas — keep business logic out of routes.
+- DB = SQLAlchemy/ORM or parameterized — no string concat SQL.
+- Auth = deps (`Depends`) + role/scope checks (prevent IDOR). Secrets = env/settings — no hardcode.
+- Validation = Pydantic bounds. Docs = preserve OpenAPI schema.
+- Test = `pytest` if present per Testing Gate (`07`).

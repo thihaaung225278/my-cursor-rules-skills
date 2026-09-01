@@ -5,23 +5,23 @@ globs:
 alwaysApply: false
 ---
 
-# React / React Native (detect-on — မတွေ့ရင် Skip)
+# React / React Native (detect-on — Skip if not detected)
 
-Flutter = `09-flutter-standards.mdc`။ SPFx = `04-sharepoint-standards.mdc` (React web Skip)။
+Flutter = `09-flutter-standards.mdc`. SPFx = `04-sharepoint-standards.mdc` (skip React web).
 
 ## Detect Priority
-- `react-native` → **RN** သာ။ `react` && !`react-native` && !SPFx → **React (web)** သာ။ မရောရ။
+- `react-native` → **RN** only. `react` && !`react-native` && !SPFx → **React (web)** only. Do not mix.
 
 ## React (web) (`react` + !`react-native`)
-- Surface `frontend`/`fullstack`။ Semantic HTML + repo UI patterns — စိတ်ကူးယဉ် styling lib မထည့်။
-- Components/hooks = repo ဖွဲ့စည်းပုံ၊ business logic UI မရော။
-- Routing/data = ရှိပြီးသား stack (Next/React Router/TanStack Query စသည်) — မရှိရင် Clarify-first။
-- Lists/forms = key, controlled inputs, loading/error/empty။
-- SEO/A11y web အသက်ဝင်၊ `dangerouslySetInnerHTML` မသုံးရ (sanitize မပါဘဲ)။
+- Surface `frontend`/`fullstack`. Semantic HTML + repo UI patterns — no invented styling lib.
+- Components/hooks = repo structure; do not mix business logic into UI.
+- Routing/data = existing stack (Next/React Router/TanStack Query, etc.) — if missing, Clarify-first.
+- Lists/forms = key, controlled inputs, loading/error/empty.
+- SEO/A11y active on web; no `dangerouslySetInnerHTML` without sanitize.
 
 ## React Native (`react-native`)
-- Surface `mobile`။ DOM/web CSS မသုံး — RN primitives (`View`/`Text`/`Pressable`/`FlatList`)။
-- Navigation = repo pattern (React Navigation စသည်) — စိတ်ကူးယဉ် lib မထည့်။
-- Platform/permissions/SecureStore·Keychain = iOS/Android ကွာခြားချက် ထည့်တွက်။
-- Lists = `FlatList`/`SectionList` (ရှည် list တွင် `.map`+`ScrollView` ရှောင်)။
-- A11y = `accessibilityLabel`/`accessibilityRole`/touch target — web `aria-*`/SEO HTML မသုံး။
+- Surface `mobile`. No DOM/web CSS — RN primitives (`View`/`Text`/`Pressable`/`FlatList`).
+- Navigation = repo pattern (React Navigation, etc.) — no invented lib.
+- Account for platform/permissions/SecureStore·Keychain iOS/Android differences.
+- Lists = `FlatList`/`SectionList` (avoid `.map`+`ScrollView` for long lists).
+- A11y = `accessibilityLabel`/`accessibilityRole`/touch target — no web `aria-*`/SEO HTML.

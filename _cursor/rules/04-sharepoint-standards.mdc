@@ -13,27 +13,27 @@ alwaysApply: false
 
 # SharePoint (detect-on — Classic / Modern ASPX / SPFx)
 
-**Detect**: SPFx = `@microsoft/sp-*` သို့ `src/webparts/`/`src/extensions/`/`*.sppkg`။ Classic = `*.master` / `_layouts` / `Style Library` / JSOM·`SP.js` / CEWP·SEWP + `.aspx`။ Modern ASPX = site/application `.aspx` without SPFx package (သို့ user အတည်)။ signal <2 သို့ ရော → Clarify-first။
-**SEO**: intranet/admin → Skip။ public-facing မှသာ SEO စံ။
+**Detect**: SPFx = `@microsoft/sp-*` or `src/webparts/`/`src/extensions/`/`*.sppkg`. Classic = `*.master` / `_layouts` / `Style Library` / JSOM·`SP.js` / CEWP·SEWP + `.aspx`. Modern ASPX = site/application `.aspx` without SPFx package (or user confirmed). signal <2 or mixed → Clarify-first.
+**SEO**: intranet/admin → Skip. SEO standards only for public-facing.
 
 ### Classic site
-- Surface `fullstack`/`frontend`။ Master page / `_layouts` / core system files တိုက်ရိုက်မပြင် — repo/custom assets (`Style Library`, Site Assets) သာ။
-- Script = `SP.SOD` / `ExecuteOrDelayUntilScriptLoaded`၊ MDS သတိ။ DOM = SharePoint chrome selectors မဖျက်။
-- Data = REST `/_api` သို့ JSOM — string-concat CAML/SQL မဆောက်။ Write = FormDigest / `X-RequestDigest`။
-- AuthZ = site/list permissions + item-level; AuthN အောင်ရုံ မလုံလောက် (IDOR တား)။
-- XSS = CEWP/SEWP/raw HTML escape·sanitize။ Inline script အသစ် မထည့်မီ repo pattern လိုက်။ UI = existing CSS; Tailwind/SPA router စိတ်ကူးယဉ် မထည့်။
+- Surface `fullstack`/`frontend`. Do not edit master page / `_layouts` / core system files directly — repo/custom assets (`Style Library`, Site Assets) only.
+- Script = `SP.SOD` / `ExecuteOrDelayUntilScriptLoaded`; mind MDS. Do not remove SharePoint chrome selectors from DOM.
+- Data = REST `/_api` or JSOM — no string-concat CAML/SQL. Write = FormDigest / `X-RequestDigest`.
+- AuthZ = site/list permissions + item-level; AuthN alone not enough (prevent IDOR).
+- XSS = CEWP/SEWP/raw HTML escape·sanitize. New inline script only per repo pattern. UI = existing CSS; no invented Tailwind/SPA router.
 
 ### Modern ASPX (non-SPFx pages)
-- Surface `frontend`/`fullstack`။ Classic master-page assumptions မသုံး — Modern chrome/page lifecycle လိုက်။
-- Custom = Site Assets/CDN approved script·CSS; Script Editor / arbitrary inject ရှောင် (tenant policy)။
-- Data = REST `/_api` + digest; Graph သုံးရင် repo auth pattern။ Secrets/tenant IDs hardcode မလုပ်။
-- DOM = durable selectors; Modern UI re-render ကြောင့် brittle query ရှောင်။ Fluent/repo tokens ရှိရင် ထိုစနစ်။
-- A11y = keyboard/focus/name; web SEO Skip (intranet) unless public။
+- Surface `frontend`/`fullstack`. No classic master-page assumptions — follow Modern chrome/page lifecycle.
+- Custom = Site Assets/CDN approved script·CSS; avoid Script Editor / arbitrary inject (tenant policy).
+- Data = REST `/_api` + digest; Graph uses repo auth pattern. No hardcoded secrets/tenant IDs.
+- DOM = durable selectors; avoid brittle queries due to Modern UI re-render. Use Fluent/repo tokens if present.
+- A11y = keyboard/focus/name; skip web SEO (intranet) unless public.
 
 ### SPFx (`@microsoft/sp-*`)
-- Surface `frontend`/`fullstack`။ React(web) generic rules Skip — SPFx host lifecycle + repo UI။ **ဤ repo page UI** = classic clone (`classic-visual-parity`)၊ Fluent density/theme ကို visual target မထားရ။ version/React ကွာခြားချက် repo `package.json` လိုက်။
-- Paths = `src/webparts/`, `src/extensions/`, `sharepoint/assets/` (`elements.xml`, `ClientSideInstance.xml`)။ Property Pane + packaging `.sppkg` pattern မဖျက်။
-- Data = SPHttpClient / PnPjs (ရှိပြီးသား) — raw concat မဆောက်။ permissions/AuthZ list·item စစ်။
-- Styling = `*.module.scss`။ **ဤ repo page UI** = classic `DBS-FFW-classicsite/2025/style.css` exact values (`classic-visual-parity`) — Fluent/theme tokens နဲ့ အစားမထိုးရ။ `@media` = classic breakpoint px (Fluent-only 480 မသုံး)။ global CSS chrome မထိ (host-gap body paint သာ documented exception)။ `gulp bundle`/`gulp serve`။
-- Test = Testing Gate (`gulp test` / Manual workbench) + **visual vs classic** (`classic-visual-parity`)။ Application Customizer ≠ Web Part — သက်ဆိုင် skill/path သာ။
+- Surface `frontend`/`fullstack`. Skip generic React(web) rules — SPFx host lifecycle + repo UI. **This repo page UI** = classic clone (`classic-visual-parity`); do not target Fluent density/theme for visual parity. version/React per repo `package.json`.
+- Paths = `src/webparts/`, `src/extensions/`, `sharepoint/assets/` (`elements.xml`, `ClientSideInstance.xml`). Do not break Property Pane + packaging `.sppkg` pattern.
+- Data = SPHttpClient / PnPjs (if present) — no raw concat. Check permissions/AuthZ at list·item level.
+- Styling = `*.module.scss`. **This repo page UI** = classic `DBS-FFW-classicsite/2025/style.css` exact values (`classic-visual-parity`) — do not replace with Fluent/theme tokens. `@media` = classic breakpoint px (no Fluent-only 480). Do not touch global CSS chrome (host-gap body paint only — documented exception). `gulp bundle`/`gulp serve`.
+- Test = Testing Gate (`gulp test` / Manual workbench) + **visual vs classic** (`classic-visual-parity`). Application Customizer ≠ Web Part — use relevant skill/path only.
 - Comments = English only (`00`); rewrite non-English on edit
