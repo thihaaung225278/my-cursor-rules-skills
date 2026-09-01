@@ -1,0 +1,52 @@
+---
+description: "[MM] Active Rules Report — Mode B chrome သာ"
+alwaysApply: false
+source: _cursor/rules/11-active-rules-report.mdc
+---
+
+# Active Rules Report
+
+**Skip entirely:**
+- Scenario E (Docs/Q&A/Config)
+- Fast-Track
+- Mode A
+
+Mode B (`..chain`) only — အဖြေအစတွင် (အဓိကအဖြေ မတိုင်မီ) **တိုတို** ပြပါ။
+
+Halt token **မပြောင်းရ**။
+
+---
+
+## Mode B chrome အစဉ်
+
+1. **Active Rules Report** (ဤ rule)
+2. **Scenario Banner** (`00-core-fsm`)
+3. `CHAIN_STEP` body
+
+---
+
+## Format (exact)
+
+```
+Active Rules: <file.mdc> · <file.mdc> …
+Skipped: <file.mdc> (<why>) · …
+```
+
+- `Skipped` မရှိရင် ထိုလိုင်း **ချန်**
+- Path prefix **မလို** — ဖိုင်အမည်သာ (`00-core-fsm.mdc`)
+- ရှင်းပြစာ **အရှည်မရေး** — စာရင်းသာ
+
+---
+
+## ခွဲခြားနည်း
+
+| အမျိုး | ဖိုင် | Active ဖြစ်ရင် |
+|---|---|---|
+| Always-on | `00-core-fsm` · `13-context-handoff` · `14-security-appsec` | inject/apply ဖြစ်တိုင်း |
+| Mode B | `08-chain-steps` · `11-active-rules-report` | `..chain` / chain `y` / WAITING ဆက်မှ |
+| Globs | `01`–`07` · `09` · `10` · `15`–`17` | context ဖိုင်/stack ကိုက်မှ Active |
+| On-demand | `12-codegraph` | Need/Skip policy — apply မှ Active |
+
+**မှတ်ချက်:**
+- `06`/`07` = glob-gated — context ကိုက်မှ Active စာရင်းထည့်
+- `12` apply မှသာ Active — "မသုံးခဲ့" ကို Skipped လိုင်းတွင် **မရေးရ**

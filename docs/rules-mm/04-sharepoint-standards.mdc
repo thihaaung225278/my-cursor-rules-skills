@@ -1,0 +1,80 @@
+---
+description: "[MM] SharePoint Classic / Modern ASPX / SPFx စံနှုန်းများ"
+alwaysApply: false
+source: _cursor/rules/04-sharepoint-standards.mdc
+---
+
+# SharePoint (detect-on — Classic / Modern ASPX / SPFx)
+
+## Detect (ရှာဖွေမှု)
+
+| အမျိုးအစား | Signal |
+|---|---|
+| **SPFx** | `@microsoft/sp-*`, `src/webparts/`, `src/extensions/`, `*.sppkg` |
+| **Classic** | `*.master`, `_layouts`, `Style Library`, JSOM·`SP.js`, CEWP·SEWP + `.aspx` |
+| **Modern ASPX** | site/application `.aspx` without SPFx package |
+
+- signal <2 သို့ ရောကျ → **Clarify-first**
+- **SEO:** intranet/admin → Skip; public-facing မှသာ SEO
+
+---
+
+## Classic site
+
+**Surface:** `fullstack` / `frontend`
+
+- Master page / `_layouts` / core system files **တိုက်ရိုက်မပြင်** — repo/custom assets (`Style Library`, Site Assets) သာ
+- Script = `SP.SOD` / `ExecuteOrDelayUntilScriptLoaded`; MDS သတိ
+- DOM = SharePoint chrome selectors **မဖျက်**
+- Data = REST `/_api` သို့ JSOM — string-concat CAML/SQL မဆောက်
+- Write = FormDigest / `X-RequestDigest`
+- AuthZ = site/list permissions + item-level (IDOR တား)
+- XSS = CEWP/SEWP/raw HTML escape·sanitize
+- UI = existing CSS; Tailwind/SPA router စိတ်ကူးယဉ် **မထည့်**
+
+---
+
+## Modern ASPX (non-SPFx pages)
+
+**Surface:** `frontend` / `fullstack`
+
+- Classic master-page assumptions **မသုံး** — Modern chrome/page lifecycle လိုက်
+- Custom = Site Assets/CDN approved script·CSS
+- Script Editor / arbitrary inject **ရှောင်** (tenant policy)
+- Data = REST `/_api` + digest; Graph = repo auth pattern
+- Secrets/tenant IDs hardcode **မလုပ်**
+- DOM = durable selectors; brittle query ရှောင်
+- Fluent/repo tokens ရှိရင် ထိုစနစ်
+
+---
+
+## SPFx (`@microsoft/sp-*`)
+
+**Surface:** `frontend` / `fullstack`
+
+- React(web) generic rules **Skip** — SPFx host lifecycle + repo UI
+- **ဤ repo page UI** = classic clone (`classic-visual-parity`); Fluent density/theme ကို visual target **မထားရ**
+- version/React = repo `package.json` လိုက်
+
+**Paths:**
+- `src/webparts/`, `src/extensions/`, `sharepoint/assets/` (`elements.xml`, `ClientSideInstance.xml`)
+- Property Pane + packaging `.sppkg` pattern မဖျက်
+
+**Data:**
+- SPHttpClient / PnPjs (ရှိပြီးသား) — raw concat မဆောက်
+- permissions/AuthZ list·item စစ်
+
+**Styling:**
+- `*.module.scss`
+- **Visual SoT** = classic `DBS-FFW-classicsite/2025/style.css` exact values (`classic-visual-parity`)
+- Fluent/theme tokens နဲ့ **အစားမထိုးရ**
+- `@media` = classic breakpoint px (Fluent-only 480 **မသုံး**)
+- global CSS chrome မထိ
+- `gulp bundle` / `gulp serve`
+
+**Test:**
+- Testing Gate (`gulp test` / Manual workbench)
+- **visual vs classic** (`classic-visual-parity`)
+- Application Customizer ≠ Web Part — သက်ဆိုင် skill/path သာ
+
+**Comments:** English only (`00`)

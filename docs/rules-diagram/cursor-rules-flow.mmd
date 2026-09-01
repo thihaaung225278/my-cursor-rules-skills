@@ -1,0 +1,32 @@
+flowchart TD
+    A["User Message<br/>အသုံးပြုသူ စာတို"] --> B{"Mode?<br/>လုပ်ပုံ"}
+
+    B -->|"..chain"| C["Mode B<br/>STEP 1 → 2 → 3"]
+    B -->|"Normal / Fast-Track"| D["Mode A<br/>Scout → Plan → Build"]
+
+    C --> E["08-chain-steps<br/>Chain အဆင့်များ"]
+    C --> F["11-active-rules-report<br/>Active Rules စာရင်း"]
+    D --> G["Direct Scout → Plan → Build<br/>တိုက်ရိုက် လုပ်ဆောင်း"]
+
+    subgraph AlwaysOn ["Always-on Rules · အမြဲတမ်း"]
+        H1["00-core-fsm<br/>အဓိက Core"]
+        H2["13-context-handoff<br/>Context လွှဲပြောင်း"]
+        H3["14-security-appsec<br/>Security"]
+        H4["19-migration-skill-auto-invoke<br/>Migration Skill"]
+    end
+
+    subgraph GlobGated ["Glob-gated Rules · ဖိုင်အမျိုးအစားပေါ်"]
+        I1["01-react / 04-sharepoint<br/>Framework"]
+        I2["06-surface-quality / 07-testing-gate<br/>UI + Testing"]
+        I3["15-js / 16-image / 17-host / 18-bulk<br/>Classic + Migration"]
+    end
+
+    A -.-> AlwaysOn
+    A -.-> GlobGated
+
+    style A fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+    style B fill:#fff3e0,stroke:#ef6c00,color:#e65100
+    style C fill:#f3e5f5,stroke:#7b1fa2,color:#4a148c
+    style D fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style AlwaysOn fill:#fafafa,stroke:#616161
+    style GlobGated fill:#fafafa,stroke:#616161

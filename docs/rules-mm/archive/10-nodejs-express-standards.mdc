@@ -1,0 +1,33 @@
+---
+description: "[MM] Node.js / Express backend — express in package.json && !next (archive)"
+alwaysApply: false
+source: _cursor/rules/archive/10-nodejs-express-standards.mdc
+status: archived
+---
+
+# Node.js / Express Backend Standards
+
+> **Archive:** DBS-FFW repo တွင် Express backend **မရှိ** — reference ဖတ်ရန် copy သာ။
+
+**Detect:** `express` in `package.json` && !`next`
+
+---
+
+## General
+
+**Surface:** `backend`
+
+- Router / middleware ဖွဲ့စည်းပုံ **လိုက်နာ** — စိတ်ကူးယဉ် framework **မထည့်**
+- Input = validate (zod / joi / express-validator — **ရှိပြီးသား**)
+- SQL/NoSQL = **parameterized / ORM** သာ
+- AuthZ = middleware တွင် Identity + Role
+- Cookie session → CSRF / SameSite **သင့်သလို**
+- Errors = centralized handler
+- Secrets = env — **hardcode မလုပ်**
+- Test = `jest` / `vitest` / `mocha` ရှိရင် Testing Gate (`07`) အတိုင်း
+
+---
+
+## NestJS Note
+
+NestJS သီးသန့် ဖွဲ့စည်းပုံ တွေ့ရင် Express rules **မသက်ရောက်** — Clarify သို့ Nest pattern **လိုက်**

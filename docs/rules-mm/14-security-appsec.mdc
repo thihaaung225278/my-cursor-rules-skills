@@ -1,0 +1,56 @@
+---
+description: "[MM] Security AppSec — SharePoint ASPX/JS/SPFx secrets, XSS, least privilege"
+alwaysApply: false
+source: _cursor/rules/14-security-appsec.mdc
+---
+
+# Security AppSec (Auto)
+
+Conflict ဖြစ်ရင် `00-core-fsm` Safety **ဦးစားပေး**။  
+ဤ file = SharePoint-concrete digest။
+
+---
+
+## Secrets (လျှို့ဝှက်ချက်များ)
+
+- Credentials, API keys, tokens, tenant IDs, connection strings **hardcode မလုပ်**
+- `.env` / tenant secrets **commit မလုပ်**
+- Passwords, tokens, session identifiers **log မထုတ်**
+
+---
+
+## Input / Output (ဝင်ထွက်)
+
+- Input **sanitize**; output **escape** (HTML attribute/text/URL contexts)
+- `eval`, unchecked `innerHTML` / `dangerouslySetInnerHTML` with user data, shell `exec` on user data **မသုံး**
+- raw HTML injection ထက် textContent / safe DOM APIs **prefer**
+
+---
+
+## AuthZ (Authorization)
+
+- Data R/W = list/item permissions — AuthN success alone **မလုံလောက်** (IDOR)
+- custom in-page auth ထက် host SharePoint auth / existing services **prefer**
+- admin/script surfaces = **least privilege**
+
+---
+
+## Dependencies
+
+- Package အသစ် user approval (`00` Dependencies)
+- Data SoT ဤ repo = **`SPHttpClient`**
+- `@pnp/sp` = **ask-first only**
+
+---
+
+## PII (Personally Identifiable Information)
+
+- user names, emails, scores, participant identity = **sensitive**
+- front-end globals, HTML comments, chat dumps မှာ PII **မထုတ်**
+
+---
+
+## Do not (မလုပ်ရ)
+
+- security ကို "ပို mild ဖြစ်အောင်" ပြောဖို့ **အားလျော့ မလုပ်**
+- production secrets touch / Local/tenant credentials replies မှာ **expose မလုပ်**

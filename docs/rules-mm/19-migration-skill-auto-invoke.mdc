@@ -1,0 +1,82 @@
+---
+description: "[MM] Migration skill auto-invoke — baseline bulk vs parity slice (DBS-FFW)"
+alwaysApply: false
+source: _cursor/rules/19-migration-skill-auto-invoke.mdc
+---
+
+# Migration Skill Auto-Invoke (DBS-FFW)
+
+User က skill/path name **မပြောဘဲ** prompt intent မှ **Read** — implement မတိုင်မီ skip **မလုပ်**။
+
+---
+
+## Baseline / Bulk (Wave 0–3)
+
+**Triggers (EN/MM):**
+bulk, baseline, scaffold, wire, wired, တန်းပြောင်း, အားလုံး, all pages, all web parts, re-scaffold, inventory sync, baseline wave
+
+**Note:** page/WP name တစ်ခုတည်း (`Ffw`, `index.aspx`, `PastEvents`…) = bulk **မဟုတ်** → parity / one-slice
+
+1. Read `bulk-classic-to-spfx-baseline/SKILL.md`
+2. Sync `docs/migration/PARITY.md` ↔ repo-root `progress.md`
+3. Scope = **multiple live routes** OK in one wave
+4. Status = **wired / baseline** only — **no parity PASS** claim
+5. Rule `18-bulk-migration-baseline.mdc` constraints apply
+
+---
+
+## Parity / Visual (Wave 4 · one slice)
+
+**Triggers:**
+parity, visual, pixel, classic match, classic နဲ့, spacing, hover, font, font-weight, font weight, ထူ, ပါး, bold, underline, OpenSans, breakpoint, visual QA, parity PASS
+
+1. Read `classic-to-spfx-migration/SKILL.md`
+2. Then `classic-visual-parity` → **`visual-typography.md` (required)** → `uikit-to-spfx-visual-parity` (UI tasks)
+3. Scope = **one web part / one classic page** — bulk parity **reject**
+4. Status = **parity PASS** only after visual checklist
+
+---
+
+## Swiper / Carousel (functional + visual)
+
+**Triggers:**
+swiper, carousel, slider, gallery slider, winner-slider, swiper-button, slidesPerView, gallery swipe, winner slide
+
+1. Read `swiper-to-spfx-carousel/SKILL.md` (+ `references/classic-configs.md` if wiring init)
+2. Load `classic-visual-parity` for nav button / slide CSS (not vendor bundle CSS)
+3. `npm i swiper` = **user approval first**
+4. Scope = one slice or one slider section — site-wide dep without ask **reject**
+
+---
+
+## SPFx Scaffold / Data (any migration)
+
+**Triggers:**
+web part, SPFx, gulp, manifest, serve.json, list, PnP, SPHttpClient
+
+→ Read `spfx/SKILL.md` (+ `references/` only if needed)
+
+---
+
+## Ambiguous (ဝေဝါးသည်)
+
+**Examples:** "spfx ပြောင်းပေး", "migrate classic", "classic → SPFx" (mode unclear)  
+Single name "Ffw" without bulk words → one-slice, not bulk
+
+→ Clarify-first **one question:** baseline bulk (wire all) vs parity slice (one WP polish)?  
+→ User confirms → load matching skill above. **Do not guess** parity vs baseline.
+
+---
+
+## Always (migration)
+
+- `_cursor/rules/17-classic-host-and-assets.mdc` — one WP per classic page; **no hub pageKey router**
+- **Pins:** SPFx 1.20 · gulp · React 17 · Fluent v8 · no Heft/v9 · deps ask-first
+
+---
+
+## Reject routing to (route မလုပ်)
+
+- `mk/.cursor/` or skill `classic-spfx-migration` (hub playbook — wrong for this repo)
+- parity PASS during baseline triggers
+- Entire-site parity PASS in one turn

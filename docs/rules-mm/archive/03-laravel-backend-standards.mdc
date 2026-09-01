@@ -1,0 +1,28 @@
+---
+description: "[MM] Laravel backend standards — artisan + laravel/framework detect (archive)"
+alwaysApply: false
+source: _cursor/rules/archive/03-laravel-backend-standards.mdc
+status: archived
+---
+
+# Laravel Backend Standards
+
+> **Archive:** DBS-FFW repo တွင် Laravel **မရှိ** — reference ဖတ်ရန် copy သာ။
+
+**Detect:** `artisan` + `composer.json` တွင် `laravel/framework`
+
+**Related:** FastAPI = `05` · Node/Express = `10`
+
+---
+
+## General
+
+**Surface:** `backend` / `fullstack`
+
+- Routes / Controllers / Migrations / Eloquent = **Laravel conventions**
+- DB = Eloquent / Query Builder **parameterized** — raw concat SQL **မဆောက်**
+- AuthZ = policies / gates / middleware
+- Form / state-changing → CSRF (`@csrf` / VerifyCsrfToken)
+- Validation = Form Request / validator
+- Secrets = `.env` + `config()` — **hardcode မလုပ်**
+- Test = `phpunit` / `pest` ရှိရင် Testing Gate (`07`) အတိုင်း

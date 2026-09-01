@@ -1,0 +1,89 @@
+---
+description: "[MM] WordPress Classic / Gutenberg/FSE / Elementor / Plugin — detect-on (archive)"
+alwaysApply: false
+source: _cursor/rules/archive/02-wordpress-standards.mdc
+status: archived
+---
+
+# WordPress (detect-on — Classic Theme / Gutenberg·FSE / Elementor / Plugin)
+
+> **Archive:** DBS-FFW repo တွင် WordPress **မရှိ** — reference ဖတ်ရန် copy သာ။
+
+---
+
+## Detect (ရှာဖွေမှု)
+
+| အမျိုးအစား | Signal |
+|---|---|
+| **Base** | `wp-config.php` / `wp-content/` |
+| **Plugin** | `plugins/` + `Plugin Name:` |
+| **Classic Theme** | `style.css` header + PHP templates (`header.php`/`single.php`/…) — FSE **မသုံး** |
+| **Gutenberg/FSE** | `block.json` / `theme.json` / `templates|parts/` / `@wordpress/scripts` / `registerBlockType` |
+| **Elementor** | `elementor` / `Widget_Base` / `Controls_Manager` / `elementor/widgets/register` |
+
+- signal <2 သို့ ရောကျ → **Clarify-first**
+- Elementor + Gutenberg **နှစ်ခုထိ** → ဘယ် surface မေး
+- **SEO** = public theme/content သာ; `wp-admin` **Skip**
+
+---
+
+## Common (အထွေထွေ)
+
+- WordPress core **မပြင်** — `wp-content` theme/plugin **သာ**
+- DB = `$wpdb->prepare` / WP APIs
+- Escape = `esc_html` / `esc_attr` / `esc_url` / `wp_kses(_post)`
+- AuthZ = `current_user_can` + nonce
+- Assets = `wp_enqueue_*`
+- REST/AJAX = permission_callback / nonce + cap
+- Secrets **hardcode မလုပ်**; unique prefix
+- Test = phpunit / WP-CLI (ရှိမှ) သို့ Manual (admin save, front, deny path)
+
+---
+
+## Plugin Development
+
+- `ABSPATH` guard; header/bootstrap/includes = repo pattern
+- activation/deactivation/uninstall **မဖျက်**
+- Settings API / admin menus + capability
+- CPT/tax/shortcode/cron = prefix + `init`
+- upload = whitelist + `wp_handle_upload`
+- Direct file access / `eval` / မလိုအပ်သော `all` capability **ရှောင်**
+- စိတ်ကူးယဉ် plugin **မထည့်**
+
+---
+
+## Classic Theme
+
+- Template hierarchy **လိုက်နာ**
+- child theme **ဦးစားပေး**
+- `functions.php` = logic; presentation = templates / `get_template_part` + template tags
+- enqueue on `wp_enqueue_scripts`
+- PHP templates ကို FSE HTML **မရော**
+- A11y/SEO public pages
+
+---
+
+## Gutenberg / Block Theme / FSE
+
+- Classic PHP assumptions **မသုံး** (block theme)
+- `block.json` + `register_block_type` / `registerBlockType`
+- InnerBlocks / supports / attributes = `block.json` **နှင့် ကိုက်**
+- build = `@wordpress/scripts` (ရှိပြီး) — CRA/Vite စိတ်ကူးယဉ် **မထည့်**
+- edit/save သို့ dynamic `render_callback` / `render.php`
+- escape / `wp_kses`
+- `editorStyle` / `style` — admin chrome **မထိ**
+- patterns / `theme.json` tokens ရှိရင် ထိုစနစ်
+- Test = editor + front (သို့ `wp-scripts` build/test)
+
+---
+
+## Elementor
+
+- Elementor core **မပြင်** — custom widget/extension **သာ**
+- `Widget_Base` + `Controls_Manager` + register hook
+- `render()` / `content_template()` **escape**
+- dynamic tags/content = repo pattern
+- assets = widget depends / `elementor/frontend/*` — editor chrome **မဖျက်**
+- Elementor data SQL **တိုက်ရိုက်မပြင်**
+- Gutenberg API **မရော**
+- Test = editor widget + front Manual

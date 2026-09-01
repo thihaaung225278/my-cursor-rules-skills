@@ -1,0 +1,26 @@
+---
+description: "[MM] Flutter mobile standards — pubspec.yaml + Flutter SDK (archive)"
+alwaysApply: false
+source: _cursor/rules/archive/09-flutter-standards.mdc
+status: archived
+---
+
+# Flutter Mobile Standards
+
+> **Archive:** DBS-FFW repo တွင် Flutter **မရှိ** — reference ဖတ်ရန် copy သာ။
+
+**Detect:** `pubspec.yaml` + Flutter SDK
+
+---
+
+## General
+
+**Surface:** `mobile` (သို့ repo layout အတိုင်း)
+
+- Material / Cupertino / ရှိပြီး theme — စိတ်ကူးယဉ် package **မထည့်**
+- State = repo approach (Provider / Riverpod / Bloc / GetX) — **မရှိရင် Clarify-first**
+- Const + widget extract; `setState` ကျယ်ကျယ် **မသုံး**
+- Navigation = ရှိပြီး router / Navigator
+- A11y = `Semantics`
+- web SEO/HTML **Skip**
+- Test = `flutter test` / `dart analyze`

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cursor Rules Flow — DBS-FFW</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Myanmar Text", sans-serif;
+      background: #f5f7fa;
+      color: #1a1a2e;
+      padding: 32px;
+      min-height: 100vh;
+    }
+    header {
+      max-width: 1200px;
+      margin: 0 auto 24px;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    p.sub {
+      color: #555;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .card {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid #dde3ea;
+      border-radius: 12px;
+      padding: 28px 24px 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.06);
+    }
+    #diagram {
+      display: flex;
+      justify-content: center;
+      overflow-x: auto;
+    }
+    .legend {
+      max-width: 1200px;
+      margin: 20px auto 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .legend-item {
+      background: #fff;
+      border: 1px solid #e8ecf0;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+    .legend-item strong { display: block; margin-bottom: 4px; }
+    .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 999px;
+      margin-right: 6px;
+    }
+    .tag-a { background: #e8f5e9; color: #2e7d32; }
+    .tag-b { background: #f3e5f5; color: #7b1fa2; }
+    .tag-on { background: #e3f2fd; color: #1565c0; }
+    .tag-glob { background: #fff3e0; color: #ef6c00; }
+    footer {
+      max-width: 1200px;
+      margin: 20px auto 0;
+      font-size: 0.82rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Cursor Rules Flow Diagram</h1>
+    <p class="sub">
+      <code>my-rules-skills-and-others/_cursor/rules/</code> — User message ဝင်လာပြီး Mode A/B နဲ့ Rule set ဘယ်လို အလုပ်လုပ်သလဲ။
+    </p>
+  </header>
+
+  <div class="card">
+    <div id="diagram" class="mermaid">
+flowchart TD
+    A["User Message<br/>အသုံးပြုသူ စာတို"] --> B{"Mode?<br/>လုပ်ပုံ"}
+
+    B -->|"..chain"| C["Mode B<br/>STEP 1 → 2 → 3"]
+    B -->|"Normal / Fast-Track"| D["Mode A<br/>Scout → Plan → Build"]
+
+    C --> E["08-chain-steps<br/>Chain အဆင့်များ"]
+    C --> F["11-active-rules-report<br/>Active Rules စာရင်း"]
+    D --> G["Direct Scout → Plan → Build<br/>တိုက်ရိုက် လုပ်ဆောင်း"]
+
+    subgraph AlwaysOn ["Always-on Rules · အမြဲတမ်း"]
+        H1["00-core-fsm<br/>အဓိက Core"]
+        H2["13-context-handoff<br/>Context လွှဲပြောင်း"]
+        H3["14-security-appsec<br/>Security"]
+        H4["19-migration-skill-auto-invoke<br/>Migration Skill"]
+    end
+
+    subgraph GlobGated ["Glob-gated Rules · ဖိုင်အမျိုးအစားပေါ်"]
+        I1["01-react / 04-sharepoint<br/>Framework"]
+        I2["06-surface-quality / 07-testing-gate<br/>UI + Testing"]
+        I3["15-js / 16-image / 17-host / 18-bulk<br/>Classic + Migration"]
+    end
+
+    A -.-> AlwaysOn
+    A -.-> GlobGated
+
+    style A fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+    style B fill:#fff3e0,stroke:#ef6c00,color:#e65100
+    style C fill:#f3e5f5,stroke:#7b1fa2,color:#4a148c
+    style D fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style AlwaysOn fill:#fafafa,stroke:#616161
+    style GlobGated fill:#fafafa,stroke:#616161
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <span class="tag tag-a">Mode A</span>
+      <strong>Normal / Fast-Track</strong>
+      Scout → Plan → Build တိုက်ရိုက်။ XML/STEP ခေါင်းစဉ် မထုတ်။ Typo/CSS အနည်း → Fast-Track。
+    </div>
+    <div class="legend-item">
+      <span class="tag tag-b">Mode B</span>
+      <strong>..chain</strong>
+      STEP 1 Scout → y → STEP 2 Plan → y → STEP 3 Implement。Halt: <code>[WAITING_FOR_USER_CONFIRMATION: y/n]</code>
+    </div>
+    <div class="legend-item">
+      <span class="tag tag-on">Always-on</span>
+      <strong>အမြဲတမ်း Active</strong>
+      Core, Context handoff, Security, Migration skill routing — chat တိုင်း inject。
+    </div>
+    <div class="legend-item">
+      <span class="tag tag-glob">Glob-gated</span>
+      <strong>ဖိုင်အမျိုးအစားပေါ်</strong>
+      SPFx/ASPX/TSX/SCSS glob ကိုက်မှသာ React, SharePoint, Testing, UI rules Active。
+    </div>
+  </div>
+
+  <footer>
+    ဖိုင်: docs/rules-diagram/ · PNG: cursor-rules-flow.png · Mermaid source: cursor-rules-flow.mmd
+  </footer>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Myanmar Text, sans-serif',
+        fontSize: '15px',
+        primaryColor: '#e3f2fd',
+        primaryTextColor: '#0d47a1',
+        primaryBorderColor: '#1565c0',
+        lineColor: '#78909c',
+        secondaryColor: '#f3e5f5',
+        tertiaryColor: '#e8f5e9'
+      },
+      flowchart: { curve: 'basis', padding: 18, htmlLabels: true }
+    });
+  </script>
+</body>
+</html>

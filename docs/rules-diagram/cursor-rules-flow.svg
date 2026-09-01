@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 920" width="1200" height="920">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="#607d8b"/>
+    </marker>
+    <marker id="arrow-dash" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0 0, 10 4, 0 8" fill="#90a4ae"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.08"/>
+    </filter>
+    <style>
+      .title { font: 700 22px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #1a1a2e; }
+      .subtitle { font: 400 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #555; }
+      .box { rx: 10; filter: url(#shadow); }
+      .label { font: 600 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+      .sublabel { font: 400 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #444; }
+      .edge-label { font: 500 11px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #546e7a; }
+      .group-title { font: 700 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; fill: #37474f; }
+      .line { fill: none; stroke: #607d8b; stroke-width: 2; marker-end: url(#arrow); }
+      .line-dash { fill: none; stroke: #90a4ae; stroke-width: 1.5; stroke-dasharray: 6 4; marker-end: url(#arrow-dash); }
+    </style>
+  </defs>
+
+  <rect width="1200" height="920" fill="#f5f7fa"/>
+
+  <text x="40" y="42" class="title">Cursor Rules Flow Diagram</text>
+  <text x="40" y="66" class="subtitle">_cursor/rules/ - Mode A/B and Rule set flow (Myanmar labels)</text>
+
+  <rect class="box" x="470" y="90" width="260" height="56" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="600" y="116" text-anchor="middle" class="label" fill="#0d47a1">User Message</text>
+  <text x="600" y="134" text-anchor="middle" class="sublabel">&#x1021;&#x1000;&#x103a;&#x1019;&#x103d;&#x1000;&#x103a;&#x1015;&#x103c;&#x1004;&#x103a;&#x1019;&#x101b;&#x103a; &#x1005;&#x102c;&#x1010;&#x102d;&#x102f;</text>
+
+  <polygon points="600,180 680,230 600,280 520,230" fill="#fff3e0" stroke="#ef6c00" stroke-width="2" filter="url(#shadow)"/>
+  <text x="600" y="226" text-anchor="middle" class="label" fill="#e65100">Mode?</text>
+  <text x="600" y="242" text-anchor="middle" class="sublabel">&#x101c;&#x1031;&#x102c;&#x1000;&#x103a;&#x1015;&#x102d;&#x102f;</text>
+
+  <line x1="600" y1="146" x2="600" y2="178" class="line"/>
+
+  <rect class="box" x="120" y="320" width="220" height="56" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+  <text x="230" y="346" text-anchor="middle" class="label" fill="#4a148c">Mode B</text>
+  <text x="230" y="364" text-anchor="middle" class="sublabel">STEP 1 &#x2192; 2 &#x2192; 3</text>
+
+  <rect class="box" x="860" y="320" width="220" height="56" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="970" y="346" text-anchor="middle" class="label" fill="#1b5e20">Mode A</text>
+  <text x="970" y="364" text-anchor="middle" class="sublabel">Scout &#x2192; Plan &#x2192; Build</text>
+
+  <path d="M 548 258 L 230 318" class="line"/>
+  <text x="360" y="278" class="edge-label">..chain</text>
+  <path d="M 652 258 L 970 318" class="line"/>
+  <text x="780" y="278" class="edge-label">Normal / Fast-Track</text>
+
+  <rect class="box" x="40" y="430" width="200" height="52" fill="#ede7f6" stroke="#7b1fa2" stroke-width="1.5"/>
+  <text x="140" y="452" text-anchor="middle" class="label" fill="#4a148c">08-chain-steps</text>
+  <text x="140" y="468" text-anchor="middle" class="sublabel">Chain &#x1021;&#x1006;&#x1036;&#x1038;&#x1019;&#x103b;&#x1014;&#x103a;</text>
+
+  <rect class="box" x="260" y="430" width="240" height="52" fill="#ede7f6" stroke="#7b1fa2" stroke-width="1.5"/>
+  <text x="380" y="452" text-anchor="middle" class="label" fill="#4a148c">11-active-rules-report</text>
+  <text x="380" y="468" text-anchor="middle" class="sublabel">Active Rules &#x1005;&#x102c;&#x101b;&#x103e;&#x102c;&#x1038;</text>
+
+  <line x1="180" y1="376" x2="140" y2="428" class="line"/>
+  <line x1="280" y1="376" x2="380" y2="428" class="line"/>
+
+  <rect class="box" x="820" y="430" width="300" height="52" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1.5"/>
+  <text x="970" y="452" text-anchor="middle" class="label" fill="#1b5e20">Direct Scout &#x2192; Plan &#x2192; Build</text>
+  <text x="970" y="468" text-anchor="middle" class="sublabel">&#x1010;&#x102c;&#x1000;&#x103a;&#x101b;&#x102d;&#x102f;&#x1010;&#x103a; &#x101c;&#x1031;&#x102c;&#x1000;&#x103a;&#x1015;&#x103a;&#x1038;</text>
+  <line x1="970" y1="376" x2="970" y2="428" class="line"/>
+
+  <rect x="40" y="540" width="520" height="200" rx="12" fill="#fafafa" stroke="#616161" stroke-width="1.5"/>
+  <text x="60" y="566" class="group-title">Always-on Rules &#xB7; &#x1021;&#x1019;&#x103c;&#x1031;&#x102c;&#x1010;&#x103a;&#x1019;&#x103a; Active</text>
+
+  <rect class="box" x="60" y="582" width="220" height="48" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="170" y="604" text-anchor="middle" class="label" fill="#0d47a1">00-core-fsm</text>
+  <text x="170" y="620" text-anchor="middle" class="sublabel">&#x1021;&#x1013;&#x103d;&#x1000;&#x103a; Core</text>
+
+  <rect class="box" x="300" y="582" width="240" height="48" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="420" y="604" text-anchor="middle" class="label" fill="#0d47a1">13-context-handoff</text>
+  <text x="420" y="620" text-anchor="middle" class="sublabel">Context &#x101c;&#x1032;&#x1037;&#x1015;&#x103c;&#x1021;&#x1036;&#x1038;</text>
+
+  <rect class="box" x="60" y="648" width="220" height="48" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="170" y="670" text-anchor="middle" class="label" fill="#0d47a1">14-security-appsec</text>
+  <text x="170" y="686" text-anchor="middle" class="sublabel">Security</text>
+
+  <rect class="box" x="300" y="648" width="240" height="48" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="420" y="670" text-anchor="middle" class="label" fill="#0d47a1">19-migration-skill-auto-invoke</text>
+  <text x="420" y="686" text-anchor="middle" class="sublabel">Migration Skill</text>
+
+  <rect x="580" y="540" width="580" height="200" rx="12" fill="#fafafa" stroke="#616161" stroke-width="1.5"/>
+  <text x="600" y="566" class="group-title">Glob-gated Rules &#xB7; &#x1016;&#x102f;&#x1014;&#x103a;&#x1021;&#x1019;&#x103c;&#x1021;&#x1038;&#x1021;&#x1005;&#x102c;&#x1015;&#x103a; Active</text>
+
+  <rect class="box" x="600" y="582" width="250" height="48" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+  <text x="725" y="604" text-anchor="middle" class="label" fill="#e65100">01-react / 04-sharepoint</text>
+  <text x="725" y="620" text-anchor="middle" class="sublabel">Framework</text>
+
+  <rect class="box" x="870" y="582" width="270" height="48" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+  <text x="1005" y="604" text-anchor="middle" class="label" fill="#e65100">06-surface / 07-testing</text>
+  <text x="1005" y="620" text-anchor="middle" class="sublabel">UI + Testing</text>
+
+  <rect class="box" x="600" y="648" width="540" height="48" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5"/>
+  <text x="870" y="670" text-anchor="middle" class="label" fill="#e65100">15-js / 16-image / 17-host / 18-bulk</text>
+  <text x="870" y="686" text-anchor="middle" class="sublabel">Classic + Migration</text>
+
+  <path d="M 520 118 Q 300 200 300 538" class="line-dash"/>
+  <path d="M 680 118 Q 900 200 900 538" class="line-dash"/>
+
+  <rect x="40" y="770" width="1120" height="120" rx="10" fill="#fff" stroke="#dde3ea" stroke-width="1"/>
+  <text x="60" y="798" class="group-title">&#x1021;&#x1000;&#x103a;&#x1015;&#x103c;&#x1031;&#x102c;&#x103a;&#x1000;&#x103a;&#x1015;&#x103c;&#x1021;&#x1036;&#x1038;</text>
+  <text x="60" y="824" class="sublabel" fill="#333">
+    <tspan fill="#2e7d32" font-weight="600">Mode A</tspan> = Normal chat: Scout&#x2192;Plan&#x2192;Build &#x1010;&#x102c;&#x1000;&#x103a;&#x101b;&#x102d;&#x102f;&#x1010;&#x103a;&#x1014;&#x103a;&#x1021;&#x1015;&#x103a;&#x1038;&#x1021;&#x1036;&#x1038;&#x1021;&#x102c;&#x1038;&#x1014;&#x103a;&#x1038;&#x1021;&#x1015;&#x103a;&#x1038;
+  </text>
+  <text x="60" y="846" class="sublabel" fill="#333">
+    <tspan fill="#7b1fa2" font-weight="600">Mode B</tspan> = ..chain: STEP 1 Scout &#x2192; y &#x2192; STEP 2 Plan &#x2192; y &#x2192; STEP 3 Implement
+  </text>
+  <text x="60" y="868" class="sublabel" fill="#333">
+    <tspan fill="#1565c0" font-weight="600">Always-on</tspan> = chat &#x1010;&#x102c;&#x1014;&#x103a;&#x1038; inject &#xB7;
+    <tspan fill="#ef6c00" font-weight="600">Glob-gated</tspan> = SPFx/ASPX/TSX glob &#x1000;&#x102d;&#x102f;&#x1019;&#x103b;&#x1014;&#x103a; Active
+  </text>
+</svg>

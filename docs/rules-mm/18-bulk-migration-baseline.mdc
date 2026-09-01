@@ -1,0 +1,55 @@
+---
+description: "[MM] Bulk baseline wave — scaffold multiple classic pages to SPFx WPs"
+alwaysApply: false
+source: _cursor/rules/18-bulk-migration-baseline.mdc
+---
+
+# Bulk Migration Baseline (gated · DBS-FFW)
+
+---
+
+## When (ဘယ်အခါ)
+
+- User asks: all pages at once, bulk scaffold, baseline wave, wire live 2025 web parts
+- Editing `docs/migration/PARITY.md` for multi-route Status
+- Adding multiple `src/webparts/*` in one scaffold pass
+
+---
+
+## Do (လုပ်ရ)
+
+0. Rule `19-migration-skill-auto-invoke` — user prompt triggers; skill name prompt မှာ **မပြောရ** လည်း OK
+1. Read `bulk-classic-to-spfx-baseline/SKILL.md`
+2. Sync inventory: `docs/migration/PARITY.md` ↔ repo-root `progress.md`
+3. **One web part per classic page** — hub `pageKey` router **မသုံး** (rule 17 wins)
+4. Wave 1–3 may be one PR; Status = **wired / baseline** only
+5. Run `gulp bundle` before marking baseline done
+6. Wave 4 parity → switch to `classic-to-spfx-migration` + `classic-visual-parity` per slice
+
+---
+
+## Reject (မလုပ်ရ)
+
+- parity PASS or Visual PASS claims during bulk baseline wave
+- Hub router / single WP for all routes
+- Heft / Fluent v9; new deps without user approval
+- mk `dbs-mtj` paths, Burmese-only chat rules, or `reply #1 no code` workflow
+- Porting backup/dead ASPX
+
+---
+
+## Status meanings (Status အဓိပ္ပာယ်)
+
+| Status | Meaning |
+|---|---|
+| **inventory only** | Docs; no WP |
+| **wired / baseline** | Loads; func stub OK; visual may FAIL |
+| **parity PASS** | Func + visual checklist PASS (Wave 4 only) |
+
+---
+
+## Related
+
+- `_cursor/rules/17-classic-host-and-assets.mdc`
+- `_cursor/skills/classic-to-spfx-migration/SKILL.md`
+- `docs/migration/SITEASSETS.md` · `SITE_CHROME.md`

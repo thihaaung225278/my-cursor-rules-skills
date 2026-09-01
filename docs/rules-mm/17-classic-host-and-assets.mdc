@@ -1,0 +1,43 @@
+---
+description: "[MM] Classic→SPFx host width, SiteAssets/CSP, chrome gates"
+alwaysApply: false
+source: _cursor/rules/17-classic-host-and-assets.mdc
+---
+
+# Classic Host / Assets (gated)
+
+**Scope ထဲ:**
+- Full Width WP, SPA host, canvas clip
+- SiteAssets, CSP
+- chrome On/Off
+- bulk baseline wave
+
+---
+
+## Load order (ဖတ်ရမည့် အစဉ်)
+
+1. **Bulk all pages / wired baseline** → `bulk-classic-to-spfx-baseline/SKILL.md` + `docs/migration/`
+2. **Otherwise** → `classic-to-spfx-migration/SKILL.md`
+3. **References load:**
+   - `visual-typography.md` — **required** (typography self-check, `classic-visual-parity` တွဲ)
+   - `host-modes.md` — full-width / SPA / 450px clip
+   - `site-chrome.md` — Site Pages chrome hide
+   - `siteassets-gotchas.md` — images/vendor/CSP/remount
+
+---
+
+## This repo (DBS-FFW)
+
+- **One web part per classic page** — hub `pageKey` router **မသုံး**
+- Classic chrome = **inline per ASPX** — `ui-loader` / PortalShell AC **မသုံး** (user မတောင်းမှ)
+- Data = **`SPHttpClient`**; `@pnp/sp` = ask-first
+- Visual SoT = `classic-visual-parity` + `uikit-to-spfx-visual-parity`
+
+---
+
+## Reject (မလုပ်ရ)
+
+- Yeoman/Heft into classic ASPX root
+- `blob:` classic script boot
+- Hardcoded `/sites/…` URLs
+- Fluent restyle before Visual PASS

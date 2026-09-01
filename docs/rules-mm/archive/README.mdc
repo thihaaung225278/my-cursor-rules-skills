@@ -1,0 +1,31 @@
+---
+description: "[MM] Archived rules index — DBS-FFW repo တွင် inactive"
+alwaysApply: false
+source: _cursor/rules/archive/README.md
+---
+
+# Archived Rules (Inactive · မသုံးတော့)
+
+**DBS-FFW** (SPFx classic migration only) project အတွက် token noise လျှော့ချရန် `_cursor/rules/archive/` သို့ ရွှေ့ထားသော rules များ။
+
+**Restore:** project stack ပြောင်းလျှင် `.cursor/rules/` သို့ ပြန်ရွှေ့နိုင်။
+
+---
+
+## Archive ဖိုင်စာရင်း
+
+| ဖိုင် | အကြောင်းပြချက် |
+|---|---|
+| `02-wordpress-standards.mdc` | ဤ repo တွင် WordPress **မရှိ** |
+| `03-laravel-backend-standards.mdc` | Laravel **မရှိ** |
+| `05-fastapi-standards.mdc` | FastAPI **မရှိ** |
+| `09-flutter-standards.mdc` | Flutter **မရှိ** |
+| `10-nodejs-express-standards.mdc` | Express backend **မရှိ** |
+
+---
+
+## မှတ်ချက်
+
+- ဤ folder (`docs/rules-mm/archive/`) = **ဖတ်ရန်** မြန်မာဘာသာ copy သာ
+- Runtime rule **မဟုတ်** — `alwaysApply: false`
+- DBS-FFW migration လုပ်နေစဉ် Cursor က ဤ rules **load မလုပ်**

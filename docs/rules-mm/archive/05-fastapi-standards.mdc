@@ -1,0 +1,26 @@
+---
+description: "[MM] FastAPI backend standards — fastapi in pyproject/requirements (archive)"
+alwaysApply: false
+source: _cursor/rules/archive/05-fastapi-standards.mdc
+status: archived
+---
+
+# FastAPI Backend Standards
+
+> **Archive:** DBS-FFW repo တွင် FastAPI **မရှိ** — reference ဖတ်ရန် copy သာ။
+
+**Detect:** `fastapi` in `pyproject.toml` / `requirements*.txt`
+
+---
+
+## General
+
+**Surface:** `backend`
+
+- `APIRouter` + Pydantic models/schemas — business logic route ထဲ **မရော** (ခွဲထား)
+- DB = SQLAlchemy/ORM သို့ **parameterized** — string concat SQL **မဆောက်**
+- Auth = deps (`Depends`) + role/scope **စစ်** (IDOR တား)
+- Secrets = env/settings — **hardcode မလုပ်**
+- Validation = Pydantic bounds
+- Docs = OpenAPI **မပျက်အောင်** schema ထိန်း
+- Test = `pytest` ရှိရင် Testing Gate (`07`) အတိုင်း

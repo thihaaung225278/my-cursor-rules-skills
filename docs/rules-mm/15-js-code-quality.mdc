@@ -1,0 +1,62 @@
+---
+description: "[MM] Vanilla JS quality — classic ASPX controllers"
+alwaysApply: false
+source: _cursor/rules/15-js-code-quality.mdc
+---
+
+# JS Code Quality (Classic ASPX)
+
+`00-core-fsm` (anti-overengineering / anti-sycophancy) နဲ့ `14-security-appsec` လိုက်နာ။  
+**`01-react-standards` / React/Next MUST rules** ကို ဤ tree မှာ **မသက်ဆိုင်**။
+
+---
+
+## Mindsets (စိတ်ထား)
+
+- Simplicity · readability · maintainability — premature micro-opts ထက်
+- Less code = less debt
+- **Minimal diffs** — task သက်ဆိုင်ရာသာ; drive-by cleanup **မလုပ်**
+
+---
+
+## Naming (အမည်ပေးခြင်း)
+
+- `camelCase` functions/vars
+- `SCREAMING_SNAKE_CASE` module constants
+- Units in names (`timeoutMs`)
+- Collections = plural; booleans = questions (`isLoaded`, `hasError`)
+- Event handlers = `handle*`
+- vague names **မသုံး:** `d`, `tmp`, `obj`, `x`, `data` (domain name သိရင်)
+
+---
+
+## Guidelines (လမ်းညွှန်)
+
+- Early returns — deep nesting ထက်
+- Small pure helpers — sprawling functions ထက်
+- DRY — duplication **real and stable** ဖြစ်မှ
+- Rejected promises handle (`await` / `.catch` / intentional `void` + why)
+- `fetch` မှာ `res.ok` **စစ်**
+
+---
+
+## Globals (ASPX-safe)
+
+- ad-hoc `window.*` ထက် IIFE / one namespaced object **prefer**
+- secrets ကို `window` **NEVER** stash
+- SharePoint host globals — task မလိုရ unless ထိ
+
+---
+
+## Comments
+
+- **English only** (`00` Language) — non-English တွေ့ရင် rewrite
+- WHY only; workarounds = reason + date
+
+---
+
+## Reject (မလုပ်ရ)
+
+- library အသစ် approval မရှိဘဲ ထည့်
+- classic controller JS → React/SPFx **convert** (classic tree ထဲ)
+- `eval` / unsafe `innerHTML` with user data (`14-security-appsec`)

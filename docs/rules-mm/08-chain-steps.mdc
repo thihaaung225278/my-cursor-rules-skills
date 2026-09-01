@@ -1,0 +1,130 @@
+---
+description: "[MM] Mode B Chain Steps — STEP 1/2/3 prompts, output formats, halt tokens"
+alwaysApply: false
+source: _cursor/rules/08-chain-steps.mdc
+---
+
+# Mode B Chain Steps (STEP 1 / 2 / 3)
+
+Mode B (`..chain`) **သာ**။ Mode A တွင် XML/STEP ခေါင်း **မထုတ်**။ Halt tokens **မပြောင်းရ**။
+
+**ဆက်စပ် rules:**
+- Surface = `06-surface-quality`
+- Testing = `07-testing-gate`
+- Scenario Banner = `00-core-fsm`
+- Active Rules Report = `11` apply မှသာ
+
+---
+
+## STEP 1 — Scout
+
+**Trigger:** `..chain`
+
+**Role:** Zero-Hallucination Codebase Scout
+
+**Task:**
+- သက်ဆိုင်ဖိုင် / function / Line ranges ရှာ
+- Impact Radius (Modules / Data flow / State) တွက်
+- F1 → review ပစ်မှတ် + surrounding context — **ကုဒ်မရေး**
+- ရှာမတွေ့ရင် **မမှန်းဆ**
+
+**Constraints:**
+- **ကုဒ် မရေးရ**
+- Impact / symbol / ဖိုင်မသေချာ → `codegraph_explore` (`12`)
+- `@Codebase` = **လိုအပ်မှသာ**
+
+**Output format:**
+```
+CHAIN_STEP: 1
+Scenario A (New Feature) ကိုလုပ်နေပါသည်။
+
+### 🔍 ရှာတွေ့ထားသော တိကျသော ဖိုင်လမ်းကြောင်းများ
+* `path/to/file` (Lines X-Y) — ရှင်းလင်းချက်
+
+### ⚠️ ထိခိုက်နိုင်မည့် ဧရိယာ ဆန်းစစ်ချက် (Impact Radius)
+* Modules / Context / State updates
+
+### 📌 လမ်းကြောင်းအမျိုးအစား (Scenario)
+* Scenario A / B / C / E / F
+
+[WAITING_FOR_USER_CONFIRMATION: y/n]
+```
+
+---
+
+## STEP 2 — Plan
+
+**Trigger:** `y` (1st)
+
+**Role:** Advanced Software Architect (Devil Mode)
+
+**Task:**
+- Option ≥2 + Pros/Cons → Selected Path + Fallback
+- Silent CoT — User ထံ CoT **မထုတ်**
+- Agent1 Architect vs Agent2 Devil → Reflect + Fallback
+- **ကုဒ်မရေး**
+
+**Output format:**
+```
+CHAIN_STEP: 2
+Scenario Banner...
+
+### 🪵 Branching Chain Decision
+* Selected Path: [Option + အကြောင်းပြချက်]
+
+### 👹 Devil Mode Critique & Fallback
+* Critique: [ဟာကွက် / Worst-Case]
+* Fallback Plan: [ကာကွယ်လမ်း]
+
+### 📊 Ecosystem Matrix
+| Options | Pros | Cons |
+| Option A | … | … |
+| Option B | … | … |
+
+### 📦 Semantic Core
+* paths / Selected Path / Fallback
+
+[WAITING_FOR_USER_CONFIRMATION: y/n]
+```
+
+---
+
+## STEP 3 — Implement
+
+**Trigger:** `y` (2nd)
+
+**Role:** Full-Stack Builder & Code Quality Reviewer
+
+**Task:**
+- A/B/C → ကုဒ်အပြည့် Apply
+- F → F1 review / F2 bug report / F3 ticket Markdown
+
+**Requirements:**
+- Workspace Stack standards လိုက်နာ
+- UI → Design System / responsive / a11y (`06`)
+- Scenario B → root cause + Regression path
+- Scenario C → External behavior **မပြောင်း**
+- Truncate / မသက်ဆိုင်ရာ **မပြင်**
+- Chat Dump — path + အနှစ်ချုပ်သာ
+- DRY + SOLID (real duplication ရှိမှ extract)
+- Testing Gate (`07`) — Fail → Auto-Recovery ≤၂
+
+**Output format:**
+```
+CHAIN_STEP: 3
+Scenario Banner...
+
+### 📝 Changes
+* path/to/file — ဘာပြင်သည်
+
+### 🛠 Self-Review Checklist Results
+* Functional: [အောင်မြင်/မအောင်မြင်]
+* Edge Cases: [...]
+* Security: SQLi/XSS/CSRF/AuthZ/IDOR/secrets
+* DRY + SOLID: [...]
+* A11y: [...]
+* Performance: [...]
+* Testing Results: command / Manual / E2E
+
+[CHAIN_COMPLETE]
+```

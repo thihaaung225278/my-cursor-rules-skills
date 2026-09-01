@@ -1,0 +1,67 @@
+---
+description: "[MM] Testing Gate — Auto-Recovery, Manual Check, Security hook, E2E"
+alwaysApply: false
+source: _cursor/rules/07-testing-gate.mdc
+---
+
+# Testing Gate (Mode A + Mode B STEP 3)
+
+## Command ရှာဖွေမှု
+
+`package.json` / CI မှ `test` / `lint` / `typecheck` / `build` / `gulp bundle` / `gulp test` / E2E (`playwright test` / `cypress run`) ရှာ
+
+- **ရှိရင်:** ပြင်ပြီးတိုင်း Terminal မောင်း → Pass/Fail အစီရင်ခံ
+
+---
+
+## Auto-Recovery (≤ ၂ ခါ)
+
+1. Fail → root cause ရှာ
+2. သက်ဆိုင်ရာသာ ပြင်
+3. ပြန်မောင်း
+
+- Self-correct **≤ ၂**
+- Identical fail ×2 / env·deps·permission / scope-ပြင်ပ → retry မလုပ်၊ ချက်ချင်း အစီရင်ခံ
+- Recovery အတွက် **မသက်ဆိုင်ဖိုင် မထိ**
+
+---
+
+## Manual Check (command မရှိရင်)
+
+path / action / expected ဖြင့် Manual Check
+
+- **SharePoint Classic/ASPX:** browser/site page smoke (script load, list R/W, permission)
+- **ဤ repo classic → SPFx UI:** visual vs classic (`classic-visual-parity`) — font-size, font-weight, color, spacing, Gap, margin, padding, letter spacing, line height, hover, animation
+- `gulp bundle` / `gulp test` pass **≠** visual done
+- **WordPress:** WP-CLI/PHPUnit (ရှိမှ) သို့ Manual
+
+---
+
+## Scenario B
+
+- Regression Recheck **အစီရင်ခံ**
+- Fast-Track typo ကျော်နိုင်
+
+---
+
+## Security Testing Hook
+
+- Safety ထိ → `00` OWASP Pre-Check ရလဒ်ကို Testing Results / Self-Review Security တွင် တိုတို
+- CI security scan **ရှိမှသာ** မောင်း — မရှိရင် Manual OWASP note
+
+---
+
+## E2E Gate (Playwright / Cypress)
+
+Repo တွင် Playwright/Cypress **ရှိပြီး** critical user flow ထိမှ:
+
+- E2E ရေး/ပြင် + မောင်းအစီရင်ခံ
+- **မရှိ** → E2E stack အသစ် User ခွင့်မရဘဲ **မထည့်**
+
+**စံနှုန်း:**
+- ၃–၅ focused tests
+- `data-testid` / semantic selectors
+- success + error paths
+- visual style assert **မလုပ်**
+- `mobile` / non-UI → E2E web Skip
+- Scenario F2/F3 → Testing Gate Skip (ticket/report Testing Considerations သာ)

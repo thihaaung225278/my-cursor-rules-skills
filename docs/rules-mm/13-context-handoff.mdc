@@ -1,0 +1,110 @@
+---
+description: "[MM] Context handoff — files win when thin; active_context + progress"
+alwaysApply: false
+source: _cursor/rules/13-context-handoff.mdc
+---
+
+# Context Handoff (Auto)
+
+Chat memory **≠** SoT (Source of Truth)  
+Window thin, mid-step, or new chat continues work → **files win**  
+Residual chat မှ NEXT **မခန့်မှန်း**
+
+Mode A/B STEP tokens (`00` / `08`) **မပြောင်း**။ Halt strings exact ထားရ။
+
+---
+
+## SoT (continue / Scout တိုင်း အရင် ဖတ်ရ)
+
+1. **`active_context.md`** — Goal · Pins · Current slice · DONE / PARTIAL / NEXT · paste block
+2. **`progress.md`** — inventory + slice status
+3. **User's latest message** (stale file Status ကို explicit ဖြစ်မှသာ override)
+
+(1)+(2) နဲ့ latest user ask **ဆန့်ကျင်ဘက်** ဖြစ်ရင် → **stop** · drift report · ဘယ်ဟာဦးစားပေးလဲ မေး · **implement မလုပ်**
+
+---
+
+## Automation (hooks)
+
+Cursor **has no hook at 70%** (or any percent)။ Project hooks:
+
+| Event | Script | လုပ်ဆောင်ချက် |
+|---|---|---|
+| `sessionStart` | `session-start-sot.py` | new chat မှာ active_context + progress ဖတ်ခိုင်းမည် inject |
+| `preCompact` | `precompact-handoff-warn.py` | Compaction **စတင်နေပြီ** — warn + stamp active_context + compaction-pending.json (**block မလုပ်**) |
+| `stop` | `stop-handoff-nudge.py` | pending signal ရှိရင် `handoff only` follow-up **တစ်ခု** auto-submit |
+
+Handoff refresh အောင်မြင်ပြီး:
+- `active_context.md` ထဲ `<!-- compaction-signal -->` block **ဖျက်**
+- `.cursor/compaction-pending.json` **ဖျက်**
+
+Compaction မတိုင်မီ handoff refresh **prefer** — hook ကို မစောင့်ရ
+
+---
+
+## Hard-stop (handoff only — no code)
+
+**Trigger (တစ်ခုခု):**
+- User: `context thin` · `handoff only` · `no code` · chat အသစ် / continue-from-files
+- Self-check: long thread + large tool dumps + files မှ DONE/NEXT **မပြောနိုင်**
+- Mid Mode B STEP 1/2/3 + facts files/turn tools မှာ **မရှိ**
+- `preCompact` signal
+
+**Hard-stop လုပ်ချ:**
+1. `active_context.md` update: DONE · PARTIAL · NEXT · Out of scope · paste-ready message
+2. `progress.md` update (slice status ပြောင်းရင်)
+3. Reply: short status + paste block only — **no new code** · no STEP jump
+4. End — "meanwhile I'll also…" **မထည့်**
+
+---
+
+## Mid-step partial
+
+| State | active_context မှာ |
+|---|---|
+| STEP 1 done | Status = plan ready · NEXT = STEP 2 |
+| STEP 2 done | NEXT = STEP 3 Implement |
+| STEP 3 half-done | **PARTIAL** = files touched + what's left · exact paths |
+| QA incomplete | PARTIAL = checks run/not run · NEXT = QA |
+
+Visual / QA **PASS** — this turn or `progress.md` evidence **မရှိရ** mark မလုပ်
+
+---
+
+## Routine memory refresh
+
+File memory upkeep = work တစ်စိတ်တစ်ပိုင်း (optional wrap-up **မဟုတ်**)
+
+- substantial scout/plan/implement/QA/scope change ပြီး DONE/PARTIAL/NEXT ပြောင်းရင် `active_context.md` refresh
+- slice/inventory status ပြောင်းရင် `progress.md` update
+- major task စမီ `active_context.md` stale ဖြစ်ရင် update first
+- context high / thread long → compaction မတိုင်မီ handoff refresh
+- chat memory alone မှ "already known" **မပြော** — files stale/missing ဖြစ်ရင်
+
+---
+
+## New chat / continue paste
+
+`active_context.md` "Context ကုန်လို့ နောက် chat" အောက် fenced paste ထား:
+
+```
+Continue DBS-FFW from active_context.md + progress.md.
+DONE: …
+NEXT: …
+Pins: SPFx 1.20 gulp, React 17, Fluent v8. Reject Heft/v9, classic master, secrets, Codegraph Cursor hooks.
+If context thin: update active_context handoff only — no code.
+Mode B: ..chain → y → y; one STEP per y.
+```
+
+New chat turn 1 = **Scout from files** (or handoff-only)  
+"we were about to" Implement **မကျော်**
+
+---
+
+## Reject (မလုပ်ရ)
+
+- active_context Status/NEXT missing/stale ဖြစ်ပြီး chat recall မှ ဆက်လုပ်ခြင်း
+- PASS, video URLs, "probably done" **မခန့်မှန်း**
+- thin context အောက်မှာ scope expand
+- ဤ rule ကို Skill နဲ့ **အစားမထိုး** (session hygiene = always-on `.mdc`)
+- `~/.cursor/skills` **မရေးရ**

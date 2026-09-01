@@ -1,0 +1,38 @@
+---
+description: "[MM] SEO / UI Responsive / A11y — UI/public surfaces သာ"
+alwaysApply: false
+source: _cursor/rules/06-surface-quality.mdc
+---
+
+# SEO / UI / A11y (သက်ဆိုင်မှ — မထိရင် Skip)
+
+## SEO / AEO / GEO (frontend/public သာ)
+
+- Semantic HTML, lazy-load, non-blocking
+- JSON-LD + answer-first
+- API / CLI / workers / admin / `mobile` → **Skip**
+
+---
+
+## UI / Responsive (UI သာ)
+
+- `px` hardcode **မလုပ်** (မဖြစ်မနေမှလွဲ)
+- Ecosystem (Tailwind/Fluent) ရှိရင် ထိုစနစ်
+- မရှိရင် `rem` / `em` / `%` / `vw` / `vh` / flex / grid
+- Breakpoint class (`md:`/`lg:`) အဆင်မခြင် **မဖျက်**
+
+**Exception (ဤ repo classic → SPFx clone):**
+- Visual SoT = `DBS-FFW-classicsite/2025/style.css`
+- classic `px` / hex / Gap / letter spacing / line height / hover / animation / `@media` widths (1200, 1024, 959, 768, 640, 480) **မပြောင်းရ**
+- Fluent-only 480/1024 heuristic **မသုံး** (`classic-visual-parity`)
+
+---
+
+## A11y (UI/interactive သာ)
+
+- မြင်ကွင်းတိုင်း `h1` တစ်ခု
+- **Exception (classic clone):** classic heading structure ထိန်း — layout ပျက်အောင် `h1` အသစ် **မထည့်**
+- Controls = keyboard + visible focus + name (`label` / `aria-label`)
+- Meaningful `alt`; decorative `alt=""` / `aria-hidden`
+- အရောင်တစ်ခုတည်း မပြ
+- Motion → `prefers-reduced-motion` (classic animation ကို reduced-motion မှာသာ လျှော့)

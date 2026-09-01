@@ -1,0 +1,49 @@
+---
+description: "[MM] Page image quality — no placeholders, alt, CLS"
+alwaysApply: false
+source: _cursor/rules/16-landing-page-image-quality.mdc
+---
+
+# Landing / Page Image Quality
+
+User-facing pages / SCSS (images ပါ) edit လုပ်တိုင်း:
+
+---
+
+## Sources (ရင်းမြစ်)
+
+**Placeholder / broken hotlink မသုံး:**
+- `placehold.co`, `via.placeholder.com`, `dummyimage.com`, `picsum.photos`
+
+**Prefer:**
+- classic `DBS-FFW-classicsite/**/public/images/`
+- SPFx `src/webparts/**/assets/`
+- user-approved URLs
+
+- third-party images — license **confirm**
+- `assets/videos` under large files — slice မလိုရ unless bundle **မလုပ်**
+
+---
+
+## Quality & CLS (Layout Shift)
+
+- Real product imagery — vague stock filler **မသုံး**
+- Explicit `width`/`height` or CSS `aspect-ratio` — layout shift **ကာကွယ်**
+- optimized sizes prefer
+- below-fold = `loading="lazy"`
+
+---
+
+## Accessibility (A11y)
+
+- Informative images: **specific** `alt`
+- Decorative: **empty** `alt=""` (`alt=""`)
+- essential copy image ထဲ **only** မထား
+
+---
+
+## Checks (စစ်ဆေးချက်)
+
+- paths resolve in repo (classic images / SPFx bundled assets / property-pane URL)
+- mobile + desktop crop **readable**
+- error/empty states — broken-image icons **မပေါ်**
